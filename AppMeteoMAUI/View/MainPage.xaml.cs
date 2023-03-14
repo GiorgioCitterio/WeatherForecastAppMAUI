@@ -1,9 +1,12 @@
-﻿namespace AppMeteoMAUI;
+﻿using AppMeteoMAUI.ViewModel;
+
+namespace AppMeteoMAUI;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
+	public MainPage(MeteoViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
 	}
 }

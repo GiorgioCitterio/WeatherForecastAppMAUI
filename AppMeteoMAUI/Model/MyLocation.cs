@@ -1,6 +1,6 @@
 ﻿namespace AppMeteoMAUI.Model
 {
-    public class Location
+    public class MyLocation
     {
         public string? Name { get; set; }
         public float Lat { get; set; }

@@ -2,17 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMeteoMAUI.MainPage"
-             xmlns:viewmodels="clr-namespace:AppMeteoMAUI.ViewModel">
-
-    <ContentPage.BindingContext>
-        <viewmodels:SearchBarViewModel/>
-    </ContentPage.BindingContext>
+             xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
     <StackLayout>
         <SearchBar x:Name="searchBar"
-                   SearchCommand="{Binding PerformSearch}"
-                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                   SearchCommand="{Binding CercaLocalitaCommand}"
+                   Text="{Binding Text}"
                    Placeholder="Cerca una località"/>
-        <ListView x:Name="searchResults"
-                  ItemsSource="{Binding SearchResults}" />
+        <Button Text="Prendi la posizione corrente"
+                Command="{Binding GetCurrentLocationCommand}"/>
     </StackLayout>
 </ContentPage>
