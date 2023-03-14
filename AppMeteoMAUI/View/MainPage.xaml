@@ -4,12 +4,73 @@
              x:Class="AppMeteoMAUI.MainPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model">
-    <StackLayout>
-        <SearchBar x:Name="searchBar"
-                   SearchCommand="{Binding CercaLocalitaCommand}"
-                   Text="{Binding Text}"
-                   Placeholder="Cerca una località"/>
-        <Button Text="Prendi la posizione corrente"
-                Command="{Binding GetCurrentLocationCommand}"/>
-    </StackLayout>
+    <ContentPage.BindingContext>
+        <viewModel:MeteoViewModel/>
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <HorizontalStackLayout
+            Padding="10">
+            <SearchBar
+            x:Name="searchBar"
+            SearchCommand="{Binding CercaLocalitaCommand}"
+            Text="{Binding Text}"
+            Placeholder="Cerca una località..."
+            BackgroundColor="Gray"
+            WidthRequest="320"
+            HeightRequest="50"
+            HorizontalOptions="Start"
+            FontFamily="TimesNewRoman"
+            FontSize="16"/>
+            <ImageButton
+            Source="mirino.svg"
+            Command="{Binding GetCurrentLocationCommand}"
+            WidthRequest="50"
+            HeightRequest="50"
+            Margin="10, 0, 0, 0"/>
+        </HorizontalStackLayout>
+        <ListView ItemsSource="{Binding currentForecast}"
+                  Header="Meteo">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:CurrentForecast">
+                    <ViewCell>
+                        <Grid Padding="10"
+                              BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <!--<Image
+                           Source="{Binding Timezone}"
+                           Aspect="AspectFill"
+                           HeightRequest="60"
+                           WidthRequest="60" />-->
+                            <!--<Label
+                               Grid.Column="1"
+                               Text="{Binding DailyUnits.Time}"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalTextAlignment="Start"/>-->
+                            <Label
+                                TextColor="Black"
+                               Grid.Column="2"
+                               Text="{Binding Temperature2mMax}"
+                               FontAttributes="Italic"
+                               VerticalOptions="Center" />
+                            <Label
+                                TextColor="Black"
+                           Grid.Column="3"
+                           Text="{Binding Temperature2mMin}"
+                           FontAttributes="Italic"
+                           VerticalOptions="Center" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
 </ContentPage>

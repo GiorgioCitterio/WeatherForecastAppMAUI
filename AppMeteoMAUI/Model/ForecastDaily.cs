@@ -67,8 +67,8 @@ namespace AppMeteoMAUI.Model
         [JsonPropertyName("elevation")]
         public double? Elevation { get; set; }
 
-        //[JsonPropertyName("daily_units")]
-        //public DailyUnits DailyUnits { get; set; }
+        [JsonPropertyName("daily_units")]
+        public DailyUnits1 DailyUnits { get; set; }
 
         [JsonPropertyName("daily")]
         public Daily1 Daily { get; set; }

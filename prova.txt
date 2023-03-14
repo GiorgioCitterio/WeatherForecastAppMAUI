@@ -1,0 +1,27 @@
+//[RelayCommand]
+        //public async Task GetCurrentLocationAsync()
+        //{
+        //    Location location = await geolocation.GetLastKnownLocationAsync();
+        //    if (location == null)
+        //    {
+        //        location = await geolocation.GetLocationAsync(new GeolocationRequest()
+        //        {
+        //            DesiredAccuracy = GeolocationAccuracy.Medium,
+        //            Timeout = TimeSpan.FromSeconds(30),
+        //        });
+        //    }
+        //    if (location == null)
+        //        return;
+        //    myCurrentLocation = await GetLocationFromCoordinateAsync(location);
+        //}
+        //public async Task<MyLocation> GetLocationFromCoordinateAsync(Location location)
+        //{
+        //    string url = $"http://api.openweathermap.org/geo/1.0/reverse?lat={location.Latitude}&lon={location.Longitude}&limit=5&appid={openWeatherMapKey}";
+        //    HttpResponseMessage response = await client.GetAsync(url);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        MyLocation? myLocation = await response.Content.ReadFromJsonAsync<MyLocation>();
+        //        return myLocation;
+        //    }
+        //    return new();
+        //}
