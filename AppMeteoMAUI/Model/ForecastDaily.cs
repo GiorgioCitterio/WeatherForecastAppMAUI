@@ -7,9 +7,6 @@ namespace AppMeteoMAUI.Model
         [JsonPropertyName("time")]
         public List<int?> Time { get; set; }
 
-        [JsonPropertyName("weathercode")]
-        public List<int?> Weathercode { get; set; }
-
         [JsonPropertyName("temperature_2m_max")]
         public List<double?> Temperature2mMax { get; set; }
 
@@ -43,6 +40,35 @@ namespace AppMeteoMAUI.Model
         [JsonPropertyName("sunset")]
         public string Sunset { get; set; }
     }
+    public class Hourly
+    {
+        [JsonPropertyName("time")]
+        public List<int> Time { get; set; }
+
+        [JsonPropertyName("temperature_2m")]
+        public List<double?> Temperature2m { get; set; }
+
+        [JsonPropertyName("windspeed_1000hPa")]
+        public List<double?> Windspeed1000hPa { get; set; }
+
+        [JsonPropertyName("winddirection_1000hPa")]
+        public List<int?> Winddirection1000hPa { get; set; }
+    }
+
+    public class HourlyUnits
+    {
+        [JsonPropertyName("time")]
+        public string Time { get; set; }
+
+        [JsonPropertyName("temperature_2m")]
+        public string Temperature2m { get; set; }
+
+        [JsonPropertyName("windspeed_1000hPa")]
+        public string Windspeed1000hPa { get; set; }
+
+        [JsonPropertyName("winddirection_1000hPa")]
+        public string Winddirection1000hPa { get; set; }
+    }
 
     public class ForecastDaily
     {
@@ -66,6 +92,12 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("elevation")]
         public double? Elevation { get; set; }
+
+        [JsonPropertyName("hourly_units")]
+        public HourlyUnits HourlyUnits { get; set; }
+
+        [JsonPropertyName("hourly")]
+        public Hourly Hourly { get; set; }
 
         [JsonPropertyName("daily_units")]
         public DailyUnits1 DailyUnits { get; set; }

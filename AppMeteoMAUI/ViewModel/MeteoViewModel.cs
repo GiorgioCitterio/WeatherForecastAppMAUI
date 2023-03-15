@@ -13,14 +13,12 @@ namespace AppMeteoMAUI.ViewModel
     {
         [ObservableProperty]
         string text;
-        static List<ForecastDaily> forecastDailies = new List<ForecastDaily>();
         public ObservableCollection<CurrentForecast> currentForecast { get; set; }
         static HttpClient? client = new HttpClient();
-
         public MeteoViewModel()
         {
-            //MyProxy.HttpClientProxySetup(out client);
             currentForecast = new ObservableCollection<CurrentForecast>();
+            //MyProxy.HttpClientProxySetup(out client);
             //PrendiPosizionePredefinita();
         }
 
@@ -58,9 +56,29 @@ namespace AppMeteoMAUI.ViewModel
         {
             string city = Text;
             (double? lat, double? lon)? geo = await GeoCod(city);
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&models=best_match&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&forecast_days=7&timezone=Europe%2FBerlin";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&hourly=temperature_2m,windspeed_1000hPa,winddirection_1000hPa&models=ecmwf_ifs04&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&timezone=Europe%2FBerlin";
             await StampaDatiAsync(urlAdd);
         }
+
+        public async Task StampaDatiAsync(FormattableString urlAddUnformattable)
+        {
+            string urlAdd = FormattableString.Invariant(urlAddUnformattable);
+            var response = await client.GetAsync(urlAdd);
+            if (response.IsSuccessStatusCode)
+            {
+                ForecastDaily forecastDaily = await response.Content.ReadFromJsonAsync<ForecastDaily>();
+                if (forecastDaily.Daily != null)
+                {
+                    var fd = forecastDaily.Daily;
+                    currentForecast.Clear();
+                    for (int i = 0; i < fd.Time.Count; i++)
+                    {
+                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = fd.Temperature2mMax[i], Temperature2mMin = fd.Temperature2mMin[i], ImageUrl = "sun_behind_small_cloud.png", Data = UnixTimeStampToDateTime(fd.Time[i]) });
+                    }
+                }
+            }
+        }
+        #region Metodi Aggiungitivi
         static async Task<(double? lat, double? lon)?> GeoCod(string city)
         {
             string? cityUrlEncoded = HttpUtility.UrlEncode(city);
@@ -76,22 +94,16 @@ namespace AppMeteoMAUI.ViewModel
             }
             return null;
         }
-        public async Task StampaDatiAsync(FormattableString urlAddUnformattable)
+        private static DateTime? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
-            string urlAdd = FormattableString.Invariant(urlAddUnformattable);
-            var response = await client.GetAsync(urlAdd);
-            if (response.IsSuccessStatusCode)
+            if (unixTimeStamp != null)
             {
-                ForecastDaily forecastDaily = await response.Content.ReadFromJsonAsync<ForecastDaily>();
-                if (forecastDaily != null)
-                {
-                    forecastDailies.Add(forecastDaily);
-                    for (int i = 0; i < forecastDailies.Count; i++)
-                    {
-                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = forecastDailies[i].Daily.Temperature2mMax[i], Temperature2mMin = forecastDailies[i].Daily.Temperature2mMin[i], ImageUrl = "mirino.svg" });
-                    }
-                }
+                DateTime dateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                dateTime = dateTime.AddSeconds((double)unixTimeStamp).ToLocalTime();
+                return dateTime;
             }
+            return null;
         }
+        #endregion
     }
 }

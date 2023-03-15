@@ -8,10 +8,54 @@
     <ContentPage.BindingContext>
         <viewModel:MeteoViewModel></viewModel:MeteoViewModel>
     </ContentPage.BindingContext>
-    <VerticalStackLayout>
-        <HorizontalStackLayout
-            Padding="10">
-            <SearchBar
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="Auto,*"
+        RowSpacing="0">
+        <RefreshView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Command="{Binding CercaLocalitaCommand}">
+            <ContentView>
+                <CollectionView ItemsSource="{Binding currentForecast}"
+                                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:CurrentForecast">
+                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="0" ColumnDefinitions="125,*, *">
+                                    <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="125"
+                                            Source="{Binding ImageUrl}"
+                                            WidthRequest="125" />
+                                    <StackLayout>
+                                        <Label
+                                                Style="{StaticResource MediumLabel}"
+                                                Text="{Binding Data}"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"/>
+                                    </StackLayout>
+                                    <VerticalStackLayout
+                                            Grid.Column="2"
+                                            VerticalOptions="Center"
+                                            Padding="10">
+                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Temperature2mMax}" />
+                                        <Label Style="{StaticResource MediumLabel }" Text="{Binding Temperature2mMin}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ContentView>
+        </RefreshView>
+        <SearchBar
                 x:Name="searchBar"
                 BackgroundColor="Gray"
                 SearchCommand="{Binding CercaLocalitaCommand}"
@@ -20,64 +64,21 @@
                 WidthRequest="320"
                 HeightRequest="50"
                 HorizontalOptions="Start"
+                VerticalOptions="Start"
                 FontFamily="TimesNewRoman"
-                FontSize="16"/>
-            <ImageButton
-                Margin="5, 0, 0, 0"
+                FontSize="16"
+                Grid.Row="0"
+                Grid.Column="0"/>
+        <ImageButton
+                Margin="0, 0, 10, 0"
                 Source="mirino.svg"
                 Command="{Binding GetCurrentLocationCommand}"
+                Style="{StaticResource ImageButtonOutline}"
                 WidthRequest="50"
-                HeightRequest="50"/>
-        </HorizontalStackLayout>
-        <Label
-            Margin="0, 20, 0, 0"
-            Style="{StaticResource MegaLabel}"
-            Text="Cassago Brianza"
-            HorizontalOptions="Center"/>
-        <Label
-            Margin="0, 20, 0, 0"
-            Style="{StaticResource LabelTemperatura}"
-            Text="10°"
-            HorizontalOptions="Center"/>
-        <Grid
-        ColumnDefinitions="*,*"
-        ColumnSpacing="5"
-        RowDefinitions="*,Auto"
-        RowSpacing="0">
-            <RefreshView
-            Grid.ColumnSpan="2"
-            Command="{Binding CercaLocalitaCommand}">
-                <ContentView>
-                    <CollectionView ItemsSource="{Binding currentForecast}"
-                                    SelectionMode="None">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:CurrentForecast">
-                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                    <Grid Padding="0" ColumnDefinitions="125,*">
-                                        <Image
-                                            Aspect="AspectFill"
-                                            HeightRequest="125"
-                                            Source="{Binding ImageUrl}"
-                                            WidthRequest="125" />
-                                        <VerticalStackLayout
-                                            Grid.Column="1"
-                                            VerticalOptions="Center"
-                                            Padding="10">
-                                            <Label Style="{StaticResource LargeLabel}" Text="{Binding Temperature2mMax}" />
-                                            <Label Style="{StaticResource MediumLabel }" Text="{Binding Temperature2mMin}" />
-                                        </VerticalStackLayout>
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </ContentView>
-            </RefreshView>
-        </Grid>
-    </VerticalStackLayout>
+                HeightRequest="50"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="End"
+                VerticalOptions="Start"/>
+    </Grid>
 </ContentPage>

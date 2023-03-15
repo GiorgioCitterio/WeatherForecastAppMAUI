@@ -55,14 +55,13 @@
                 <Setter Property="RefreshColor" Value="{StaticResource Primary}" />
             </Style>
 
-            <!--<Style x:Key="ButtonOutline" TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource LightBackground}" />
-                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+            <Style x:Key="ImageButtonOutline" TargetType="ImageButton">
+                <Setter Property="Background" Value="{StaticResource DarkBackground}" />
                 <Setter Property="BorderColor" Value="{StaticResource Primary}" />
                 <Setter Property="BorderWidth" Value="2" />
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="CornerRadius" Value="20" />
-            </Style>-->
+            </Style>
             <Style x:Key="CardView" TargetType="Frame">
                 <Setter Property="BorderColor" Value="#666666" />
                 <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />

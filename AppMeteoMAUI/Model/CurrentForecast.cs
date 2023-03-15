@@ -11,5 +11,7 @@ namespace AppMeteoMAUI.Model
         public double? Temperature2mMin { get; set; }
         [JsonPropertyName("image_url")]
         public string ImageUrl { get; set; }
+        [JsonPropertyName("data")]
+        public DateTime? Data { get; set; }
     }
 }
