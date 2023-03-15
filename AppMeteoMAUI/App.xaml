@@ -3,12 +3,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AppMeteoMAUI"
              x:Class="AppMeteoMAUI.App">
+    
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+            <Color x:Key="Primary">Black</Color>
+            <Color x:Key="PrimaryDark">#FAF9F8</Color>
+
+            <Color x:Key="LightBackground">#FAF9F8</Color>
+            <Color x:Key="DarkBackground">#1a1a1a</Color>
+
+            <Style ApplyToDerivedTypes="True" TargetType="Page">
+                <Setter Property="BackgroundColor" Value="{StaticResource LightBackground}" />
+            </Style>
+
+            <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
+                <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="BaseLabel">
+                <Setter Property="FontFamily" Value="TimesNewRoman" />
+                <Setter Property="TextColor" Value="#FAF9F8" />
+            </Style>
+
+            <Style x:Key="MicroLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="10"/>
+            </Style>
+
+            <Style x:Key="SmallLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+
+            <Style x:Key="MediumLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+
+            <Style x:Key="LargeLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style x:Key="MegaLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="24"/>
+            </Style>
+
+            <Style x:Key="LabelTemperatura" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="40"/>
+            </Style>
+
+            <Style ApplyToDerivedTypes="True" TargetType="RefreshView">
+                <Setter Property="RefreshColor" Value="{StaticResource Primary}" />
+            </Style>
+
+            <!--<Style x:Key="ButtonOutline" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource LightBackground}" />
+                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                <Setter Property="BorderColor" Value="{StaticResource Primary}" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>-->
+            <Style x:Key="CardView" TargetType="Frame">
+                <Setter Property="BorderColor" Value="#666666" />
+                <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Background" Value="#333333" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="IsClippedToBounds" Value="True"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

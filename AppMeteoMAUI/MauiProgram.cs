@@ -22,9 +22,8 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
-        builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
 #endif
-
+        builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
         return builder.Build();
 	}
 }

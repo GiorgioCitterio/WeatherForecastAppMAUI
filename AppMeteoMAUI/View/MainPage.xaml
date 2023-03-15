@@ -1,76 +1,83 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppMeteoMAUI.MainPage"
+             x:Class="AppMeteoMAUI.View.MainPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.BindingContext>
-        <viewModel:MeteoViewModel/>
+        <viewModel:MeteoViewModel></viewModel:MeteoViewModel>
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <HorizontalStackLayout
             Padding="10">
             <SearchBar
-            x:Name="searchBar"
-            SearchCommand="{Binding CercaLocalitaCommand}"
-            Text="{Binding Text}"
-            Placeholder="Cerca una località..."
-            BackgroundColor="Gray"
-            WidthRequest="320"
-            HeightRequest="50"
-            HorizontalOptions="Start"
-            FontFamily="TimesNewRoman"
-            FontSize="16"/>
+                x:Name="searchBar"
+                BackgroundColor="Gray"
+                SearchCommand="{Binding CercaLocalitaCommand}"
+                Text="{Binding Text}"
+                Placeholder="Cerca una località..."
+                WidthRequest="320"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                FontFamily="TimesNewRoman"
+                FontSize="16"/>
             <ImageButton
-            Source="mirino.svg"
-            Command="{Binding GetCurrentLocationCommand}"
-            WidthRequest="50"
-            HeightRequest="50"
-            Margin="10, 0, 0, 0"/>
+                Margin="5, 0, 0, 0"
+                Source="mirino.svg"
+                Command="{Binding GetCurrentLocationCommand}"
+                WidthRequest="50"
+                HeightRequest="50"/>
         </HorizontalStackLayout>
-        <ListView ItemsSource="{Binding currentForecast}"
-                  Header="Meteo">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:CurrentForecast">
-                    <ViewCell>
-                        <Grid Padding="10"
-                              BackgroundColor="White">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <!--<Image
-                           Source="{Binding Timezone}"
-                           Aspect="AspectFill"
-                           HeightRequest="60"
-                           WidthRequest="60" />-->
-                            <!--<Label
-                               Grid.Column="1"
-                               Text="{Binding DailyUnits.Time}"
-                               FontAttributes="Bold"
-                               VerticalOptions="Center"
-                               HorizontalTextAlignment="Start"/>-->
-                            <Label
-                                TextColor="Black"
-                               Grid.Column="2"
-                               Text="{Binding Temperature2mMax}"
-                               FontAttributes="Italic"
-                               VerticalOptions="Center" />
-                            <Label
-                                TextColor="Black"
-                           Grid.Column="3"
-                           Text="{Binding Temperature2mMin}"
-                           FontAttributes="Italic"
-                           VerticalOptions="Center" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Label
+            Margin="0, 20, 0, 0"
+            Style="{StaticResource MegaLabel}"
+            Text="Cassago Brianza"
+            HorizontalOptions="Center"/>
+        <Label
+            Margin="0, 20, 0, 0"
+            Style="{StaticResource LabelTemperatura}"
+            Text="10°"
+            HorizontalOptions="Center"/>
+        <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+            <RefreshView
+            Grid.ColumnSpan="2"
+            Command="{Binding CercaLocalitaCommand}">
+                <ContentView>
+                    <CollectionView ItemsSource="{Binding currentForecast}"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:CurrentForecast">
+                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Grid Padding="0" ColumnDefinitions="125,*">
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="125"
+                                            Source="{Binding ImageUrl}"
+                                            WidthRequest="125" />
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            Padding="10">
+                                            <Label Style="{StaticResource LargeLabel}" Text="{Binding Temperature2mMax}" />
+                                            <Label Style="{StaticResource MediumLabel }" Text="{Binding Temperature2mMin}" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ContentView>
+            </RefreshView>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

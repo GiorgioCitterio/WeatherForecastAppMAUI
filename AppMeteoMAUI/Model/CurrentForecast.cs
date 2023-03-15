@@ -9,5 +9,7 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("temperature_2m_min")]
         public double? Temperature2mMin { get; set; }
+        [JsonPropertyName("image_url")]
+        public string ImageUrl { get; set; }
     }
 }
