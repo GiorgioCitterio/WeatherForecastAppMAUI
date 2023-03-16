@@ -43,12 +43,13 @@
                 <Setter Property="FontSize" Value="20"/>
             </Style>
 
-            <Style x:Key="MegaLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-                <Setter Property="FontSize" Value="24"/>
-            </Style>
-
             <Style x:Key="LabelTemperatura" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-                <Setter Property="FontSize" Value="40"/>
+                <Setter Property="FontFamily" Value="OpenSansRegular"/>
+                <Setter Property="FontSize" Value="26"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
             </Style>
 
             <Style ApplyToDerivedTypes="True" TargetType="RefreshView">
@@ -69,7 +70,7 @@
                 <Setter Property="Background" Value="#333333" />
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="IsClippedToBounds" Value="True"/>
-                <Setter Property="HeightRequest" Value="75"/>
+                <Setter Property="HeightRequest" Value="80"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

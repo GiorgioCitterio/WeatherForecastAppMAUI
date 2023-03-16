@@ -13,9 +13,11 @@ namespace AppMeteoMAUI.ViewModel
     {
         [ObservableProperty]
         string text;
-        public ObservableCollection<CurrentForecast> currentForecast { get; set; }
         [ObservableProperty]
         double temperatura;
+        [ObservableProperty]
+        string city;
+        public ObservableCollection<CurrentForecast> currentForecast { get; set; }
         static HttpClient? client = new HttpClient();
         public MeteoViewModel()
         {
@@ -44,6 +46,7 @@ namespace AppMeteoMAUI.ViewModel
             (double? lat, double? lon)? geo = await GeoCod(pos.posizionePredefinita);
             FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
             await StampaDatiAsync(urlAdd);
+            City = pos.posizionePredefinita;
         }
         #endregion
 
@@ -77,6 +80,10 @@ namespace AppMeteoMAUI.ViewModel
             Location location = await Geolocation.Default.GetLastKnownLocationAsync();
             FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={location.Latitude}&longitude={location.Longitude}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
             await StampaDatiAsync(urlAdd);
+            FormattableString formattableString = $"https://api.bigdatacloud.net/data/reverse-geocode-client?latitude={location.Latitude}&longitude={location.Longitude}&localityLanguage=en";
+            string urlRecuperaCity = FormattableString.Invariant(formattableString);
+            CittàDaCoordinate cittàDaCoordinate = await client.GetFromJsonAsync<CittàDaCoordinate>(urlRecuperaCity);
+            City = cittàDaCoordinate.City;
         }
         #endregion
 
@@ -89,6 +96,7 @@ namespace AppMeteoMAUI.ViewModel
             (double? lat, double? lon)? geo = await GeoCod(city);
             FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
             await StampaDatiAsync(urlAdd);
+            City = city;
         }
         #endregion
 
@@ -106,7 +114,9 @@ namespace AppMeteoMAUI.ViewModel
                     currentForecast.Clear();
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
-                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = fd.Temperature2mMax[i], Temperature2mMin = fd.Temperature2mMin[i], ImageUrl = "sun_behind_small_cloud.png", Data = UnixTimeStampToDateTime(fd.Time[i])});
+                        (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
+                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = fd.Temperature2mMax[i], Temperature2mMin = fd.Temperature2mMin[i], 
+                            Data = UnixTimeStampToDateTime(fd.Time[i]), DescMeteo=datiImmagine.Item1, ImageUrl = datiImmagine.Item2});
                     }
                     Temperatura = forecastDaily.CurrentWeather.Temperature;
                 }
@@ -140,41 +150,39 @@ namespace AppMeteoMAUI.ViewModel
             }
             return null;
         }
-        static string WMOCodesIntIT(int? code)
+        static (string, ImageSource) WMOCodesIntIT(int? code)
         {
-            string result = code switch
+            return code switch
             {
-                0 => "cielo sereno",
-                1 => "prevalentemente limpido",
-                2 => "parzialmente nuvoloso",
-                3 => "coperto",
-                45 => "nebbia",
-                48 => "nebbia con brina",
-                51 => "pioggerellina di scarsa intensità",
-                53 => "pioggerellina di moderata intensità",
-                55 => "pioggerellina intensa",
-                56 => "pioggerellina gelata di scarsa intensità",
-                57 => "pioggerellina gelata intensa",
-                61 => "pioggia di scarsa intensità",
-                63 => "pioggia di moderata intensità",
-                65 => "pioggia molto intensa",
-                66 => "pioggia gelata di scarsa intensità",
-                67 => "pioggia gelata intensa",
-                71 => "nevicata di lieve entità",
-                73 => "nevicata di media entità",
-                75 => "nevicata intensa",
-                77 => "granelli di neve",
-                80 => "deboli rovesci di pioggia",
-                81 => "moderati rovesci di pioggia",
-                82 => "violenti rovesci di pioggia",
-                85 => "leggeri rovesci di neve",
-                86 => "pesanti rovesci di neve",
-                95 => "temporale lieve o moderato",
-                96 => "temporale con lieve grandine",
-                99 => "temporale con forte grandine",
-                _ => string.Empty,
+                0 => ("cielo sereno", ImageSource.FromFile("clear_day.svg")),
+                1 => ("limpido", ImageSource.FromFile("partly_cloudy_day.svg")),
+                2 => ("annuvolato", ImageSource.FromFile("cloudy.svg")),
+                3 => ("coperto", ImageSource.FromFile("extreme_rain.svg")),
+                45 => ("nebbia", ImageSource.FromFile("fog.svg")),
+                48 => ("brina", ImageSource.FromFile("extreme_fog.svg")),
+                51 => ("pioggerella", ImageSource.FromFile("drizzle.svg")),
+                53 => ("pioggerella", ImageSource.FromFile("drizzle.svg")),
+                55 => ("pioggerella intensa", ImageSource.FromFile("drizzle.svg")),
+                56 => ("pioggerella gelata", ImageSource.FromFile("sleet.svg")),
+                57 => ("pioggerella gelata", ImageSource.FromFile("extreme_sleet.svg")),
+                61 => ("pioggia scarsa", ImageSource.FromFile("drizzle.svg")),
+                63 => ("pioggia moderata", ImageSource.FromFile("drizzle.svg")),
+                65 => ("pioggia intensa", ImageSource.FromFile("extrene_drizzle.svg")),
+                66 => ("pioggia gelata", ImageSource.FromFile("sleet.svg")),
+                67 => ("pioggia gelata", ImageSource.FromFile("extreme_sleet.svg")),
+                71 => ("nevicata lieve", ImageSource.FromFile("snow.svg")),
+                73 => ("nevicata media", ImageSource.FromFile("snow.svg")),
+                75 => ("nevicata intensa", ImageSource.FromFile("extreme_snow.svg")),
+                77 => ("granelli di neve", ImageSource.FromFile("sleet.svg")),
+                80 => ("pioggia debole", ImageSource.FromFile("drizzle.svg")),
+                81 => ("pioggia moderata", ImageSource.FromFile("drizzle.svg")),
+                82 => ("pioggia violenta", ImageSource.FromFile("extreme_drizzle.svg")),
+                85 => ("neve leggera", ImageSource.FromFile("snow.svg")),
+                86 => ("neve pesante", ImageSource.FromFile("extreme_snow.svg")),
+                95 => ("temporale lieve", ImageSource.FromFile("drizzle.svg")),
+                96 => ("temporale grandine", ImageSource.FromFile("sleet.svg")),
+                99 => ("temporale grandine", ImageSource.FromFile("extreme_sleet.svg"))
             };
-            return result;
         }
         #endregion
     }
