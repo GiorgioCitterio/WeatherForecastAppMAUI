@@ -14,6 +14,8 @@ namespace AppMeteoMAUI.ViewModel
         [ObservableProperty]
         string text;
         public ObservableCollection<CurrentForecast> currentForecast { get; set; }
+        [ObservableProperty]
+        double temperatura;
         static HttpClient? client = new HttpClient();
         public MeteoViewModel()
         {
@@ -29,7 +31,7 @@ namespace AppMeteoMAUI.ViewModel
                 FileStream fileStream = File.Create(path);
                 var options = new JsonSerializerOptions() { WriteIndented = true };
                 PosizionePredefinita posizione = new();
-                string result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "ciao");
+                string result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
                 if (result != null)
                 {
                     posizione.posizionePredefinita = result;
@@ -40,14 +42,14 @@ namespace AppMeteoMAUI.ViewModel
             string fileJson = File.ReadAllText(path);
             PosizionePredefinita pos = JsonSerializer.Deserialize<PosizionePredefinita>(fileJson);
             (double? lat, double? lon)? geo = await GeoCod(pos.posizionePredefinita);
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&models=best_match&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&forecast_days=7&timezone=Europe%2FBerlin";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
             await StampaDatiAsync(urlAdd);
         }
         #endregion
 
         #region Pagina Dettagli
         [RelayCommand]
-        async Task GoToDetails(CurrentForecast currentForecast)
+        private async Task GoToDetails(CurrentForecast currentForecast)
         {
             if (currentForecast == null)
                 return;
@@ -59,13 +61,21 @@ namespace AppMeteoMAUI.ViewModel
         }
         #endregion
 
+        #region Pagina Impostazioni
+        [RelayCommand]
+        private async Task GoToSettings()
+        {
+            await Shell.Current.GoToAsync(nameof(Settings));
+        }
+        #endregion
+
         #region Geolocalizzazione
 
         [RelayCommand]
         public async Task GetCurrentLocation()
         {
             Location location = await Geolocation.Default.GetLastKnownLocationAsync();
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={location.Latitude}&longitude={location.Longitude}&models=best_match&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&forecast_days=7&timezone=Europe%2FBerlin";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={location.Latitude}&longitude={location.Longitude}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
             await StampaDatiAsync(urlAdd);
         }
         #endregion
@@ -77,7 +87,7 @@ namespace AppMeteoMAUI.ViewModel
         {
             string city = Text;
             (double? lat, double? lon)? geo = await GeoCod(city);
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&hourly=temperature_2m,windspeed_1000hPa,winddirection_1000hPa&models=ecmwf_ifs04&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&timezone=Europe%2FBerlin";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
             await StampaDatiAsync(urlAdd);
         }
         #endregion
@@ -96,8 +106,9 @@ namespace AppMeteoMAUI.ViewModel
                     currentForecast.Clear();
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
-                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = fd.Temperature2mMax[i], Temperature2mMin = fd.Temperature2mMin[i], ImageUrl = "sun_behind_small_cloud.png", Data = UnixTimeStampToDateTime(fd.Time[i]) });
+                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = fd.Temperature2mMax[i], Temperature2mMin = fd.Temperature2mMin[i], ImageUrl = "sun_behind_small_cloud.png", Data = UnixTimeStampToDateTime(fd.Time[i])});
                     }
+                    Temperatura = forecastDaily.CurrentWeather.Temperature;
                 }
             }
         }
@@ -128,6 +139,42 @@ namespace AppMeteoMAUI.ViewModel
                 return dateTime;
             }
             return null;
+        }
+        static string WMOCodesIntIT(int? code)
+        {
+            string result = code switch
+            {
+                0 => "cielo sereno",
+                1 => "prevalentemente limpido",
+                2 => "parzialmente nuvoloso",
+                3 => "coperto",
+                45 => "nebbia",
+                48 => "nebbia con brina",
+                51 => "pioggerellina di scarsa intensità",
+                53 => "pioggerellina di moderata intensità",
+                55 => "pioggerellina intensa",
+                56 => "pioggerellina gelata di scarsa intensità",
+                57 => "pioggerellina gelata intensa",
+                61 => "pioggia di scarsa intensità",
+                63 => "pioggia di moderata intensità",
+                65 => "pioggia molto intensa",
+                66 => "pioggia gelata di scarsa intensità",
+                67 => "pioggia gelata intensa",
+                71 => "nevicata di lieve entità",
+                73 => "nevicata di media entità",
+                75 => "nevicata intensa",
+                77 => "granelli di neve",
+                80 => "deboli rovesci di pioggia",
+                81 => "moderati rovesci di pioggia",
+                82 => "violenti rovesci di pioggia",
+                85 => "leggeri rovesci di neve",
+                86 => "pesanti rovesci di neve",
+                95 => "temporale lieve o moderato",
+                96 => "temporale con lieve grandine",
+                99 => "temporale con forte grandine",
+                _ => string.Empty,
+            };
+            return result;
         }
         #endregion
     }
