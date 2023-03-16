@@ -22,30 +22,31 @@
                                     SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:CurrentForecast">
-                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Frame HeightRequest="100" Style="{StaticResource CardView}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="125,*, *">
+                                <Grid Padding="0" ColumnDefinitions="75,250,*">
                                     <Image
-                                            Aspect="AspectFill"
-                                            HeightRequest="125"
-                                            Source="{Binding ImageUrl}"
-                                            WidthRequest="125" />
-                                    <StackLayout>
+                                        Aspect="AspectFill"
+                                        HeightRequest="50"
+                                        Source="{Binding ImageUrl}"
+                                        WidthRequest="50" />
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center">
                                         <Label
-                                                Style="{StaticResource MediumLabel}"
-                                                Text="{Binding Data}"
-                                                HorizontalOptions="Center"
-                                                VerticalOptions="Center"/>
+                                            Style="{StaticResource MediumLabel}"
+                                            Text="{Binding Data, StringFormat='{0:D}'}"/>
                                     </StackLayout>
                                     <VerticalStackLayout
-                                            Grid.Column="2"
-                                            VerticalOptions="Center"
-                                            Padding="10">
-                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Temperature2mMax}" />
+                                        Grid.Column="2"
+                                        VerticalOptions="Center"
+                                        Padding="10">
+                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2mMax}" />
                                         <Label Style="{StaticResource MediumLabel }" Text="{Binding Temperature2mMin}" />
                                     </VerticalStackLayout>
                                 </Grid>

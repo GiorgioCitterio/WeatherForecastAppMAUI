@@ -18,19 +18,34 @@ namespace AppMeteoMAUI.ViewModel
         public MeteoViewModel()
         {
             currentForecast = new ObservableCollection<CurrentForecast>();
-            //MyProxy.HttpClientProxySetup(out client);
-            //PrendiPosizionePredefinita();
+            PrendiPosizionePredefinita();
         }
-
+        #region Posizione Predefinita
         private async void PrendiPosizionePredefinita()
         {
-            string path = "../../../AppMeteoMAUI/AppMeteoMAUI/Preferences/UltimaPosizioneSalvata.json";
-            string content = File.ReadAllText(path);
-            string city = JsonSerializer.Deserialize<string>(content);
-            (double? lat, double? lon)? geo = await GeoCod(city);
+            string path = FileSystem.AppDataDirectory + "/UltimaPosizioneSalvata.json";
+            if (!File.Exists(path))
+            {
+                FileStream fileStream = File.Create(path);
+                var options = new JsonSerializerOptions() { WriteIndented = true };
+                PosizionePredefinita posizione = new();
+                string result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "ciao");
+                if (result != null)
+                {
+                    posizione.posizionePredefinita = result;
+                }
+                await JsonSerializer.SerializeAsync(fileStream, posizione, options);
+                await fileStream.DisposeAsync();
+            }
+            string fileJson = File.ReadAllText(path);
+            PosizionePredefinita pos = JsonSerializer.Deserialize<PosizionePredefinita>(fileJson);
+            (double? lat, double? lon)? geo = await GeoCod(pos.posizionePredefinita);
             FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&models=best_match&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&forecast_days=7&timezone=Europe%2FBerlin";
             await StampaDatiAsync(urlAdd);
         }
+        #endregion
+
+        #region Pagina Dettagli
         [RelayCommand]
         async Task GoToDetails(CurrentForecast currentForecast)
         {
@@ -42,6 +57,9 @@ namespace AppMeteoMAUI.ViewModel
                 {"CurrentForecast", currentForecast }
             });
         }
+        #endregion
+
+        #region Geolocalizzazione
 
         [RelayCommand]
         public async Task GetCurrentLocation()
@@ -50,6 +68,9 @@ namespace AppMeteoMAUI.ViewModel
             FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={location.Latitude}&longitude={location.Longitude}&models=best_match&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&forecast_days=7&timezone=Europe%2FBerlin";
             await StampaDatiAsync(urlAdd);
         }
+        #endregion
+
+        #region Cerca località
 
         [RelayCommand]
         public async Task CercaLocalita()
@@ -59,7 +80,9 @@ namespace AppMeteoMAUI.ViewModel
             FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&hourly=temperature_2m,windspeed_1000hPa,winddirection_1000hPa&models=ecmwf_ifs04&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&timeformat=unixtime&timezone=Europe%2FBerlin";
             await StampaDatiAsync(urlAdd);
         }
+        #endregion
 
+        #region StampaDati
         public async Task StampaDatiAsync(FormattableString urlAddUnformattable)
         {
             string urlAdd = FormattableString.Invariant(urlAddUnformattable);
@@ -78,6 +101,8 @@ namespace AppMeteoMAUI.ViewModel
                 }
             }
         }
+        #endregion
+
         #region Metodi Aggiungitivi
         static async Task<(double? lat, double? lon)?> GeoCod(string city)
         {
