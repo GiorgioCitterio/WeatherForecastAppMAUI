@@ -69,6 +69,7 @@
                 <Setter Property="Background" Value="#333333" />
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="IsClippedToBounds" Value="True"/>
+                <Setter Property="HeightRequest" Value="75"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

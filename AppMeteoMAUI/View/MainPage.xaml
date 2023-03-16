@@ -11,10 +11,10 @@
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
-        RowDefinitions="Auto,*"
+        RowDefinitions="Auto,Auto,*,Auto"
         RowSpacing="0">
         <RefreshView
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.ColumnSpan="2"
             Command="{Binding CercaLocalitaCommand}">
             <ContentView>
@@ -22,7 +22,7 @@
                                     SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:CurrentForecast">
-                            <Frame HeightRequest="100" Style="{StaticResource CardView}">
+                            <Frame Style="{StaticResource CardView}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
@@ -33,7 +33,7 @@
                                         Aspect="AspectFill"
                                         HeightRequest="50"
                                         Source="{Binding ImageUrl}"
-                                        WidthRequest="50" />
+                                        WidthRequest="50"/>
                                     <StackLayout
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
@@ -68,18 +68,35 @@
                 VerticalOptions="Start"
                 FontFamily="TimesNewRoman"
                 FontSize="16"
-                Grid.Row="0"
-                Grid.Column="0"/>
+                Margin="10 ,5, 0, 0"
+                />
         <ImageButton
-                Margin="0, 0, 10, 0"
+                Margin="10, 5, 10, 0"
                 Source="mirino.svg"
                 Command="{Binding GetCurrentLocationCommand}"
                 Style="{StaticResource ImageButtonOutline}"
                 WidthRequest="50"
                 HeightRequest="50"
-                Grid.Row="0"
                 Grid.Column="1"
                 HorizontalOptions="End"
                 VerticalOptions="Start"/>
+        <ImageButton
+                Margin="0, 0, 10, 0"
+                Source="settings.png"
+                Command="{Binding GoToSettingsCommand}"
+                Style="{StaticResource ImageButtonOutline}"
+                WidthRequest="50"
+                HeightRequest="50"
+                Grid.Row="3"
+                Grid.Column="1"
+                HorizontalOptions="End"/>
+        <Label
+            Text="{Binding Temperatura}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            FontFamily="TimesNewRoman"
+            FontSize="16"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"/>
     </Grid>
 </ContentPage>
