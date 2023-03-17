@@ -2,11 +2,104 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMeteoMAUI.View.Meteo1Day"
-             Title="Meteo1Day">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             BackgroundColor="{StaticResource Primary}">
+    <ContentPage.BindingContext>
+        <viewModel:Meteo1DayViewModel></viewModel:Meteo1DayViewModel>
+    </ContentPage.BindingContext>
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="Auto,65,70,*"
+        RowSpacing="0">
+        <RefreshView
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Command="{Binding CercaLocalitaCommand}">
+            <ContentView>
+                <CollectionView ItemsSource="{Binding currentForecast}"
+                                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:CurrentForecast1Day">
+                            <Frame Style="{StaticResource CardView}">
+                                <Grid Padding="0" ColumnDefinitions="100,225,*">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HeightRequest="55"
+                                        Source="{Binding ImageUrl}"
+                                        WidthRequest="55"/>
+                                    <Label
+                                        Text="{Binding DescMeteo}"
+                                        Style="{StaticResource MicroLabel}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="End"
+                                        Margin="0, 0, 0, 10"/>
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            Style="{StaticResource MediumLabel}"
+                                            Text="{Binding Time}"/>
+                                    </StackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Column="2"
+                                        VerticalOptions="Center"
+                                        Padding="10">
+                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2m, StringFormat='{0}°'}" />
+                                        <Label Style="{StaticResource MediumLabel }" Text="{Binding ApparentTemperature, StringFormat='percepita: {0}°'}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ContentView>
+        </RefreshView>
+        <SearchBar
+                x:Name="searchBar"
+                BackgroundColor="Gray"
+                SearchCommand="{Binding CercaLocalitaCommand}"
+                Text="{Binding Text}"
+                Placeholder="Cerca una località..."
+                WidthRequest="320"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                FontFamily="TimesNewRoman"
+                FontSize="16"
+                Margin="10 ,5, 0, 0"
+                />
+        <ImageButton
+                Margin="10, 5, 10, 0"
+                Source="mirino.svg"
+                Command="{Binding GetCurrentLocationCommand}"
+                Style="{StaticResource ImageButtonOutline}"
+                Grid.Column="1"
+                VerticalOptions="Start"/>
+        <Label
+            Text="{Binding City}"
+            Style="{StaticResource LabelTemperatura}"
+            FontFamily="TimesNewRoman"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            HeightRequest="50"
+            Margin="0, 20, 0, 0"/>
+        <Image
+            Source="thermometer.svg"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            HeightRequest="100"
+            WidthRequest="100"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Margin="100, 0, 0, 10"/>
+        <Label
+            Text="{Binding Temperatura, StringFormat='{0}°'}"
+            Style="{StaticResource LabelTemperatura}"
+            Grid.ColumnSpan="2"
+            Grid.Row="2"    
+            HeightRequest="40"/>
+    </Grid>
 </ContentPage>
