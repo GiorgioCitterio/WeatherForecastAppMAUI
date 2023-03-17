@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMeteoMAUI.View.Settings"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-             Title="Settings">
+             Title="Impostazioni"
+             BackgroundColor="{StaticResource Primary}">
     <ContentPage.BindingContext>
         <viewModel:SettingsViewModel></viewModel:SettingsViewModel>
     </ContentPage.BindingContext>
     <VerticalStackLayout>
+        <Label
+            Text="🧑‍🔧⚙️Impostazioni⚙️🧑‍🔧"
+            Style="{StaticResource LabelImpostazioni}"/>
         <Button
             Text="Cambia posizione predefinita"
-            Command="{Binding CambiaPosizionePredefinitaCommand}"/>
+            Command="{Binding CambiaPosizionePredefinitaCommand}"
+            Style="{StaticResource ButtonImp}"/>
     </VerticalStackLayout>
 </ContentPage>

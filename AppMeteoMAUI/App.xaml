@@ -52,6 +52,28 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
             </Style>
 
+            <Style x:Key="LabelImpostazioni" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontFamily" Value="LowBudget"/>
+                <Setter Property="FontSize" Value="23"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="0, 50, 0, 0"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="#FAF9F8"/>
+            </Style>
+
+            <Style x:Key="ButtonImp" TargetType="Button">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="WidthRequest" Value="275"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="Margin" Value="0, 50, 0, 0"/>
+                <Setter Property="TextColor" Value="#FAF9F8"/>
+                <Setter Property="BackgroundColor" Value="#333333"/>
+                <Setter Property="BorderColor" Value="#C1C7C9"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>
+
             <Style ApplyToDerivedTypes="True" TargetType="RefreshView">
                 <Setter Property="RefreshColor" Value="{StaticResource Primary}" />
             </Style>
@@ -60,11 +82,14 @@
                 <Setter Property="Background" Value="{StaticResource DarkBackground}" />
                 <Setter Property="BorderColor" Value="{StaticResource Primary}" />
                 <Setter Property="BorderWidth" Value="2" />
-                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="WidthRequest" Value="50"/>
                 <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="HorizontalOptions" Value="End"/>
             </Style>
+            
             <Style x:Key="CardView" TargetType="Frame">
-                <Setter Property="BorderColor" Value="#666666" />
+                <Setter Property="BorderColor" Value="#7F7F7F" />
                 <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Background" Value="#333333" />

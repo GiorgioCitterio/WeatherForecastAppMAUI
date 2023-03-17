@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:view="clr-namespace:AppMeteoMAUI.View"
+       x:Class="AppMeteoMAUI.View.TabBarPageHome"
+       Shell.FlyoutBehavior="Flyout"
+       Shell.NavBarIsVisible="True">
+    <TabBar>
+        <ShellContent Title="1 giorno"
+                      Icon="clear_day.svg"
+                      ContentTemplate="{DataTemplate view:Meteo1Day}"/>
+        <ShellContent Title="7 giorni"
+                      Icon="cloudy.svg"
+                      ContentTemplate="{DataTemplate view:MainPage}" />
+    </TabBar>
+</Shell>

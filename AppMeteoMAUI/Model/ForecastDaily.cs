@@ -169,4 +169,5 @@ namespace AppMeteoMAUI.Model
         [JsonPropertyName("daily")]
         public Daily Daily { get; set; }
     }
+
 }

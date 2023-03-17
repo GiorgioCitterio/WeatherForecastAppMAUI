@@ -6,6 +6,7 @@ namespace AppMeteoMAUI.ViewModel
 {
     public partial class SettingsViewModel
     {
+        string result;
         public SettingsViewModel() { }
         [RelayCommand]
         private async void CambiaPosizionePredefinita()
@@ -15,7 +16,10 @@ namespace AppMeteoMAUI.ViewModel
                 return;
             var options = new JsonSerializerOptions() { WriteIndented = true };
             PosizionePredefinita posizione = new();
-            string result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
+            do
+            {
+                result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
+            } while (result == null || result.Length == 0);
             if (result != null)
             {
                 posizione.posizionePredefinita = result;

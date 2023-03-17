@@ -27,6 +27,6 @@
     <ShellContent
         Shell.NavBarIsVisible="true"
         Title="Meteo"
-        ContentTemplate="{DataTemplate view:MainPage}"
-        Route="MainPage" /> 
+        ContentTemplate="{DataTemplate view:TabBarPageHome}"
+        Route="TabBarPageHome" /> 
 </Shell>

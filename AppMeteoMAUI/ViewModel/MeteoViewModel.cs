@@ -19,6 +19,7 @@ namespace AppMeteoMAUI.ViewModel
         string city;
         public ObservableCollection<CurrentForecast> currentForecast { get; set; }
         static HttpClient? client = new HttpClient();
+        string result;
         public MeteoViewModel()
         {
             currentForecast = new ObservableCollection<CurrentForecast>();
@@ -33,7 +34,10 @@ namespace AppMeteoMAUI.ViewModel
                 FileStream fileStream = File.Create(path);
                 var options = new JsonSerializerOptions() { WriteIndented = true };
                 PosizionePredefinita posizione = new();
-                string result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
+                do
+                {
+                    result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
+                } while (result == null || result.Length == 0);
                 if (result != null)
                 {
                     posizione.posizionePredefinita = result;
