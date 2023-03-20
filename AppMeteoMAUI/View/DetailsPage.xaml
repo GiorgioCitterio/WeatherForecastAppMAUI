@@ -4,7 +4,8 @@
              x:Class="AppMeteoMAUI.View.DetailsPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
-             Title="DetailsPage">
+             Title="DetailsPage"
+             BackgroundColor="{StaticResource DarkBackground}">
     <ContentPage.BindingContext>
         <viewModel:HourDetailsViewModel/>
     </ContentPage.BindingContext>
@@ -13,71 +14,46 @@
         ColumnSpacing="5"
         RowDefinitions="Auto,65,70,*"
         RowSpacing="0">
-        <RefreshView
-            Grid.Row="3"
-            Grid.ColumnSpan="2">
-            <ContentView>
-                <CollectionView ItemsSource="{Binding currentForecast}"
+        <ContentView
+                Grid.Row="3"
+                Grid.ColumnSpan="2">
+            <CollectionView ItemsSource="{Binding currentForecast}"
                                     SelectionMode="None">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:CurrentForecast1Day">
-                            <Frame Style="{StaticResource CardView}">
-                                <Grid Padding="0" ColumnDefinitions="100,225,*">
-                                    <Image
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:CurrentForecast1Day">
+                        <Frame Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="100,225,*">
+                                <Image
                                         Aspect="AspectFill"
                                         HeightRequest="55"
                                         Source="{Binding ImageUrl}"
                                         WidthRequest="55"/>
-                                    <Label
+                                <Label
                                         Text="{Binding DescMeteo}"
                                         Style="{StaticResource MicroLabel}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"
                                         Margin="0, 0, 0, 10"/>
-                                    <StackLayout
+                                <StackLayout
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center">
-                                        <Label
+                                    <Label
                                             Style="{StaticResource MediumLabel}"
                                             Text="{Binding Time}"/>
-                                    </StackLayout>
-                                    <VerticalStackLayout
+                                </StackLayout>
+                                <VerticalStackLayout
                                         Grid.Column="2"
                                         VerticalOptions="Center"
                                         Padding="10">
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2m, StringFormat='{0}°'}" />
-                                        <Label Style="{StaticResource SmallLabel }" Text="{Binding ApparentTemperature, StringFormat='p. {0}°'}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ContentView>
-        </RefreshView>
-        <Label
-            Text="{Binding City}"
-            Style="{StaticResource LabelTemperatura}"
-            FontFamily="TimesNewRoman"
-            Grid.ColumnSpan="2"
-            Grid.Row="1"
-            HeightRequest="50"
-            Margin="0, 20, 0, 0"/>
-        <Image
-            Source="thermometer.svg"
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            HeightRequest="100"
-            WidthRequest="100"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Margin="100, 0, 0, 10"/>
-        <Label
-            Text="{Binding Temperatura, StringFormat='{0}°'}"
-            Style="{StaticResource LabelTemperatura}"
-            Grid.ColumnSpan="2"
-            Grid.Row="2"    
-            HeightRequest="40"/>
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2m, StringFormat='{0}°'}" />
+                                    <Label Style="{StaticResource SmallLabel }" Text="{Binding ApparentTemperature, StringFormat='p. {0}°'}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ContentView>
     </Grid>
 </ContentPage>

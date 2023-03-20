@@ -15,5 +15,7 @@ namespace AppMeteoMAUI.Model
         public string DescMeteo { get; set; }
         [JsonPropertyName("data")]
         public DateTime? Data { get; set; }
+        [JsonPropertyName("hourly")]
+        public Hourly Hourly { get; set; }
     }
 }

@@ -11,10 +11,6 @@
     <Shell.BindingContext>
         <viewModel:MeteoViewModel></viewModel:MeteoViewModel>
     </Shell.BindingContext>
-    <MenuItem Text="Impostazioni"
-              IconImageSource="settings.png"
-              Command="{Binding GoToSettingsCommand}">
-    </MenuItem>
     <TabBar>
         <ShellContent Title="1 giorno"
                       Icon="clear_day.svg"
