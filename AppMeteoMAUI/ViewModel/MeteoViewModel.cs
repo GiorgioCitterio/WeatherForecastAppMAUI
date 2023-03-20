@@ -56,14 +56,14 @@ namespace AppMeteoMAUI.ViewModel
 
         #region Pagina Dettagli
         [RelayCommand]
-        private async Task GoToDetails(CurrentForecast currentForecast)
+        private async Task GoToDetails(ForecastDaily forecastDaily)
         {
-            if (currentForecast == null)
+            if (forecastDaily == null)
                 return;
 
             await Shell.Current.GoToAsync(nameof(DetailsPage), true, new Dictionary<string, object>
             {
-                {"CurrentForecast", currentForecast }
+                [nameof(ForecastDaily)] = forecastDaily 
             });
         }
         #endregion

@@ -2,28 +2,19 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:view="clr-namespace:AppMeteoMAUI.View"
+       xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
        x:Class="AppMeteoMAUI.View.TabBarPageHome"
        Shell.FlyoutBehavior="Flyout"
        FlyoutVerticalScrollMode="Auto"
        FlyoutWidth="200"
        FlyoutHeight="200">
-    <!--<Shell.FlyoutFooter>
-        <Label Text="ciao"
-                   Style="{StaticResource MicroLabel}"/>
-    </Shell.FlyoutFooter>
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <Grid ColumnDefinitions="0.2*,0.8*">
-                <Image Source="fog.svg"
-                       Margin="5"
-                       HeightRequest="45" />
-                <Label Grid.Column="1"
-                       Text="Titolo 1"
-                       FontAttributes="Italic"
-                       VerticalTextAlignment="Center" />
-            </Grid>
-        </DataTemplate>
-    </Shell.ItemTemplate>-->
+    <Shell.BindingContext>
+        <viewModel:MeteoViewModel></viewModel:MeteoViewModel>
+    </Shell.BindingContext>
+    <MenuItem Text="Impostazioni"
+              IconImageSource="settings.png"
+              Command="{Binding GoToSettingsCommand}">
+    </MenuItem>
     <TabBar>
         <ShellContent Title="1 giorno"
                       Icon="clear_day.svg"

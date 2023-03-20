@@ -103,7 +103,7 @@ namespace AppMeteoMAUI.ViewModel
                             ApparentTemperature = fd.ApparentTemperature[i],
                             DescMeteo = datiImmagine.Item1,
                             ImageUrl = datiImmagine.Item2,
-                            Time = fd.Time[i],
+                            Time = UnixTimeStampToDateTime(fd.Time[i]),
 
                         });
                     }
@@ -126,6 +126,16 @@ namespace AppMeteoMAUI.ViewModel
                 {
                     return (geocodingResult.Results[0].Latitude, geocodingResult.Results[0].Longitude);
                 }
+            }
+            return null;
+        }
+        private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
+        {
+            if (unixTimeStamp != null)
+            {
+                DateTime dateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                dateTime = dateTime.AddSeconds((double)unixTimeStamp).ToLocalTime();
+                return dateTime.Hour;
             }
             return null;
         }

@@ -13,50 +13,47 @@
         ColumnSpacing="5"
         RowDefinitions="Auto,65,70,*"
         RowSpacing="0">
-        <RefreshView
-            Grid.Row="3"
-            Grid.ColumnSpan="2"
-            Command="{Binding CercaLocalitaCommand}">
-            <ContentView>
-                <CollectionView ItemsSource="{Binding currentForecast}"
+        <ContentView
+                Grid.Row="3"
+                Grid.ColumnSpan="2">
+            <CollectionView ItemsSource="{Binding currentForecast}"
                                     SelectionMode="None">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:CurrentForecast1Day">
-                            <Frame Style="{StaticResource CardView}">
-                                <Grid Padding="0" ColumnDefinitions="100,225,*">
-                                    <Image
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:CurrentForecast1Day">
+                        <Frame Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="100,225,*">
+                                <Image
                                         Aspect="AspectFill"
                                         HeightRequest="55"
                                         Source="{Binding ImageUrl}"
                                         WidthRequest="55"/>
-                                    <Label
+                                <Label
                                         Text="{Binding DescMeteo}"
                                         Style="{StaticResource MicroLabel}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"
                                         Margin="0, 0, 0, 10"/>
-                                    <StackLayout
+                                <StackLayout
                                         Grid.Column="1"
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center">
-                                        <Label
+                                    <Label
                                             Style="{StaticResource MediumLabel}"
                                             Text="{Binding Time}"/>
-                                    </StackLayout>
-                                    <VerticalStackLayout
+                                </StackLayout>
+                                <VerticalStackLayout
                                         Grid.Column="2"
                                         VerticalOptions="Center"
                                         Padding="10">
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2m, StringFormat='{0}°'}" />
-                                        <Label Style="{StaticResource MediumLabel }" Text="{Binding ApparentTemperature, StringFormat='percepita: {0}°'}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ContentView>
-        </RefreshView>
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2m, StringFormat='{0}°'}" />
+                                    <Label Style="{StaticResource SmallLabel }" Text="{Binding ApparentTemperature, StringFormat='p. {0}°'}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ContentView>
         <SearchBar
                 x:Name="searchBar"
                 BackgroundColor="Gray"
