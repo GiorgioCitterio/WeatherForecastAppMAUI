@@ -5,11 +5,11 @@ using System.Collections.ObjectModel;
 
 namespace AppMeteoMAUI.ViewModel
 {
-    [QueryProperty(nameof(ForecastDaily), "CurrentForecast")]
+    [QueryProperty(nameof(ForecastDaily), "ForecastDaily")]
     public partial class HourDetailsViewModel : ObservableObject
     {
         [ObservableProperty]
-        ForecastDaily forecast;
+        ForecastDaily forecastDaily;
         public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         public HourDetailsViewModel()
         {
@@ -17,25 +17,27 @@ namespace AppMeteoMAUI.ViewModel
             //StampaDati();
         }
 
-        //private void StampaDati()
-        //{
-        //    if (Forecast.Hourly != null)
-        //    {
-        //        var fd = Forecast.Hourly;
-        //        for (int i = 0; i < fd.Time.Count; i++)
-        //        {
-        //            (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-        //            currentForecast.Add(new CurrentForecast1Day()
-        //            {
-        //                Temperature2m = fd.Temperature2m[i],
-        //                ApparentTemperature = fd.ApparentTemperature[i],
-        //                DescMeteo = datiImmagine.Item1,
-        //                ImageUrl = datiImmagine.Item2,
-        //                Time = UnixTimeStampToDateTime(fd.Time[i])
-        //            });
-        //        }
-        //    }
-        //}
+        private async void StampaDati()
+        {
+            if (ForecastDaily.Hourly != null)
+            {
+                var fd = ForecastDaily.Hourly;
+                for (int i = 0; i < fd.Time.Count; i++)
+                {
+                    (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
+                    CurrentForecast1Day objCur = new CurrentForecast1Day()
+                    {
+                        Temperature2m = fd.Temperature2m[i],
+                        ApparentTemperature = fd.ApparentTemperature[i],
+                        DescMeteo = datiImmagine.Item1,
+                        ImageUrl = datiImmagine.Item2,
+                        Time = UnixTimeStampToDateTime(fd.Time[i]),
+                    };
+                    currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
+                }
+            }
+            await Shell.Current.DisplayAlert("ciao", "ciao", "ciao");
+        }
         private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
             if (unixTimeStamp != null)
