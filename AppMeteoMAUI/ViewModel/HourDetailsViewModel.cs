@@ -5,37 +5,37 @@ using System.Collections.ObjectModel;
 
 namespace AppMeteoMAUI.ViewModel
 {
-    [QueryProperty(nameof(CurrentForecast), "CurrentForecast")]
+    [QueryProperty(nameof(ForecastDaily), "CurrentForecast")]
     public partial class HourDetailsViewModel : ObservableObject
     {
         [ObservableProperty]
-        CurrentForecast forecast;
-        public ObservableCollection<CurrentForecast1Day> currentForecast { get; set; }
+        ForecastDaily forecast;
+        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         public HourDetailsViewModel()
         {
-            currentForecast = new ObservableCollection<CurrentForecast1Day>();
+            currentForecast = new ObservableCollection<ForecastDaily>();
             //StampaDati();
         }
 
-        private void StampaDati()
-        {
-            if (Forecast.Hourly != null)
-            {
-                var fd = Forecast.Hourly;
-                for (int i = 0; i < fd.Time.Count; i++)
-                {
-                    (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-                    currentForecast.Add(new CurrentForecast1Day()
-                    {
-                        Temperature2m = fd.Temperature2m[i],
-                        ApparentTemperature = fd.ApparentTemperature[i],
-                        DescMeteo = datiImmagine.Item1,
-                        ImageUrl = datiImmagine.Item2,
-                        Time = UnixTimeStampToDateTime(fd.Time[i])
-                    });
-                }
-            }
-        }
+        //private void StampaDati()
+        //{
+        //    if (Forecast.Hourly != null)
+        //    {
+        //        var fd = Forecast.Hourly;
+        //        for (int i = 0; i < fd.Time.Count; i++)
+        //        {
+        //            (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
+        //            currentForecast.Add(new CurrentForecast1Day()
+        //            {
+        //                Temperature2m = fd.Temperature2m[i],
+        //                ApparentTemperature = fd.ApparentTemperature[i],
+        //                DescMeteo = datiImmagine.Item1,
+        //                ImageUrl = datiImmagine.Item2,
+        //                Time = UnixTimeStampToDateTime(fd.Time[i])
+        //            });
+        //        }
+        //    }
+        //}
         private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
             if (unixTimeStamp != null)

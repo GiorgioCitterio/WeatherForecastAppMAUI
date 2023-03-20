@@ -17,12 +17,12 @@ namespace AppMeteoMAUI.ViewModel
         double temperatura;
         [ObservableProperty]
         string city;
-        public ObservableCollection<CurrentForecast1Day> currentForecast { get; set; }
+        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         static HttpClient? client = new HttpClient();
         string result;
         public Meteo1DayViewModel()
         {
-            currentForecast = new ObservableCollection<CurrentForecast1Day>();
+            currentForecast = new ObservableCollection<ForecastDaily>();
             PrendiPosizionePredefinita();
         }
         #region Posizione Predefinita
@@ -97,15 +97,15 @@ namespace AppMeteoMAUI.ViewModel
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
                         (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-                        currentForecast.Add(new CurrentForecast1Day()
+                        CurrentForecast1Day objCur = new CurrentForecast1Day()
                         {
                             Temperature2m = fd.Temperature2m[i],
                             ApparentTemperature = fd.ApparentTemperature[i],
                             DescMeteo = datiImmagine.Item1,
                             ImageUrl = datiImmagine.Item2,
                             Time = UnixTimeStampToDateTime(fd.Time[i]),
-
-                        });
+                        };
+                        currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur});
                     }
                     Temperatura = forecastDaily.CurrentWeather.Temperature;
                 }

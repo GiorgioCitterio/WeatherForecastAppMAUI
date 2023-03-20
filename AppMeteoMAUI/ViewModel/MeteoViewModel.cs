@@ -17,12 +17,12 @@ namespace AppMeteoMAUI.ViewModel
         double temperatura;
         [ObservableProperty]
         string city;
-        public ObservableCollection<CurrentForecast> currentForecast { get; set; }
+        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         static HttpClient? client = new HttpClient();
         string result;
         public MeteoViewModel()
         {
-            currentForecast = new ObservableCollection<CurrentForecast>();
+            currentForecast = new ObservableCollection<ForecastDaily>();
             PrendiPosizionePredefinita();
         }
         #region Posizione Predefinita
@@ -58,12 +58,12 @@ namespace AppMeteoMAUI.ViewModel
         [RelayCommand]
         private async Task GoToDetails(object forecastobj)
         {
-            if (forecastobj == null || !(forecastobj is CurrentForecast))
+            if (forecastobj == null || !(forecastobj is ForecastDaily))
                 return;
 
             await Shell.Current.GoToAsync(nameof(DetailsPage), true, new Dictionary<string, object>
             {
-                {"CurrentForecast", (CurrentForecast)forecastobj } 
+                {"ForecastDaily", (ForecastDaily)forecastobj } 
             });
         }
         #endregion
@@ -116,12 +116,18 @@ namespace AppMeteoMAUI.ViewModel
                 {
                     var fd = forecastDaily.Daily;
                     currentForecast.Clear();
-                    Hourly hourlyCurrent = forecastDaily.Hourly;
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
                         (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = fd.Temperature2mMax[i], Temperature2mMin = fd.Temperature2mMin[i], 
-                            Data = UnixTimeStampToDateTime(fd.Time[i]), DescMeteo=datiImmagine.Item1, ImageUrl = datiImmagine.Item2, Hourly = hourlyCurrent});
+                        CurrentForecast objCur = new CurrentForecast()
+                        {
+                            Temperature2mMax = fd.Temperature2mMax[i],
+                            Temperature2mMin = fd.Temperature2mMin[i],
+                            Data = UnixTimeStampToDateTime(fd.Time[i]),
+                            DescMeteo = datiImmagine.Item1,
+                            ImageUrl = datiImmagine.Item2,
+                        };
+                        currentForecast.Add(new ForecastDaily() { CurrentForecast = objCur});
                     }
                     Temperatura = forecastDaily.CurrentWeather.Temperature;
                 }
