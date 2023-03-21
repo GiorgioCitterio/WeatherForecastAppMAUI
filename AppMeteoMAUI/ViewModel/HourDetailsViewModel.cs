@@ -1,23 +1,24 @@
 ﻿using AppMeteoMAUI.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
 namespace AppMeteoMAUI.ViewModel
 {
-    [QueryProperty(nameof(CurrentForecast), "CurrentForecast")]
+    [QueryProperty(nameof(ForecastDaily), "forecast")]
     public partial class HourDetailsViewModel : ObservableObject
     {
-        [ObservableProperty]
-        CurrentForecast forecast;
-        public ObservableCollection<CurrentForecast1Day> currentForecast { get; set; }
-        public HourDetailsViewModel()
+        public HourDetailsViewModel(ForecastDaily fore)
         {
-            currentForecast = new ObservableCollection<CurrentForecast1Day>();
-            //StampaDati();
+            currentForecast = new ObservableCollection<ForecastDaily>();
+            Forecast = fore;
+            StampaDati();
         }
+        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
 
-        private void StampaDati()
+        [ObservableProperty]
+        ForecastDaily forecast;
+
+        private async void StampaDati()
         {
             if (Forecast.Hourly != null)
             {
@@ -25,14 +26,15 @@ namespace AppMeteoMAUI.ViewModel
                 for (int i = 0; i < fd.Time.Count; i++)
                 {
                     (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-                    currentForecast.Add(new CurrentForecast1Day()
+                    CurrentForecast1Day objCur = new CurrentForecast1Day()
                     {
                         Temperature2m = fd.Temperature2m[i],
                         ApparentTemperature = fd.ApparentTemperature[i],
                         DescMeteo = datiImmagine.Item1,
                         ImageUrl = datiImmagine.Item2,
-                        Time = UnixTimeStampToDateTime(fd.Time[i])
-                    });
+                        Time = UnixTimeStampToDateTime(fd.Time[i]),
+                    };
+                    currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
                 }
             }
         }

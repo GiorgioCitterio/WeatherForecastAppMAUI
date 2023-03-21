@@ -6,9 +6,6 @@
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
              Title="DetailsPage"
              BackgroundColor="{StaticResource DarkBackground}">
-    <ContentPage.BindingContext>
-        <viewModel:HourDetailsViewModel/>
-    </ContentPage.BindingContext>
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
@@ -20,16 +17,17 @@
             <CollectionView ItemsSource="{Binding currentForecast}"
                                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:CurrentForecast1Day">
+                    <DataTemplate x:DataType="model:ForecastDaily">
                         <Frame Style="{StaticResource CardView}">
                             <Grid Padding="0" ColumnDefinitions="100,225,*">
                                 <Image
+                                        Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
                                         HeightRequest="55"
-                                        Source="{Binding ImageUrl}"
+                                        Source="{Binding CurrentForecast1Day.ImageUrl}"
                                         WidthRequest="55"/>
                                 <Label
-                                        Text="{Binding DescMeteo}"
+                                        Text="{Binding CurrentForecast1Day.DescMeteo}"
                                         Style="{StaticResource MicroLabel}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"
@@ -40,14 +38,14 @@
                                         VerticalOptions="Center">
                                     <Label
                                             Style="{StaticResource MediumLabel}"
-                                            Text="{Binding Time}"/>
+                                            Text="{Binding CurrentForecast1Day.Time}"/>
                                 </StackLayout>
                                 <VerticalStackLayout
                                         Grid.Column="2"
                                         VerticalOptions="Center"
                                         Padding="10">
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2m, StringFormat='{0}°'}" />
-                                    <Label Style="{StaticResource SmallLabel }" Text="{Binding ApparentTemperature, StringFormat='p. {0}°'}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding  CurrentForecast1Day.Temperature2m, StringFormat='{0}°'}" />
+                                    <Label Style="{StaticResource SmallLabel }" Text="{Binding CurrentForecast1Day.ApparentTemperature, StringFormat='p. {0}°'}" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Frame>

@@ -11,20 +11,22 @@ namespace AppMeteoMAUI.ViewModel
 {
     public partial class MeteoViewModel : ObservableObject
     {
+        public MeteoViewModel()
+        {
+            currentForecast = new ObservableCollection<ForecastDaily>();
+            PrendiPosizionePredefinita();
+        }
+
         [ObservableProperty]
         string text;
         [ObservableProperty]
         double temperatura;
         [ObservableProperty]
         string city;
-        public ObservableCollection<CurrentForecast> currentForecast { get; set; }
+        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         static HttpClient? client = new HttpClient();
         string result;
-        public MeteoViewModel()
-        {
-            currentForecast = new ObservableCollection<CurrentForecast>();
-            PrendiPosizionePredefinita();
-        }
+
         #region Posizione Predefinita
         private async void PrendiPosizionePredefinita()
         {
@@ -56,15 +58,12 @@ namespace AppMeteoMAUI.ViewModel
 
         #region Pagina Dettagli
         [RelayCommand]
-        private async Task GoToDetails(object forecastobj)
+        private async Task GoToDetails(ForecastDaily forecastDaily)
         {
-            if (forecastobj == null || !(forecastobj is CurrentForecast))
+            if (forecastDaily == null)
                 return;
-
-            await Shell.Current.GoToAsync(nameof(DetailsPage), true, new Dictionary<string, object>
-            {
-                {"CurrentForecast", (CurrentForecast)forecastobj } 
-            });
+            HourDetailsViewModel viewModel = new HourDetailsViewModel(forecastDaily);
+            await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(viewModel));
         }
         #endregion
 
@@ -115,13 +114,20 @@ namespace AppMeteoMAUI.ViewModel
                 if (forecastDaily.Daily != null)
                 {
                     var fd = forecastDaily.Daily;
+                    var fdHourly = forecastDaily.Hourly;
                     currentForecast.Clear();
-                    Hourly hourlyCurrent = forecastDaily.Hourly;
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
                         (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-                        currentForecast.Add(new CurrentForecast() { Temperature2mMax = fd.Temperature2mMax[i], Temperature2mMin = fd.Temperature2mMin[i], 
-                            Data = UnixTimeStampToDateTime(fd.Time[i]), DescMeteo=datiImmagine.Item1, ImageUrl = datiImmagine.Item2, Hourly = hourlyCurrent});
+                        CurrentForecast objCur = new CurrentForecast()
+                        {
+                            Temperature2mMax = fd.Temperature2mMax[i],
+                            Temperature2mMin = fd.Temperature2mMin[i],
+                            Data = UnixTimeStampToDateTime(fd.Time[i]),
+                            DescMeteo = datiImmagine.Item1,
+                            ImageUrl = datiImmagine.Item2,
+                        };
+                        currentForecast.Add(new ForecastDaily() { CurrentForecast = objCur, Hourly = fdHourly });
                     }
                     Temperatura = forecastDaily.CurrentWeather.Temperature;
                 }

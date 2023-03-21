@@ -4,6 +4,7 @@
              x:Class="AppMeteoMAUI.View.MainPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             x:DataType="viewModel:MeteoViewModel"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.BindingContext>
         <viewModel:MeteoViewModel></viewModel:MeteoViewModel>
@@ -19,7 +20,7 @@
             <CollectionView ItemsSource="{Binding currentForecast}"
                                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:CurrentForecast">
+                    <DataTemplate x:DataType="model:ForecastDaily">
                         <Frame Style="{StaticResource CardView}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
@@ -28,12 +29,13 @@
                             </Frame.GestureRecognizers>
                             <Grid Padding="0" ColumnDefinitions="100,225,*">
                                 <Image
+                                        Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
                                         HeightRequest="55"
-                                        Source="{Binding ImageUrl}"
+                                        Source="{Binding CurrentForecast.ImageUrl}"
                                         WidthRequest="55"/>
                                 <Label
-                                        Text="{Binding DescMeteo}"
+                                        Text="{Binding CurrentForecast.DescMeteo}"
                                         Style="{StaticResource MicroLabel}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"
@@ -44,14 +46,14 @@
                                         VerticalOptions="Center">
                                     <Label
                                             Style="{StaticResource MediumLabel}"
-                                            Text="{Binding Data, StringFormat='{0:dddd d MMMM}'}"/>
+                                            Text="{Binding CurrentForecast.Data, StringFormat='{0:dddd d MMMM}'}"/>
                                 </StackLayout>
                                 <VerticalStackLayout
                                         Grid.Column="2"
                                         VerticalOptions="Center"
                                         Padding="10">
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Temperature2mMax, StringFormat='{0}°'}" />
-                                    <Label Style="{StaticResource MediumLabel }" Text="{Binding Temperature2mMin, StringFormat='{0}°'}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding CurrentForecast.Temperature2mMax, StringFormat='{0}°'}" />
+                                    <Label Style="{StaticResource MediumLabel }" Text="{Binding CurrentForecast.Temperature2mMin, StringFormat='{0}°'}" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Frame>
@@ -71,8 +73,7 @@
                 VerticalOptions="Start"
                 FontFamily="TimesNewRoman"
                 FontSize="16"
-                Margin="10 ,5, 0, 0"
-                />
+                Margin="10 ,5, 0, 0"/>
         <ImageButton
                 Margin="10, 5, 10, 0"
                 Source="mirino.svg"
