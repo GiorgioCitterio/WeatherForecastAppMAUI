@@ -1,27 +1,28 @@
 ﻿using AppMeteoMAUI.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
 namespace AppMeteoMAUI.ViewModel
 {
-    [QueryProperty(nameof(ForecastDaily), "ForecastDaily")]
+    [QueryProperty(nameof(ForecastDaily), "forecast")]
     public partial class HourDetailsViewModel : ObservableObject
     {
-        [ObservableProperty]
-        ForecastDaily forecastDaily;
-        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
-        public HourDetailsViewModel()
+        public HourDetailsViewModel(ForecastDaily fore)
         {
             currentForecast = new ObservableCollection<ForecastDaily>();
-            //StampaDati();
+            Forecast = fore;
+            StampaDati();
         }
+        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
+
+        [ObservableProperty]
+        ForecastDaily forecast;
 
         private async void StampaDati()
         {
-            if (ForecastDaily.Hourly != null)
+            if (Forecast.Hourly != null)
             {
-                var fd = ForecastDaily.Hourly;
+                var fd = Forecast.Hourly;
                 for (int i = 0; i < fd.Time.Count; i++)
                 {
                     (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
@@ -36,7 +37,6 @@ namespace AppMeteoMAUI.ViewModel
                     currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
                 }
             }
-            await Shell.Current.DisplayAlert("ciao", "ciao", "ciao");
         }
         private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
         {

@@ -6,9 +6,6 @@
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
              Title="DetailsPage"
              BackgroundColor="{StaticResource DarkBackground}">
-    <ContentPage.BindingContext>
-        <viewModel:HourDetailsViewModel/>
-    </ContentPage.BindingContext>
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
@@ -24,12 +21,13 @@
                         <Frame Style="{StaticResource CardView}">
                             <Grid Padding="0" ColumnDefinitions="100,225,*">
                                 <Image
+                                        Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
                                         HeightRequest="55"
-                                        Source="{Binding CurrentForecast.ImageUrl}"
+                                        Source="{Binding CurrentForecast1Day.ImageUrl}"
                                         WidthRequest="55"/>
                                 <Label
-                                        Text="{Binding CurrentForecast.DescMeteo}"
+                                        Text="{Binding CurrentForecast1Day.DescMeteo}"
                                         Style="{StaticResource MicroLabel}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"

@@ -23,6 +23,7 @@
                         <Frame Style="{StaticResource CardView}">
                             <Grid Padding="0" ColumnDefinitions="100,225,*">
                                 <Image
+                                        Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
                                         HeightRequest="55"
                                         Source="{Binding CurrentForecast1Day.ImageUrl}"

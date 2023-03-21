@@ -4,6 +4,7 @@
              x:Class="AppMeteoMAUI.View.MainPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             x:DataType="viewModel:MeteoViewModel"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.BindingContext>
         <viewModel:MeteoViewModel></viewModel:MeteoViewModel>
@@ -28,6 +29,7 @@
                             </Frame.GestureRecognizers>
                             <Grid Padding="0" ColumnDefinitions="100,225,*">
                                 <Image
+                                        Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
                                         HeightRequest="55"
                                         Source="{Binding CurrentForecast.ImageUrl}"
@@ -71,8 +73,7 @@
                 VerticalOptions="Start"
                 FontFamily="TimesNewRoman"
                 FontSize="16"
-                Margin="10 ,5, 0, 0"
-                />
+                Margin="10 ,5, 0, 0"/>
         <ImageButton
                 Margin="10, 5, 10, 0"
                 Source="mirino.svg"

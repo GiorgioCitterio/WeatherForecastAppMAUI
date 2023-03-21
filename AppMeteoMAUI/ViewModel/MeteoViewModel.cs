@@ -11,6 +11,12 @@ namespace AppMeteoMAUI.ViewModel
 {
     public partial class MeteoViewModel : ObservableObject
     {
+        public MeteoViewModel()
+        {
+            currentForecast = new ObservableCollection<ForecastDaily>();
+            PrendiPosizionePredefinita();
+        }
+
         [ObservableProperty]
         string text;
         [ObservableProperty]
@@ -20,11 +26,7 @@ namespace AppMeteoMAUI.ViewModel
         public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         static HttpClient? client = new HttpClient();
         string result;
-        public MeteoViewModel()
-        {
-            currentForecast = new ObservableCollection<ForecastDaily>();
-            PrendiPosizionePredefinita();
-        }
+
         #region Posizione Predefinita
         private async void PrendiPosizionePredefinita()
         {
@@ -60,11 +62,8 @@ namespace AppMeteoMAUI.ViewModel
         {
             if (forecastDaily == null)
                 return;
-
-            await Shell.Current.GoToAsync(nameof(DetailsPage), true, new Dictionary<string, object>
-            {
-                {"ForecastDaily", forecastDaily } 
-            });
+            HourDetailsViewModel viewModel = new HourDetailsViewModel(forecastDaily);
+            await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(viewModel));
         }
         #endregion
 
@@ -115,6 +114,7 @@ namespace AppMeteoMAUI.ViewModel
                 if (forecastDaily.Daily != null)
                 {
                     var fd = forecastDaily.Daily;
+                    var fdHourly = forecastDaily.Hourly;
                     currentForecast.Clear();
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
@@ -127,7 +127,7 @@ namespace AppMeteoMAUI.ViewModel
                             DescMeteo = datiImmagine.Item1,
                             ImageUrl = datiImmagine.Item2,
                         };
-                        currentForecast.Add(new ForecastDaily() { CurrentForecast = objCur});
+                        currentForecast.Add(new ForecastDaily() { CurrentForecast = objCur, Hourly = fdHourly });
                     }
                     Temperatura = forecastDaily.CurrentWeather.Temperature;
                 }

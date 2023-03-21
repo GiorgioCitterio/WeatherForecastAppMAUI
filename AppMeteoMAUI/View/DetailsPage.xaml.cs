@@ -1,9 +1,12 @@
+using AppMeteoMAUI.ViewModel;
+
 namespace AppMeteoMAUI.View;
 
 public partial class DetailsPage : ContentPage
 {
-	public DetailsPage()
+	public DetailsPage(HourDetailsViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
 	}
 }

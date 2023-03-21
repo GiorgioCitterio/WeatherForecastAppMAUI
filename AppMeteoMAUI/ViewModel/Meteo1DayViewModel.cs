@@ -97,6 +97,7 @@ namespace AppMeteoMAUI.ViewModel
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
                         (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
+                        int hours = DateTime.Now.TimeOfDay.Hours;
                         CurrentForecast1Day objCur = new CurrentForecast1Day()
                         {
                             Temperature2m = fd.Temperature2m[i],
