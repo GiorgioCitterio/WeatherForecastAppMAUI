@@ -24,7 +24,7 @@ namespace AppMeteoMAUI.ViewModel
         [ObservableProperty]
         string city;
         public ObservableCollection<ForecastDaily> ForecastDailiesCollection { get; set; }
-        static HttpClient? client = new HttpClient();
+        static HttpClient? client = new();
         string result;
 
         #region Posizione Predefinita
@@ -50,7 +50,7 @@ namespace AppMeteoMAUI.ViewModel
             string fileJson = File.ReadAllText(path);
             PosizionePredefinita pos = JsonSerializer.Deserialize<PosizionePredefinita>(fileJson);
             (double? lat, double? lon)? geo = await GeoCod(pos.posizionePredefinita);
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=1&timezone=auto";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=1&timezone=auto";
             await StampaDatiAsync(urlAdd);
             City = pos.posizionePredefinita;
         }
@@ -62,7 +62,7 @@ namespace AppMeteoMAUI.ViewModel
         public async Task GetCurrentLocation()
         {
             Location location = await Geolocation.Default.GetLastKnownLocationAsync();
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={location.Latitude}&longitude={location.Longitude}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=1&timezone=auto";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={location.Latitude}&longitude={location.Longitude}&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=1&timezone=auto";
             await StampaDatiAsync(urlAdd);
             FormattableString formattableString = $"https://api.bigdatacloud.net/data/reverse-geocode-client?latitude={location.Latitude}&longitude={location.Longitude}&localityLanguage=en";
             string urlRecuperaCity = FormattableString.Invariant(formattableString);
@@ -78,7 +78,7 @@ namespace AppMeteoMAUI.ViewModel
         {
             string city = Text;
             (double? lat, double? lon)? geo = await GeoCod(city);
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=1&timezone=auto";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&current_weather=true&timeformat=unixtime&forecast_days=1&timezone=auto";
             await StampaDatiAsync(urlAdd);
             City = city;
         }
@@ -92,7 +92,7 @@ namespace AppMeteoMAUI.ViewModel
             if (response.IsSuccessStatusCode)
             {
                 ForecastDaily forecastDaily = await response.Content.ReadFromJsonAsync<ForecastDaily>();
-                if (forecastDaily.Daily != null)
+                if (forecastDaily.Hourly != null)
                 {
                     var fd = forecastDaily.Hourly;
                     ForecastDailiesCollection.Clear();

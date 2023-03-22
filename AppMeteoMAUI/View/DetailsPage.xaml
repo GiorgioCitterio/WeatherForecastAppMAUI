@@ -4,21 +4,23 @@
              x:Class="AppMeteoMAUI.View.DetailsPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
-             Title="DetailsPage"
              BackgroundColor="{StaticResource DarkBackground}">
     <Grid
-        ColumnDefinitions="*,*"
+        ColumnDefinitions="*"
         ColumnSpacing="5"
-        RowDefinitions="Auto,65,70,*"
+        RowDefinitions="*"
         RowSpacing="0">
-        <ContentView
-                Grid.Row="3"
-                Grid.ColumnSpan="2">
+        <ContentView>
             <CollectionView ItemsSource="{Binding currentForecast}"
                                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:ForecastDaily">
                         <Frame Style="{StaticResource CardView}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HourDetailsViewModel}}, Path=GoToDetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
                             <Grid Padding="0" ColumnDefinitions="100,225,*">
                                 <Image
                                         Margin="0, 0, 0, 12"

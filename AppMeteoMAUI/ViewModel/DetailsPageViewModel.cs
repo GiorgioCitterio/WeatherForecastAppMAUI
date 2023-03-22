@@ -1,12 +1,14 @@
 ﻿using AppMeteoMAUI.Model;
+using AppMeteoMAUI.View;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
 namespace AppMeteoMAUI.ViewModel
 {
-    public partial class HourDetailsViewModel : ObservableObject
+    public partial class DetailsPageViewModel : ObservableObject
     {
-        public HourDetailsViewModel(ForecastDaily fore)
+        public DetailsPageViewModel(ForecastDaily fore)
         {
             currentForecast = new ObservableCollection<ForecastDaily>();
             Forecast = fore;
@@ -142,5 +144,15 @@ namespace AppMeteoMAUI.ViewModel
                     break;
             }
         }
-    }
+        #region Pagina Dettagli
+        [RelayCommand]
+        private async Task GoToDetails(ForecastDaily forecastDaily)
+        {
+            if (forecastDaily == null)
+                return;
+            HourDetailViewModel viewModel = new HourDetailViewModel(forecastDaily);
+            await App.Current.MainPage.Navigation.PushAsync(new HourDetailPage(viewModel));
+        }
+        #endregion
+    }   
 }

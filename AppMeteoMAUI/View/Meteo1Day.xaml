@@ -5,9 +5,6 @@
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
              BackgroundColor="{StaticResource Primary}">
-    <ContentPage.BindingContext>
-        <viewModel:Meteo1DayViewModel></viewModel:Meteo1DayViewModel>
-    </ContentPage.BindingContext>
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"

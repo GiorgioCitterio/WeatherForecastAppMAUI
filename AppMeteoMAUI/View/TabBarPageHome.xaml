@@ -5,9 +5,6 @@
        xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
        x:Class="AppMeteoMAUI.View.TabBarPageHome"
        Shell.NavBarIsVisible="True">
-    <Shell.BindingContext>
-        <viewModel:MeteoViewModel></viewModel:MeteoViewModel>
-    </Shell.BindingContext>
     <TabBar>
         <ShellContent Title="1 giorno"
                           Icon="clear_day.svg"

@@ -63,6 +63,9 @@
 	  <MauiXaml Update="View\DetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\HourDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Meteo1Day.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -24,7 +24,7 @@ namespace AppMeteoMAUI.ViewModel
         [ObservableProperty]
         string city;
         public ObservableCollection<ForecastDaily> ForecastDailiesCollection { get; set; }
-        static HttpClient? client = new HttpClient();
+        static HttpClient? client = new();
         string result;
 
         #region Posizione Predefinita
@@ -62,7 +62,7 @@ namespace AppMeteoMAUI.ViewModel
         {
             if (forecastDaily == null)
                 return;
-            HourDetailsViewModel viewModel = new HourDetailsViewModel(forecastDaily);
+            DetailsPageViewModel viewModel = new DetailsPageViewModel(forecastDaily);
             await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(viewModel));
         }
         #endregion
