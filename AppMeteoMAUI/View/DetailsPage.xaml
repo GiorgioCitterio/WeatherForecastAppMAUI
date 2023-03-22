@@ -6,11 +6,13 @@
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
              BackgroundColor="{StaticResource DarkBackground}">
     <Grid
-        ColumnDefinitions="*"
+        ColumnDefinitions="*, *"
         ColumnSpacing="5"
-        RowDefinitions="*"
+        RowDefinitions="Auto, *"
         RowSpacing="0">
-        <ContentView>
+        <ContentView
+            Grid.Row="1"
+            Grid.ColumnSpan="2">
             <CollectionView ItemsSource="{Binding currentForecast}"
                                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
@@ -18,25 +20,26 @@
                         <Frame Style="{StaticResource CardView}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HourDetailsViewModel}}, Path=GoToDetailsCommand}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HourDetailViewModel}}, Path=GoToDetailsHourCommand}"
                                             CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
-                            <Grid Padding="0" ColumnDefinitions="100,225,*">
+                            <Grid Padding="0" ColumnDefinitions="35,100,*, *">
                                 <Image
+                                        Grid.Column="1"
                                         Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
                                         HeightRequest="55"
                                         Source="{Binding CurrentForecast1Day.ImageUrl}"
                                         WidthRequest="55"/>
                                 <Label
+                                        Grid.Column="1"
                                         Text="{Binding CurrentForecast1Day.DescMeteo}"
                                         Style="{StaticResource MicroLabel}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"
                                         Margin="0, 0, 0, 10"/>
                                 <StackLayout
-                                        Grid.Column="1"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="End"
                                         VerticalOptions="Center">
                                     <Label
                                             Style="{StaticResource MediumLabel}"
@@ -45,15 +48,31 @@
                                 <VerticalStackLayout
                                         Grid.Column="2"
                                         VerticalOptions="Center"
+                                        HorizontalOptions="Center"
                                         Padding="10">
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding  CurrentForecast1Day.Temperature2m, StringFormat='{0}°'}" />
-                                    <Label Style="{StaticResource SmallLabel }" Text="{Binding CurrentForecast1Day.ApparentTemperature, StringFormat='p. {0}°'}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding  CurrentForecast1Day.Temperature2m, StringFormat='{0}°'}" Margin="0, 0, 0, 5"/>
+                                    <Label Style="{StaticResource SmallLabel }" Text="{Binding CurrentForecast1Day.ApparentTemperature, StringFormat='p. {0}°'}" 
+                                           TextColor="#999999"/>
                                 </VerticalStackLayout>
+                                <StackLayout
+                                        Grid.Column="3"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        Padding="10">
+                                    <Label
+                                        Style="{StaticResource MicroLabel}"
+                                        Text="{Binding CurrentForecast1Day.VelVento, StringFormat='{0} km/h'}"/>
+                                </StackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ContentView>
+        <Label
+            Text="{Binding Alba, StringFormat='Alba: {0}'}"/>
+        <Label
+            Grid.Column="1"
+            Text="{Binding Tramonto, StringFormat='Tramonto: {0}'}"/>
     </Grid>
 </ContentPage>

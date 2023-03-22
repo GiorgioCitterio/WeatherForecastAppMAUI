@@ -4,6 +4,9 @@
              x:Class="AppMeteoMAUI.View.Settings"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              BackgroundColor="{StaticResource Primary}">
+    <ContentPage.BindingContext>
+        <viewModel:SettingsViewModel/>
+    </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label
             Text="🧑‍🔧⚙️Impostazioni⚙️🧑‍🔧"

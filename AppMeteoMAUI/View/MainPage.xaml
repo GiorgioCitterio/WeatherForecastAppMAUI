@@ -6,6 +6,9 @@
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
              x:DataType="viewModel:MeteoViewModel"
              BackgroundColor="{StaticResource Primary}">
+    <ContentPage.BindingContext>
+        <viewModel:MeteoViewModel/>
+    </ContentPage.BindingContext>
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
@@ -49,8 +52,8 @@
                                         Grid.Column="2"
                                         VerticalOptions="Center"
                                         Padding="10">
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding CurrentForecast.Temperature2mMax, StringFormat='{0}°'}" />
-                                    <Label Style="{StaticResource MediumLabel }" Text="{Binding CurrentForecast.Temperature2mMin, StringFormat='{0}°'}" />
+                                    <Label Style="{StaticResource MediumLabel }" Text="{Binding CurrentForecast.Temperature2mMax, StringFormat='{0}°'}" Margin="0, 0, 0, 5"/>
+                                    <Label Style="{StaticResource MediumLabelMin }" Text="{Binding CurrentForecast.Temperature2mMin, StringFormat='{0}°'}" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Frame>

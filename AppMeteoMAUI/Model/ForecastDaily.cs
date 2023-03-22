@@ -207,5 +207,7 @@ namespace AppMeteoMAUI.Model
         public ImageSource ImageUrl { get; set; }
         [JsonPropertyName("desc_meteo")]
         public string DescMeteo { get; set; }
+        [JsonPropertyName("vel_vento")]
+        public double? VelVento { get; set; }
     }
 }

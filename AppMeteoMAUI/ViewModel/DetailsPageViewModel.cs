@@ -19,12 +19,16 @@ namespace AppMeteoMAUI.ViewModel
         [ObservableProperty]
         ForecastDaily forecast;
         public static Hourly mioHourly = new();
+        [ObservableProperty]
+        int? alba;
+        [ObservableProperty]
+        int? tramonto;
 
         private async void StampaDati()
         {
+            await PrendiSottoinsiemi();
             if (Forecast.Hourly != null)
             {
-                PrendiSottoinsiemi();
                 for (int i = 0; i < mioHourly.Time.Count; i++)
                 {
                     (string, ImageSource) datiImmagine = WMOCodesIntIT(mioHourly.Weathercode[i]);
@@ -35,10 +39,13 @@ namespace AppMeteoMAUI.ViewModel
                         DescMeteo = datiImmagine.Item1,
                         ImageUrl = datiImmagine.Item2,
                         Time = UnixTimeStampToDateTime(mioHourly.Time[i]),
-                        
+                        VelVento = mioHourly.Windspeed10m[i]
                     };
                     currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
                 }
+                int giorno = (int)Forecast.CurrentForecast.GiornoDellaSettimana;
+                Alba = UnixTimeStampToDateTime(Forecast.Daily.Sunrise[giorno]);
+                Tramonto = UnixTimeStampToDateTime(Forecast.Daily.Sunset[giorno]);
             }
         }
         private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
@@ -51,7 +58,7 @@ namespace AppMeteoMAUI.ViewModel
             }
             return null;
         }
-        static (string, ImageSource) WMOCodesIntIT(int? code)
+        private static (string, ImageSource) WMOCodesIntIT(int? code)
         {
             return code switch
             {
@@ -85,18 +92,20 @@ namespace AppMeteoMAUI.ViewModel
                 99 => ("temporale grandine", ImageSource.FromFile("extreme_sleet.svg"))
             };
         }
-        void PrendiSottoinsiemi()
+        private async Task PrendiSottoinsiemi()
         {
             List<List<double>> sottoinsiemiTemp = new();
             List<List<int>> sottoinsiemiWeatherCode = new();
             List<List<double>> sottoinsiemiTempApp = new();
             List<List<int>> sottoinsiemiTime = new();
+            List<List<double>> sottoinsiemiWind = new ();
             for (int i = 0; i < Forecast.Hourly.Temperature2m.Count; i += 24)
             {
                 sottoinsiemiTemp.Add(Forecast.Hourly.Temperature2m.Skip(i).Take(24).ToList());
                 sottoinsiemiWeatherCode.Add(Forecast.Hourly.Weathercode.Skip(i).Take(24).ToList());
                 sottoinsiemiTempApp.Add(Forecast.Hourly.ApparentTemperature.Skip(i).Take(24).ToList());
                 sottoinsiemiTime.Add(Forecast.Hourly.Time.Skip(i).Take(24).ToList());
+                sottoinsiemiWind.Add(Forecast.Hourly.Windspeed10m.Skip(i).Take(24).ToList());
             }
             switch (Forecast.CurrentForecast.GiornoDellaSettimana)
             {
@@ -105,48 +114,56 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Weathercode = sottoinsiemiWeatherCode[0];
                     mioHourly.ApparentTemperature = sottoinsiemiTempApp[0];
                     mioHourly.Time = sottoinsiemiTime[0];
+                    mioHourly.Windspeed10m = sottoinsiemiWind[0];
                     break;
                 case 1:
                     mioHourly.Temperature2m = sottoinsiemiTemp[1];
                     mioHourly.Weathercode = sottoinsiemiWeatherCode[1];
                     mioHourly.ApparentTemperature = sottoinsiemiTempApp[1];
                     mioHourly.Time = sottoinsiemiTime[1];
+                    mioHourly.Windspeed10m = sottoinsiemiWind[1];
                     break;
                 case 2:
                     mioHourly.Temperature2m = sottoinsiemiTemp[2];
                     mioHourly.Weathercode = sottoinsiemiWeatherCode[2];
                     mioHourly.ApparentTemperature = sottoinsiemiTempApp[2];
                     mioHourly.Time = sottoinsiemiTime[2];
+                    mioHourly.Windspeed10m = sottoinsiemiWind[2];
                     break;
                 case 3:
                     mioHourly.Temperature2m = sottoinsiemiTemp[3];
                     mioHourly.Weathercode = sottoinsiemiWeatherCode[3];
                     mioHourly.ApparentTemperature = sottoinsiemiTempApp[3];
                     mioHourly.Time = sottoinsiemiTime[3];
+                    mioHourly.Windspeed10m = sottoinsiemiWind[3];
                     break;
                 case 4:
                     mioHourly.Temperature2m = sottoinsiemiTemp[4];
                     mioHourly.Weathercode = sottoinsiemiWeatherCode[4];
                     mioHourly.ApparentTemperature = sottoinsiemiTempApp[4];
                     mioHourly.Time = sottoinsiemiTime[4];
+                    mioHourly.Windspeed10m = sottoinsiemiWind[4];
                     break;
                 case 5:
                     mioHourly.Temperature2m = sottoinsiemiTemp[5];
                     mioHourly.Weathercode = sottoinsiemiWeatherCode[5];
                     mioHourly.ApparentTemperature = sottoinsiemiTempApp[5];
                     mioHourly.Time = sottoinsiemiTime[5];
+                    mioHourly.Windspeed10m = sottoinsiemiWind[5];
                     break;
                 case 6:
                     mioHourly.Temperature2m = sottoinsiemiTemp[6];
                     mioHourly.Weathercode = sottoinsiemiWeatherCode[6];
                     mioHourly.ApparentTemperature = sottoinsiemiTempApp[6];
                     mioHourly.Time = sottoinsiemiTime[6];
+                    mioHourly.Windspeed10m = sottoinsiemiWind[6];
                     break;
             }
         }
+
         #region Pagina Dettagli
         [RelayCommand]
-        private async Task GoToDetails(ForecastDaily forecastDaily)
+        private async Task GoToDetailsHour(ForecastDaily forecastDaily)
         {
             if (forecastDaily == null)
                 return;
