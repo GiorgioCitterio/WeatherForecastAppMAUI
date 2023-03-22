@@ -16,7 +16,7 @@
         <ContentView
                 Grid.Row="3"
                 Grid.ColumnSpan="2">
-            <CollectionView ItemsSource="{Binding currentForecast}"
+            <CollectionView ItemsSource="{Binding ForecastDailiesCollection}"
                                     SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:ForecastDaily">

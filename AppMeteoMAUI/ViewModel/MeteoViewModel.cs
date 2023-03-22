@@ -13,7 +13,7 @@ namespace AppMeteoMAUI.ViewModel
     {
         public MeteoViewModel()
         {
-            currentForecast = new ObservableCollection<ForecastDaily>();
+            ForecastDailiesCollection = new ObservableCollection<ForecastDaily>();
             PrendiPosizionePredefinita();
         }
 
@@ -23,7 +23,7 @@ namespace AppMeteoMAUI.ViewModel
         double temperatura;
         [ObservableProperty]
         string city;
-        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
+        public ObservableCollection<ForecastDaily> ForecastDailiesCollection { get; set; }
         static HttpClient? client = new HttpClient();
         string result;
 
@@ -67,14 +67,6 @@ namespace AppMeteoMAUI.ViewModel
         }
         #endregion
 
-        #region Pagina Impostazioni
-        [RelayCommand]
-        private async Task GoToSettings()
-        {
-            await Shell.Current.GoToAsync(nameof(Settings));
-        }
-        #endregion
-
         #region Geolocalizzazione
 
         [RelayCommand]
@@ -114,20 +106,20 @@ namespace AppMeteoMAUI.ViewModel
                 if (forecastDaily.Daily != null)
                 {
                     var fd = forecastDaily.Daily;
-                    var fdHourly = forecastDaily.Hourly;
-                    currentForecast.Clear();
+                    ForecastDailiesCollection.Clear();
                     for (int i = 0; i < fd.Time.Count; i++)
                     {
                         (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-                        CurrentForecast objCur = new CurrentForecast()
+                        CurrentForecast objCur = new()
                         {
                             Temperature2mMax = fd.Temperature2mMax[i],
                             Temperature2mMin = fd.Temperature2mMin[i],
                             Data = UnixTimeStampToDateTime(fd.Time[i]),
                             DescMeteo = datiImmagine.Item1,
                             ImageUrl = datiImmagine.Item2,
+                            GiornoDellaSettimana = i
                         };
-                        currentForecast.Add(new ForecastDaily() { CurrentForecast = objCur, Hourly = fdHourly });
+                        ForecastDailiesCollection.Add(new ForecastDaily() { CurrentForecast = objCur, Daily = fd, Hourly = forecastDaily.Hourly });
                     }
                     Temperatura = forecastDaily.CurrentWeather.Temperature;
                 }

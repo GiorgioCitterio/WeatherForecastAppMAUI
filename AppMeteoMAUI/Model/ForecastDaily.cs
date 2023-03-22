@@ -189,6 +189,9 @@ namespace AppMeteoMAUI.Model
         public string DescMeteo { get; set; }
         [JsonPropertyName("data")]
         public DateTime? Data { get; set; }
+
+        [JsonPropertyName("giorno_della_settimana")]
+        public int? GiornoDellaSettimana { get; set; }
     }
 
     public class CurrentForecast1Day
