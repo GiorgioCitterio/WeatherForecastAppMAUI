@@ -209,5 +209,7 @@ namespace AppMeteoMAUI.Model
         public string DescMeteo { get; set; }
         [JsonPropertyName("vel_vento")]
         public double? VelVento { get; set; }
+        [JsonPropertyName("dir_vento")]
+        public string? DirVento { get; set; }
     }
 }
