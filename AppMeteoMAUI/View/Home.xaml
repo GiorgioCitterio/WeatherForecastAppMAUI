@@ -9,16 +9,19 @@
        Shell.FlyoutItemIsVisible="True"
        Shell.FlyoutHeight="200"
        Shell.FlyoutWidth="200">
+    <Shell.BindingContext>
+        <viewModel:HomeViewModel/>
+    </Shell.BindingContext>
     <FlyoutItem Title="Meteo 7 giorni"
                 Icon="clear_day.svg">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate view:MainPage}" />
+            <ShellContent ContentTemplate="{DataTemplate view:MainPage}"/>
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Meteo 1 giorno"
                 Icon="drizzle.svg">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate view:Meteo1Day}" />
+            <ShellContent ContentTemplate="{DataTemplate view:Meteo1Day}"/>
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Impostazioni"
@@ -27,4 +30,7 @@
             <ShellContent ContentTemplate="{DataTemplate view:Settings}" />
         </Tab>
     </FlyoutItem>
+    <MenuItem Text="Codice sorgente"
+              IconImageSource="githubicon.png"
+              Command="{Binding CodCommand}"/>
 </Shell>
