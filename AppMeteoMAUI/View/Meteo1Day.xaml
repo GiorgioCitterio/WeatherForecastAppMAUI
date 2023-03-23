@@ -4,6 +4,7 @@
              x:Class="AppMeteoMAUI.View.Meteo1Day"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             Title="Meteo"
              BackgroundColor="{StaticResource Primary}">
     <ContentPage.BindingContext>
         <viewModel:Meteo1DayViewModel/>

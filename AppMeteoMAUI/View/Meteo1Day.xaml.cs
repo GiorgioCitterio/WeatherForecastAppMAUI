@@ -8,6 +8,5 @@ public partial class Meteo1Day : ContentPage
 	{
 		InitializeComponent();
         NavigationPage.SetHasNavigationBar(this, false);
-        Shell.SetNavBarIsVisible(this, false);
     }
 }

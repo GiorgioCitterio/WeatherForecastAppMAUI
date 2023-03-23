@@ -4,19 +4,27 @@
        xmlns:view="clr-namespace:AppMeteoMAUI.View"
        xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
        x:Class="AppMeteoMAUI.View.TabBarPageHome"
-       Shell.NavBarIsVisible="True">
-    <Shell.BindingContext>
-        <viewModel:MeteoViewModel/>
-    </Shell.BindingContext>
-    <TabBar>
-        <ShellContent Title="1 giorno"
-                          Icon="clear_day.svg"
-                          ContentTemplate="{DataTemplate view:Meteo1Day}"/>
-        <ShellContent Title="7 giorni"
-                          Icon="cloudy.svg"
-                          ContentTemplate="{DataTemplate view:MainPage}" />
-        <ShellContent Title="Impostazioni"
-                          Icon="settings.png"
-                          ContentTemplate="{DataTemplate view:Settings}"/>
-    </TabBar>
+       Shell.NavBarIsVisible="True"
+       Shell.FlyoutBehavior="Flyout"
+       Shell.FlyoutItemIsVisible="True"
+       Shell.FlyoutHeight="200"
+       Shell.FlyoutWidth="200">
+    <FlyoutItem Title="Meteo 7 giorni"
+                Icon="clear_day.svg">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate view:MainPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Meteo 1 giorno"
+                Icon="drizzle.svg">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate view:Meteo1Day}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Impostazioni"
+                Icon="settings.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate view:Settings}" />
+        </Tab>
+    </FlyoutItem>
 </Shell>
