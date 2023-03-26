@@ -34,6 +34,7 @@
                                         Aspect="AspectFill"
                                         HeightRequest="55"
                                         Source="{Binding CurrentForecast.ImageUrl}"
+                                        IsAnimationPlaying="True"
                                         WidthRequest="55"/>
                                 <Label
                                         Text="{Binding CurrentForecast.DescMeteo}"
@@ -82,6 +83,26 @@
                 Style="{StaticResource ImageButtonOutline}"
                 Grid.Column="1"
                 VerticalOptions="Start"/>
+        <Image
+            Margin="40, 15, 0, 0"
+            Aspect="AspectFill"
+            Source="{Binding Icona}"
+            WidthRequest="55"
+            IsAnimationPlaying="True"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            HorizontalOptions="Start"
+            HeightRequest="55"/>
+        <Image
+            Margin="0, 15, 40, 0"
+            Aspect="AspectFill"
+            Source="{Binding Icona}"
+            IsAnimationPlaying="True"
+            WidthRequest="55"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            HorizontalOptions="End"
+            HeightRequest="55"/>
         <Label
             Text="{Binding City}"
             Style="{StaticResource LabelTemperatura}"

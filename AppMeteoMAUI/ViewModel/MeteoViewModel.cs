@@ -23,6 +23,8 @@ namespace AppMeteoMAUI.ViewModel
         double temperatura;
         [ObservableProperty]
         string city;
+        [ObservableProperty]
+        ImageSource icona;
         public ObservableCollection<ForecastDaily> ForecastDailiesCollection { get; set; }
         static HttpClient? client = new();
         string result;
@@ -122,6 +124,8 @@ namespace AppMeteoMAUI.ViewModel
                         ForecastDailiesCollection.Add(new ForecastDaily() { CurrentForecast = objCur, Daily = fd, Hourly = forecastDaily.Hourly });
                     }
                     Temperatura = forecastDaily.CurrentWeather.Temperature;
+                    (string, ImageSource) currentIcon = WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
+                    Icona = currentIcon.Item2;
                 }
             }
         }

@@ -30,6 +30,9 @@ namespace AppMeteoMAUI.ViewModel
             await PrendiSottoinsiemi();
             if (Forecast.Hourly != null)
             {
+                int giorno = (int)Forecast.CurrentForecast.GiornoDellaSettimana;
+                Alba = UnixTimeStampToDateTime(Forecast.Daily.Sunrise[giorno]);
+                Tramonto = UnixTimeStampToDateTime(Forecast.Daily.Sunset[giorno]);
                 for (int i = 0; i < mioHourly.Time.Count; i++)
                 {
                     (string, ImageSource) datiImmagine = WMOCodesIntIT(mioHourly.Weathercode[i]);
@@ -43,11 +46,16 @@ namespace AppMeteoMAUI.ViewModel
                         VelVento = mioHourly.Windspeed10m[i],
                         DirVento = ConvertWindDirectionToString(mioHourly.Winddirection10m[i])
                     };
+                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time == 0))
+                    {
+                        objCur.ImageUrl = ImageSource.FromFile("clear_night.svg");
+                    }
+                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time == 0))
+                    {
+                        objCur.ImageUrl = ImageSource.FromFile("extreme_night.svg");
+                    }
                     currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
                 }
-                int giorno = (int)Forecast.CurrentForecast.GiornoDellaSettimana;
-                Alba = UnixTimeStampToDateTime(Forecast.Daily.Sunrise[giorno]);
-                Tramonto = UnixTimeStampToDateTime(Forecast.Daily.Sunset[giorno]);
             }
         }
         #region Metodi Aggiuntivi
