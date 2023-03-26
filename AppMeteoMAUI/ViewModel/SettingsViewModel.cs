@@ -1,13 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using AppMeteoMAUI.Model;
 using System.Text.Json;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AppMeteoMAUI.ViewModel
 {
-    public partial class SettingsViewModel
+    public partial class SettingsViewModel : ObservableObject
     {
+        public SettingsViewModel() 
+        {
+            StatoInizialeRadioBtn();
+        }
+
         string result;
-        public SettingsViewModel() { }
+        [ObservableProperty]
+        bool posPredStatus;
+        [ObservableProperty]
+        bool posCorrStatus;
+
         [RelayCommand]
         private async void CambiaPosizionePredefinita()
         {
@@ -30,6 +40,18 @@ namespace AppMeteoMAUI.ViewModel
             string fileJson = File.ReadAllText(path);
             PosizionePredefinita pos = JsonSerializer.Deserialize<PosizionePredefinita>(fileJson);
             await App.Current.MainPage.DisplayAlert("Cambiamento avvenuto correttamente", "Nuova posizione predefinita: " + pos.posizionePredefinita, "OK");
+        }
+        private void StatoInizialeRadioBtn()
+        {
+            var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_corrente");
+            if (opzioneSelezionata == "posizione_corrente")
+            {
+                PosCorrStatus = true;
+            }
+            else if (opzioneSelezionata == "posizione_predefinita")
+            {
+                PosPredStatus = true;
+            }
         }
     }
 }

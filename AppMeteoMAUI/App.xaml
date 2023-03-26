@@ -102,6 +102,16 @@
                 <Setter Property="IsClippedToBounds" Value="True"/>
                 <Setter Property="HeightRequest" Value="80"/>
             </Style>
+
+            <Style x:Key="IconCity" TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFill"/>
+                <Setter Property="IsAnimationPlaying" Value="True"/>
+                <Setter Property="HeightRequest" Value="75" />
+                <Setter Property="WidthRequest" Value="75"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="0, 10, 0, 0"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -3,7 +3,6 @@ using AppMeteoMAUI.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AppMeteoMAUI.ViewModel
 {
@@ -46,11 +45,11 @@ namespace AppMeteoMAUI.ViewModel
                         VelVento = mioHourly.Windspeed10m[i],
                         DirVento = ConvertWindDirectionToString(mioHourly.Winddirection10m[i])
                     };
-                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time == 0))
+                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time == 0 ||objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("clear_night.svg");
                     }
-                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time == 0))
+                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time == 0 || objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("extreme_night.svg");
                     }
@@ -183,9 +182,9 @@ namespace AppMeteoMAUI.ViewModel
         private string ConvertWindDirectionToString(int degree)
         {
             if (degree > 337.5) return "N";
-            if (degree > 292.5) return "NW";
-            if (degree > 247.5) return "W";
-            if (degree > 202.5) return "SW";
+            if (degree > 292.5) return "NO";
+            if (degree > 247.5) return "O";
+            if (degree > 202.5) return "SO";
             if (degree > 157.5) return "S";
             if (degree > 122.5) return "SE";
             if (degree > 67.5) return "E";

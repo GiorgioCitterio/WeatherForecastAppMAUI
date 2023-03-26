@@ -14,7 +14,16 @@ namespace AppMeteoMAUI.ViewModel
         public MeteoViewModel()
         {
             ForecastDailiesCollection = new ObservableCollection<ForecastDaily>();
-            PrendiPosizionePredefinita();
+            var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_corrente");
+            if (opzioneSelezionata == "posizione_corrente")
+            {
+                GetCurrentLocation();
+            }
+            else if (opzioneSelezionata == "posizione_predefinita")
+            {
+                PrendiPosizionePredefinita();
+            }
+            
         }
 
         [ObservableProperty]
@@ -102,50 +111,76 @@ namespace AppMeteoMAUI.ViewModel
         {
             string urlAdd = FormattableString.Invariant(urlAddUnformattable);
             var response = await client.GetAsync(urlAdd);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                ForecastDaily forecastDaily = await response.Content.ReadFromJsonAsync<ForecastDaily>();
-                if (forecastDaily.Daily != null)
+                if (response.IsSuccessStatusCode)
                 {
-                    var fd = forecastDaily.Daily;
-                    ForecastDailiesCollection.Clear();
-                    for (int i = 0; i < fd.Time.Count; i++)
+                    ForecastDaily forecastDaily = await response.Content.ReadFromJsonAsync<ForecastDaily>();
+                    if (forecastDaily.Daily != null)
                     {
-                        (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
-                        CurrentForecast objCur = new()
+                        var fd = forecastDaily.Daily;
+                        ForecastDailiesCollection.Clear();
+                        for (int i = 0; i < fd.Time.Count; i++)
                         {
-                            Temperature2mMax = fd.Temperature2mMax[i],
-                            Temperature2mMin = fd.Temperature2mMin[i],
-                            Data = UnixTimeStampToDateTime(fd.Time[i]),
-                            DescMeteo = datiImmagine.Item1,
-                            ImageUrl = datiImmagine.Item2,
-                            GiornoDellaSettimana = i
-                        };
-                        ForecastDailiesCollection.Add(new ForecastDaily() { CurrentForecast = objCur, Daily = fd, Hourly = forecastDaily.Hourly });
+                            (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
+                            CurrentForecast objCur = new()
+                            {
+                                Temperature2mMax = fd.Temperature2mMax[i],
+                                Temperature2mMin = fd.Temperature2mMin[i],
+                                Data = UnixTimeStampToDateTime(fd.Time[i]),
+                                DescMeteo = datiImmagine.Item1,
+                                ImageUrl = datiImmagine.Item2,
+                                GiornoDellaSettimana = i
+                            };
+                            ForecastDailiesCollection.Add(new ForecastDaily() { CurrentForecast = objCur, Daily = fd, Hourly = forecastDaily.Hourly });
+                        }
+                        Temperatura = forecastDaily.CurrentWeather.Temperature;
+                        int? alba = fd.Sunrise[0];
+                        int? tramonto = fd.Sunset[0];
+                        (string, ImageSource) currentIcon = WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
+                        if (currentIcon.Item1 == "cielo sereno" && (fd.Time[0] > tramonto || fd.Time[0] == 0 || fd.Time[0] < alba))
+                        {
+                            currentIcon.Item2 = ImageSource.FromFile("clear_night.svg");
+                        }
+                        else if (currentIcon.Item1 == "limpido" && (fd.Time[0] > tramonto || fd.Time[0] == 0 || fd.Time[0] < alba))
+                        {
+                            currentIcon.Item2 = ImageSource.FromFile("extreme_night.svg");
+                        }
+                        Icona = currentIcon.Item2;
                     }
-                    Temperatura = forecastDaily.CurrentWeather.Temperature;
-                    (string, ImageSource) currentIcon = WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
-                    Icona = currentIcon.Item2;
                 }
             }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "cancel");
+            }
+            
         }
         #endregion
 
         #region Metodi Aggiungitivi
         static async Task<(double? lat, double? lon)?> GeoCod(string city)
         {
-            string? cityUrlEncoded = HttpUtility.UrlEncode(city);
-            string url = $"https://geocoding-api.open-meteo.com/v1/search?name={cityUrlEncoded}&language=it&count=7";
-            HttpResponseMessage responseGeocoding = await client.GetAsync($"{url}");
-            if (responseGeocoding.IsSuccessStatusCode)
+            try
             {
-                GeoCoding? geocodingResult = await responseGeocoding.Content.ReadFromJsonAsync<GeoCoding>();
-                if (geocodingResult != null)
+                string? cityUrlEncoded = HttpUtility.UrlEncode(city);
+                string url = $"https://geocoding-api.open-meteo.com/v1/search?name={cityUrlEncoded}&language=it&count=7";
+                HttpResponseMessage responseGeocoding = await client.GetAsync($"{url}");
+                if (responseGeocoding.IsSuccessStatusCode)
                 {
-                    return (geocodingResult.Results[0].Latitude, geocodingResult.Results[0].Longitude);
+                    GeoCoding? geocodingResult = await responseGeocoding.Content.ReadFromJsonAsync<GeoCoding>();
+                    if (geocodingResult != null)
+                    {
+                        return (geocodingResult.Results[0].Latitude, geocodingResult.Results[0].Longitude);
+                    }
                 }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "cancel");
+                return null;
+            }
         }
         private static DateTime? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
