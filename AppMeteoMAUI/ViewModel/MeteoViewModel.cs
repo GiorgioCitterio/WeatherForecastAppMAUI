@@ -135,14 +135,15 @@ namespace AppMeteoMAUI.ViewModel
                             ForecastDailiesCollection.Add(new ForecastDaily() { CurrentForecast = objCur, Daily = fd, Hourly = forecastDaily.Hourly });
                         }
                         Temperatura = forecastDaily.CurrentWeather.Temperature;
-                        int? alba = fd.Sunrise[0];
-                        int? tramonto = fd.Sunset[0];
+                        int? alba = UnixTimeStampToDateTime(fd.Sunrise[0]).Value.Hour;
+                        int? tramonto = UnixTimeStampToDateTime(fd.Sunset[0]).Value.Hour;
+                        int ora = DateTime.Now.Hour;
                         (string, ImageSource) currentIcon = WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
-                        if (currentIcon.Item1 == "cielo sereno" && (fd.Time[0] > tramonto || fd.Time[0] == 0 || fd.Time[0] < alba))
+                        if (currentIcon.Item1 == "cielo sereno" && (ora > tramonto || ora == 0 || ora < alba))
                         {
                             currentIcon.Item2 = ImageSource.FromFile("clear_night.svg");
                         }
-                        else if (currentIcon.Item1 == "limpido" && (fd.Time[0] > tramonto || fd.Time[0] == 0 || fd.Time[0] < alba))
+                        else if (currentIcon.Item1 == "limpido" && (ora > tramonto || ora == 0 || ora < alba))
                         {
                             currentIcon.Item2 = ImageSource.FromFile("extreme_night.svg");
                         }

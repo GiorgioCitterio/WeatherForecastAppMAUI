@@ -62,7 +62,7 @@
                 <Setter Property="FontSize" Value="23"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
-                <Setter Property="Margin" Value="0, 50, 0, 0"/>
+                <Setter Property="Margin" Value="0, 20, 0, 0"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="#FAF9F8"/>
             </Style>
@@ -71,12 +71,12 @@
                 <Setter Property="FontSize" Value="18"/>
                 <Setter Property="WidthRequest" Value="275"/>
                 <Setter Property="HeightRequest" Value="50"/>
-                <Setter Property="Margin" Value="0, 50, 0, 0"/>
+                <Setter Property="Margin" Value="0, 20, 0, 20"/>
                 <Setter Property="TextColor" Value="#FAF9F8"/>
                 <Setter Property="BackgroundColor" Value="#333333"/>
                 <Setter Property="BorderColor" Value="#C1C7C9"/>
                 <Setter Property="BorderWidth" Value="2"/>
-                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="CornerRadius" Value="20"/>
             </Style>
 
             <Style ApplyToDerivedTypes="True" TargetType="RefreshView">

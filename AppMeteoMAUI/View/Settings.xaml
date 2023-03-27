@@ -13,7 +13,7 @@
             <Border Stroke="#F3F2F1"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 10"
-                    BackgroundColor="#F3F2F1"
+                    BackgroundColor="#1A1A1A"
                     HeightRequest="90"
                     WidthRequest="90"
                     HorizontalOptions="Start"
@@ -33,7 +33,7 @@
                             <VisualState x:Name="Unchecked">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor"
-                                            Value="#F3F2F1" />
+                                            Value="#1A1A1A" />
                                     <Setter Property="Stroke"
                                             Value="#F3F2F1" />
                                     <Setter TargetName="check"
@@ -52,7 +52,7 @@
                           HorizontalOptions="End"
                           VerticalOptions="Start">
                         <Ellipse Stroke="Blue"
-                                 Fill="White"
+                                 Fill="Black"
                                  WidthRequest="16"
                                  HeightRequest="16"
                                  HorizontalOptions="Center"
@@ -74,18 +74,29 @@
                     Value="{StaticResource RadioButtonTemplate}" />
         </Style>
     </ContentPage.Resources>
-    <VerticalStackLayout>
+    <Grid
+        ColumnDefinitions="*"
+        ColumnSpacing="0"
+        RowDefinitions="Auto, Auto, Auto"
+        RowSpacing="20">
         <Label
             Text="🧑‍🔧⚙️Impostazioni⚙️🧑‍🔧"
             Style="{StaticResource LabelImpostazioni}"/>
         <Button
+            Grid.Row="1"
             Text="Cambia posizione predefinita"
             Command="{Binding CambiaPosizionePredefinitaCommand}"
             Style="{StaticResource ButtonImp}"/>
-        <StackLayout>
-            <Label Text="All'avvio mostra:"/>
+        <StackLayout
+            Grid.Row="2"
+            HorizontalOptions="Center">
+            <Label Text="All'avvio mostra la posizione:"
+                   Style="{StaticResource MediumLabel}"/>
             <StackLayout RadioButtonGroup.GroupName="preferencesPosPredefinita"
-                         Orientation="Horizontal">
+                         Orientation="Horizontal"
+                         Grid.Row="2"
+                         Margin="0, 10, 0, 0"
+                         HorizontalOptions="Center">
                 <RadioButton
                     Value="Posizione predefinita"
                     x:Name="posPred"
@@ -94,12 +105,16 @@
                     CheckedChanged="pos_CheckedChanged">
                     <RadioButton.Content>
                         <StackLayout>
-                            <Image Source="cloud_local.png"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center" />
-                            <Label Text="Posizione predefinita"
-                           HorizontalOptions="Center"
-                           VerticalOptions="End" />
+                            <Image Source="cloud_local.svg"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   WidthRequest="55"
+                                   HeightRequest="55"/>
+                            <Label Text="Predefinita"
+                                   Margin="0, 5, 0, 0"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="End"
+                                   Style="{StaticResource MicroLabel}"/>
                         </StackLayout>
                     </RadioButton.Content>
                 </RadioButton>
@@ -112,17 +127,19 @@
                     <RadioButton.Content>
                         <StackLayout>
                             <Image Source="mirino.svg"
-                                   WidthRequest="10"
-                                   HeightRequest="10"
+                                   WidthRequest="55"
+                                   HeightRequest="55"
                                    HorizontalOptions="Center"
-                                   VerticalOptions="Center" />
-                            <Label Text="Posizione corrente"
+                                   VerticalOptions="Center"/>
+                            <Label Text="Corrente"
+                                   Margin="0, 5, 0, 0"
+                                   Style="{StaticResource MicroLabel}"
                                    HorizontalOptions="Center"
-                                   VerticalOptions="End" />
+                                   VerticalOptions="End"/>
                         </StackLayout>
                     </RadioButton.Content>
                 </RadioButton>
             </StackLayout>
         </StackLayout>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
