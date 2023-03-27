@@ -9,5 +9,10 @@ namespace AppMeteoMAUI.ViewModel
         {
             await Launcher.Default.OpenAsync("https://github.com/GiorgioCitterio/AppMeteoMAUI");
         }
+        [RelayCommand]
+        static async void Issue()
+        {
+            await Launcher.Default.OpenAsync("https://github.com/GiorgioCitterio/AppMeteoMAUI/issues");
+        }
     }
 }
