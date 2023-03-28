@@ -102,6 +102,15 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("relativehumidity_2m")]
         public List<int> Relativehumidity2m { get; set; }
+
+        [JsonPropertyName("uv_index")]
+        public List<double> UvIndex { get; set; }
+
+        [JsonPropertyName("direct_radiation")]
+        public List<double> DirectRadiation { get; set; }
+
+        [JsonPropertyName("temperature_1000hPa")]
+        public List<double> Temperature1000hPa { get; set; }
     }
 
     public class HourlyUnits
@@ -135,6 +144,15 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("relativehumidity_2m")]
         public string Relativehumidity2m { get; set; }
+
+        [JsonPropertyName("uv_index")]
+        public string UvIndex { get; set; }
+
+        [JsonPropertyName("direct_radiation")]
+        public string DirectRadiation { get; set; }
+
+        [JsonPropertyName("temperature_1000hPa")]
+        public string Temperature1000hPa { get; set; }
     }
 
     public class ForecastDaily

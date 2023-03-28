@@ -164,7 +164,7 @@ namespace AppMeteoMAUI.ViewModel
             try
             {
                 string? cityUrlEncoded = HttpUtility.UrlEncode(city);
-                string url = $"https://geocoding-api.open-meteo.com/v1/search?name={cityUrlEncoded}&language=it&count=7";
+                string url = $"https://geocoding-api.open-meteo.com/v1/search?name={cityUrlEncoded}&language=it&count=5";
                 HttpResponseMessage responseGeocoding = await client.GetAsync($"{url}");
                 if (responseGeocoding.IsSuccessStatusCode)
                 {

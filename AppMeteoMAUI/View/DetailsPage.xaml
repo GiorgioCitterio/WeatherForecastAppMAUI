@@ -8,10 +8,10 @@
     <Grid
         ColumnDefinitions="*, *"
         ColumnSpacing="5"
-        RowDefinitions="Auto, *"
+        RowDefinitions="Auto, Auto, *"
         RowSpacing="0">
         <ContentView
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.ColumnSpan="2">
             <CollectionView ItemsSource="{Binding currentForecast}"
                                     SelectionMode="None">
@@ -83,5 +83,12 @@
             Margin="0, 15, 30, 15"
             Style="{StaticResource MediumLabel}"
             Text="{Binding Tramonto, StringFormat='🌅 Tramonto: {0}:00'}"/>
+        <Label
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            Margin="0, 0, 0, 15"
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding DescrizioneGiornata, StringFormat='{0}'}"/>
     </Grid>
 </ContentPage>

@@ -3,6 +3,7 @@ using AppMeteoMAUI.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Numerics;
 
 namespace AppMeteoMAUI.ViewModel
 {
@@ -15,6 +16,7 @@ namespace AppMeteoMAUI.ViewModel
             StampaDati();
         }
         public ObservableCollection<ForecastDaily> currentForecast { get; set; }
+        public static double? windMedio;
 
         [ObservableProperty]
         ForecastDaily forecast;
@@ -23,13 +25,16 @@ namespace AppMeteoMAUI.ViewModel
         int? alba;
         [ObservableProperty]
         int? tramonto;
+        [ObservableProperty]
+        string descrizioneGiornata;
 
-        private async void StampaDati()
+        private void StampaDati()
         {
-            await PrendiSottoinsiemi();
+            PrendiSottoinsiemi();
             if (Forecast.Hourly != null)
             {
                 int giorno = (int)Forecast.CurrentForecast.GiornoDellaSettimana;
+                double? tempMedia = (Forecast.Daily.Temperature2mMax[giorno] + Forecast.Daily.Temperature2mMin[giorno]) / 2;
                 Alba = UnixTimeStampToDateTime(Forecast.Daily.Sunrise[giorno]);
                 Tramonto = UnixTimeStampToDateTime(Forecast.Daily.Sunset[giorno]);
                 for (int i = 0; i < mioHourly.Time.Count; i++)
@@ -58,7 +63,10 @@ namespace AppMeteoMAUI.ViewModel
                         objCur.ImageUrl = ImageSource.FromFile("extreme_night.svg");
                     }
                     currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
+                    windMedio += objCur.VelVento;
                 }
+                windMedio /= 24;
+                DescrizioneGiornata = DayDescription(tempMedia, windMedio);
             }
         }
 
@@ -107,7 +115,7 @@ namespace AppMeteoMAUI.ViewModel
                 99 => ("temporale grandine", ImageSource.FromFile("extreme_sleet.svg"))
             };
         }
-        private async Task PrendiSottoinsiemi()
+        private void PrendiSottoinsiemi()
         {
             List<List<double>> sottoinsiemiTemp = new();
             List<List<int>> sottoinsiemiWeatherCode = new();
@@ -222,6 +230,151 @@ namespace AppMeteoMAUI.ViewModel
             if (degree > 67.5) return "E";
             if (degree > 22.5) return "NE";
             return "N";
+        }
+        private string DayDescription(double? degree, double? windspeed)
+        {
+            if(windspeed > 0)
+            {
+                if (windspeed > 5 && windspeed <= 15)
+                    if (degree < -30)
+                        return "Giornata nordica, brezza leggera";
+                    else if (degree > -20 && degree <= -10)
+                        return "Giornata gelida, brezza leggera";
+                    else if (degree > -10 && degree <= 0)
+                        return "Giornata invernale, brezza leggera";
+                    else if (degree > 0 && degree <= 10)
+                        return "Giornata fredda, brezza leggera";
+                    else if (degree > 10 && degree <= 20)
+                        return "Giornata temperata, brezza leggera";
+                    else if (degree > 20 && degree <= 30)
+                        return "Giornata afosa, brezza leggera";
+                    else if (degree > 30)
+                        return "Giornata torrida, brezza leggera";
+                    else
+                        return null;
+                else if (windspeed > 15 && windspeed <= 30)
+                    if (degree < -30)
+                        return "Giornata nordica, vento moderato";
+                    else if (degree > -20 && degree <= -10)
+                        return "Giornata gelida, vento moderato";
+                    else if (degree > -10 && degree <= 0)
+                        return "Giornata invernale, vento moderato";
+                    else if (degree > 0 && degree <= 10)
+                        return "Giornata fredda, vento moderato";
+                    else if (degree > 10 && degree <= 20)
+                        return "Giornata temperata, vento moderato";
+                    else if (degree > 20 && degree <= 30)
+                        return "Giornata afosa, vento moderato";
+                    else if (degree > 30)
+                        return "Giornata torrida, vento moderato";
+                    else
+                        return null;
+                else if (windspeed > 30 && windspeed <= 50)
+                    if (degree < -30)
+                        return "Giornata nordica, vento fresco";
+                    else if (degree > -20 && degree <= -10)
+                        return "Giornata gelida, vento fresco";
+                    else if (degree > -10 && degree <= 0)
+                        return "Giornata invernale, vento fresco";
+                    else if (degree > 0 && degree <= 10)
+                        return "Giornata fredda, vento fresco";
+                    else if (degree > 10 && degree <= 20)
+                        return "Giornata temperata, vento fresco";
+                    else if (degree > 20 && degree <= 30)
+                        return "Giornata afosa, vento fresco";
+                    else if (degree > 30)
+                        return "Giornata torrida, vento fresco";
+                    else
+                        return null;
+                else if (windspeed > 50 && windspeed <= 70)
+                    if (degree < -30)
+                        return "Giornata nordica, vento forte";
+                    else if (degree > -20 && degree <= -10)
+                        return "Giornata gelida, vento forte";
+                    else if (degree > -10 && degree <= 0)
+                        return "Giornata invernale, vento forte";
+                    else if (degree > 0 && degree <= 10)
+                        return "Giornata fredda, vento forte";
+                    else if (degree > 10 && degree <= 20)
+                        return "Giornata temperata, vento forte";
+                    else if (degree > 20 && degree <= 30)
+                        return "Giornata afosa, vento forte";
+                    else if (degree > 30)
+                        return "Giornata torrida, vento forte";
+                    else
+                        return null;
+                else if (windspeed > 70 && windspeed <= 90)
+                    if (degree < -30)
+                        return "Giornata nordica, burrasca";
+                    else if (degree > -20 && degree <= -10)
+                        return "Giornata gelida, burrasca";
+                    else if (degree > -10 && degree <= 0)
+                        return "Giornata invernale, burrasca";
+                    else if (degree > 0 && degree <= 10)
+                        return "Giornata fredda, tempesta";
+                    else if (degree > 10 && degree <= 20)
+                        return "Giornata temperata, burrasca";
+                    else if (degree > 20 && degree <= 30)
+                        return "Giornata afosa, burrasca";
+                    else if (degree > 30)
+                        return "Giornata torrida, burrasca";
+                    else
+                        return null;
+                else if (windspeed > 90 && windspeed <= 110)
+                    if (degree < -30)
+                        return "Giornata nordica, tempesta";
+                    else if (degree > -20 && degree <= -10)
+                        return "Giornata gelida, tempesta";
+                    else if (degree > -10 && degree <= 0)
+                        return "Giornata invernale, tempesta";
+                    else if (degree > 0 && degree <= 10)
+                        return "Giornata fredda, tempesta";
+                    else if (degree > 10 && degree <= 20)
+                        return "Giornata temperata, tempesta";
+                    else if (degree > 20 && degree <= 30)
+                        return "Giornata afosa, tempesta";
+                    else if (degree > 30)
+                        return "Giornata torrida, tempesta";
+                    else
+                        return null;
+                else if (windspeed > 110)
+                    if (degree < -30)
+                        return "Giornata nordica, uragano";
+                    else if (degree > -20 && degree <= -10)
+                        return "Giornata gelida, uragano";
+                    else if (degree > -10 && degree <= 0)
+                        return "Giornata invernale, uragano";
+                    else if (degree > 0 && degree <= 10)
+                        return "Giornata fredda, uragano";
+                    else if (degree > 10 && degree <= 20)
+                        return "Giornata temperata, uragano";
+                    else if (degree > 20 && degree <= 30)
+                        return "Giornata afosa, uragano";
+                    else if (degree > 30)
+                        return "Giornata torrida, uragano";
+                    else
+                        return null;
+                return null;
+            }
+            else
+            {
+                if (degree < -30)
+                    return "Giornata nordica";
+                else if (degree > -20 && degree <= -10)
+                    return "Giornata gelida";
+                else if (degree > -10 && degree <= 0)
+                    return "Giornata invernale";
+                else if (degree > 0 && degree <= 10)
+                    return "Giornata fredda";
+                else if (degree > 10 && degree <= 20)
+                    return "Giornata temperata";
+                else if (degree > 20 && degree <= 30)
+                    return "Giornata afosa";
+                else if (degree > 30)
+                    return "Giornata torrida";
+                else
+                    return null;
+            }
         }
         #endregion
 
