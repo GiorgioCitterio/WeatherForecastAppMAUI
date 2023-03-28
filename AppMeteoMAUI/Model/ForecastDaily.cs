@@ -99,6 +99,9 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("showers")]
         public List<double> Showers { get; set; }
+
+        [JsonPropertyName("relativehumidity_2m")]
+        public List<int> Relativehumidity2m { get; set; }
     }
 
     public class HourlyUnits
@@ -129,6 +132,9 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("showers")]
         public string Showers { get; set; }
+
+        [JsonPropertyName("relativehumidity_2m")]
+        public string Relativehumidity2m { get; set; }
     }
 
     public class ForecastDaily
@@ -198,7 +204,6 @@ namespace AppMeteoMAUI.Model
     {
         [JsonPropertyName("time")]
         public int? Time { get; set; }
-
         [JsonPropertyName("temperature_2m")]
         public double Temperature2m { get; set; }
         [JsonPropertyName("apparent_temperature")]
@@ -211,5 +216,16 @@ namespace AppMeteoMAUI.Model
         public double? VelVento { get; set; }
         [JsonPropertyName("dir_vento")]
         public string? DirVento { get; set; }
+        [JsonPropertyName("ora_del_giorno")]
+        public int OraDelGiorno { get; set; }
+
+        [JsonPropertyName("precipitation_probability")]
+        public int PrecipitationProbability { get; set; }
+
+        [JsonPropertyName("precipitation")]
+        public double Precipitation { get; set; }
+
+        [JsonPropertyName("relativehumidity_2m")]
+        public int Relativehumidity2m { get; set; }
     }
 }

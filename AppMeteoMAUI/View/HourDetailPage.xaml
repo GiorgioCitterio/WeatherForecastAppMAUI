@@ -3,11 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMeteoMAUI.View.HourDetailPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             BackgroundColor="{StaticResource DarkBackground}">
+    <VerticalStackLayout
+        HorizontalOptions="Center">
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding Precipitazioni, StringFormat='Precipitazioni: {0} mm'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding ProbPrecipitazioni, StringFormat='Probabilità precipitazioni {0}%'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding Umidita, StringFormat='Umidità: {0}%'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding Temp, StringFormat='Temperatura: {0}°'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding TempPercepita, StringFormat='Temperatura percepita: {0}°'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding VelVento, StringFormat='Vento: {0} km/h'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding DirVento, StringFormat='Direzione del vento: {0}'}"/>
+        <!--<Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding , StringFormat='consigli riguardo abbigliamento {0}'}"/>-->
+
     </VerticalStackLayout>
 </ContentPage>

@@ -20,7 +20,7 @@
                         <Frame Style="{StaticResource CardView}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HourDetailViewModel}}, Path=GoToDetailsHourCommand}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:DetailsPageViewModel}}, Path=GoToDetailsHourCommand}"
                                             CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
                             <Grid Padding="0" ColumnDefinitions="50,85,*, *">

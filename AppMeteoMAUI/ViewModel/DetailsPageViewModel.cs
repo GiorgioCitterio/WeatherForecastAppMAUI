@@ -43,7 +43,11 @@ namespace AppMeteoMAUI.ViewModel
                         ImageUrl = datiImmagine.Item2,
                         Time = UnixTimeStampToDateTime(mioHourly.Time[i]),
                         VelVento = mioHourly.Windspeed10m[i],
-                        DirVento = ConvertWindDirectionToString(mioHourly.Winddirection10m[i])
+                        DirVento = ConvertWindDirectionToString(mioHourly.Winddirection10m[i]),
+                        OraDelGiorno = i,
+                        Precipitation = mioHourly.Precipitation[i],
+                        PrecipitationProbability = mioHourly.PrecipitationProbability[i],
+                        Relativehumidity2m = mioHourly.Relativehumidity2m[i]
                     };
                     if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time == 0 ||objCur.Time < Alba))
                     {
@@ -57,6 +61,7 @@ namespace AppMeteoMAUI.ViewModel
                 }
             }
         }
+
         #region Metodi Aggiuntivi
         private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
@@ -110,6 +115,9 @@ namespace AppMeteoMAUI.ViewModel
             List<List<int>> sottoinsiemiTime = new();
             List<List<double>> sottoinsiemiWind = new ();
             List<List<int>> sottoinsiemiWindDirection = new();
+            List<List<double>> sottoinsiemiPrecipitation = new();
+            List<List<int>> sottoinsiemiPrecipitationProb = new();
+            List<List<int>> sottoinsiemiUmid = new();
             for (int i = 0; i < Forecast.Hourly.Temperature2m.Count; i += 24)
             {
                 sottoinsiemiTemp.Add(Forecast.Hourly.Temperature2m.Skip(i).Take(24).ToList());
@@ -118,6 +126,9 @@ namespace AppMeteoMAUI.ViewModel
                 sottoinsiemiTime.Add(Forecast.Hourly.Time.Skip(i).Take(24).ToList());
                 sottoinsiemiWind.Add(Forecast.Hourly.Windspeed10m.Skip(i).Take(24).ToList());
                 sottoinsiemiWindDirection.Add(Forecast.Hourly.Winddirection10m.Skip(i).Take(24).ToList());
+                sottoinsiemiPrecipitation.Add(Forecast.Hourly.Precipitation.Skip(i).Take(24).ToList());
+                sottoinsiemiPrecipitationProb.Add(Forecast.Hourly.PrecipitationProbability.Skip(i).Take(24).ToList());
+                sottoinsiemiUmid.Add(Forecast.Hourly.Relativehumidity2m.Skip(i).Take(24).ToList());
             }
             switch (Forecast.CurrentForecast.GiornoDellaSettimana)
             {
@@ -128,6 +139,9 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Time = sottoinsiemiTime[0];
                     mioHourly.Windspeed10m = sottoinsiemiWind[0];
                     mioHourly.Winddirection10m = sottoinsiemiWindDirection[0];
+                    mioHourly.Precipitation = sottoinsiemiPrecipitation[0];
+                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[0];
+                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[0];
                     break;
                 case 1:
                     mioHourly.Temperature2m = sottoinsiemiTemp[1];
@@ -136,6 +150,9 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Time = sottoinsiemiTime[1];
                     mioHourly.Windspeed10m = sottoinsiemiWind[1];
                     mioHourly.Winddirection10m = sottoinsiemiWindDirection[1];
+                    mioHourly.Precipitation = sottoinsiemiPrecipitation[1];
+                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[1];
+                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[1];
                     break;
                 case 2:
                     mioHourly.Temperature2m = sottoinsiemiTemp[2];
@@ -144,6 +161,9 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Time = sottoinsiemiTime[2];
                     mioHourly.Windspeed10m = sottoinsiemiWind[2];
                     mioHourly.Winddirection10m = sottoinsiemiWindDirection[2];
+                    mioHourly.Precipitation = sottoinsiemiPrecipitation[2];
+                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[2];
+                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[2];
                     break;
                 case 3:
                     mioHourly.Temperature2m = sottoinsiemiTemp[3];
@@ -152,6 +172,9 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Time = sottoinsiemiTime[3];
                     mioHourly.Windspeed10m = sottoinsiemiWind[3];
                     mioHourly.Winddirection10m = sottoinsiemiWindDirection[3];
+                    mioHourly.Precipitation = sottoinsiemiPrecipitation[3];
+                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[3];
+                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[3];
                     break;
                 case 4:
                     mioHourly.Temperature2m = sottoinsiemiTemp[4];
@@ -160,6 +183,9 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Time = sottoinsiemiTime[4];
                     mioHourly.Windspeed10m = sottoinsiemiWind[4];
                     mioHourly.Winddirection10m = sottoinsiemiWindDirection[4];
+                    mioHourly.Precipitation = sottoinsiemiPrecipitation[4];
+                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[4];
+                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[4];
                     break;
                 case 5:
                     mioHourly.Temperature2m = sottoinsiemiTemp[5];
@@ -168,6 +194,9 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Time = sottoinsiemiTime[5];
                     mioHourly.Windspeed10m = sottoinsiemiWind[5];
                     mioHourly.Winddirection10m = sottoinsiemiWindDirection[5];
+                    mioHourly.Precipitation = sottoinsiemiPrecipitation[5];
+                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[5];
+                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[5];
                     break;
                 case 6:
                     mioHourly.Temperature2m = sottoinsiemiTemp[6];
@@ -176,6 +205,9 @@ namespace AppMeteoMAUI.ViewModel
                     mioHourly.Time = sottoinsiemiTime[6];
                     mioHourly.Windspeed10m = sottoinsiemiWind[6];
                     mioHourly.Winddirection10m = sottoinsiemiWindDirection[6];
+                    mioHourly.Precipitation = sottoinsiemiPrecipitation[6];
+                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[6];
+                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[6];
                     break;
             }
         }
