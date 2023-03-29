@@ -7,7 +7,7 @@
        Shell.NavBarIsVisible="True"
        Shell.FlyoutBehavior="Flyout"
        Shell.FlyoutItemIsVisible="True"
-       Shell.FlyoutWidth="200">
+       Shell.FlyoutWidth="250">
     <Shell.BindingContext>
         <viewModel:HomeViewModel/>
     </Shell.BindingContext>
