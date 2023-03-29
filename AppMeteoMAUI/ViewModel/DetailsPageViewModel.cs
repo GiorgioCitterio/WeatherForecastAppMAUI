@@ -20,7 +20,6 @@ namespace AppMeteoMAUI.ViewModel
 
         [ObservableProperty]
         ForecastDaily forecast;
-        public static Hourly mioHourly = new();
         [ObservableProperty]
         int? alba;
         [ObservableProperty]
@@ -30,29 +29,30 @@ namespace AppMeteoMAUI.ViewModel
 
         private void StampaDati()
         {
-            PrendiSottoinsiemi();
             if (Forecast.Hourly != null)
             {
+                var fd = Forecast.Hourly;
                 int giorno = (int)Forecast.CurrentForecast.GiornoDellaSettimana;
-                double? tempMedia = (Forecast.Daily.Temperature2mMax[giorno] + Forecast.Daily.Temperature2mMin[giorno]) / 2;
+                //double? tempMedia = (Forecast.Daily.Temperature2mMax[giorno] + Forecast.Daily.Temperature2mMin[giorno]) / 2;
                 Alba = UnixTimeStampToDateTime(Forecast.Daily.Sunrise[giorno]);
                 Tramonto = UnixTimeStampToDateTime(Forecast.Daily.Sunset[giorno]);
-                for (int i = 0; i < mioHourly.Time.Count; i++)
+                for (int i = 0; i < 24; i++)
                 {
-                    (string, ImageSource) datiImmagine = WMOCodesIntIT(mioHourly.Weathercode[i]);
+                    int index = giorno * 24 + i;
+                    (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[index]);
                     CurrentForecast1Day objCur = new()
                     {
-                        Temperature2m = mioHourly.Temperature2m[i],
-                        ApparentTemperature = mioHourly.ApparentTemperature[i],
+                        Temperature2m = fd.Temperature2m[index],
+                        ApparentTemperature = fd.ApparentTemperature[index],
                         DescMeteo = datiImmagine.Item1,
                         ImageUrl = datiImmagine.Item2,
-                        Time = UnixTimeStampToDateTime(mioHourly.Time[i]),
-                        VelVento = mioHourly.Windspeed10m[i],
-                        DirVento = ConvertWindDirectionToString(mioHourly.Winddirection10m[i]),
+                        Time = UnixTimeStampToDateTime(fd.Time[index]),
+                        VelVento = fd.Windspeed10m[index],
+                        DirVento = ConvertWindDirectionToString(fd.Winddirection10m[index]),
                         OraDelGiorno = i,
-                        Precipitation = mioHourly.Precipitation[i],
-                        PrecipitationProbability = mioHourly.PrecipitationProbability[i],
-                        Relativehumidity2m = mioHourly.Relativehumidity2m[i]
+                        Precipitation = fd.Precipitation[index],
+                        PrecipitationProbability = fd.PrecipitationProbability[index],
+                        Relativehumidity2m = fd.Relativehumidity2m[index]
                     };
                     if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time == 0 ||objCur.Time < Alba))
                     {
@@ -66,7 +66,7 @@ namespace AppMeteoMAUI.ViewModel
                     windMedio += objCur.VelVento;
                 }
                 windMedio /= 24;
-                DescrizioneGiornata = DayDescription(tempMedia, windMedio);
+                //DescrizioneGiornata = DayDescription(tempMedia, windMedio);
             }
         }
 
@@ -114,110 +114,6 @@ namespace AppMeteoMAUI.ViewModel
                 96 => ("temporale grandine", ImageSource.FromFile("sleet.svg")),
                 99 => ("temporale grandine", ImageSource.FromFile("extreme_sleet.svg"))
             };
-        }
-        private void PrendiSottoinsiemi()
-        {
-            List<List<double>> sottoinsiemiTemp = new();
-            List<List<int>> sottoinsiemiWeatherCode = new();
-            List<List<double>> sottoinsiemiTempApp = new();
-            List<List<int>> sottoinsiemiTime = new();
-            List<List<double>> sottoinsiemiWind = new ();
-            List<List<int>> sottoinsiemiWindDirection = new();
-            List<List<double>> sottoinsiemiPrecipitation = new();
-            List<List<int>> sottoinsiemiPrecipitationProb = new();
-            List<List<int>> sottoinsiemiUmid = new();
-            for (int i = 0; i < Forecast.Hourly.Temperature2m.Count; i += 24)
-            {
-                sottoinsiemiTemp.Add(Forecast.Hourly.Temperature2m.Skip(i).Take(24).ToList());
-                sottoinsiemiWeatherCode.Add(Forecast.Hourly.Weathercode.Skip(i).Take(24).ToList());
-                sottoinsiemiTempApp.Add(Forecast.Hourly.ApparentTemperature.Skip(i).Take(24).ToList());
-                sottoinsiemiTime.Add(Forecast.Hourly.Time.Skip(i).Take(24).ToList());
-                sottoinsiemiWind.Add(Forecast.Hourly.Windspeed10m.Skip(i).Take(24).ToList());
-                sottoinsiemiWindDirection.Add(Forecast.Hourly.Winddirection10m.Skip(i).Take(24).ToList());
-                sottoinsiemiPrecipitation.Add(Forecast.Hourly.Precipitation.Skip(i).Take(24).ToList());
-                sottoinsiemiPrecipitationProb.Add(Forecast.Hourly.PrecipitationProbability.Skip(i).Take(24).ToList());
-                sottoinsiemiUmid.Add(Forecast.Hourly.Relativehumidity2m.Skip(i).Take(24).ToList());
-            }
-            switch (Forecast.CurrentForecast.GiornoDellaSettimana)
-            {
-                case 0:
-                    mioHourly.Temperature2m = sottoinsiemiTemp[0];
-                    mioHourly.Weathercode = sottoinsiemiWeatherCode[0];
-                    mioHourly.ApparentTemperature = sottoinsiemiTempApp[0];
-                    mioHourly.Time = sottoinsiemiTime[0];
-                    mioHourly.Windspeed10m = sottoinsiemiWind[0];
-                    mioHourly.Winddirection10m = sottoinsiemiWindDirection[0];
-                    mioHourly.Precipitation = sottoinsiemiPrecipitation[0];
-                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[0];
-                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[0];
-                    break;
-                case 1:
-                    mioHourly.Temperature2m = sottoinsiemiTemp[1];
-                    mioHourly.Weathercode = sottoinsiemiWeatherCode[1];
-                    mioHourly.ApparentTemperature = sottoinsiemiTempApp[1];
-                    mioHourly.Time = sottoinsiemiTime[1];
-                    mioHourly.Windspeed10m = sottoinsiemiWind[1];
-                    mioHourly.Winddirection10m = sottoinsiemiWindDirection[1];
-                    mioHourly.Precipitation = sottoinsiemiPrecipitation[1];
-                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[1];
-                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[1];
-                    break;
-                case 2:
-                    mioHourly.Temperature2m = sottoinsiemiTemp[2];
-                    mioHourly.Weathercode = sottoinsiemiWeatherCode[2];
-                    mioHourly.ApparentTemperature = sottoinsiemiTempApp[2];
-                    mioHourly.Time = sottoinsiemiTime[2];
-                    mioHourly.Windspeed10m = sottoinsiemiWind[2];
-                    mioHourly.Winddirection10m = sottoinsiemiWindDirection[2];
-                    mioHourly.Precipitation = sottoinsiemiPrecipitation[2];
-                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[2];
-                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[2];
-                    break;
-                case 3:
-                    mioHourly.Temperature2m = sottoinsiemiTemp[3];
-                    mioHourly.Weathercode = sottoinsiemiWeatherCode[3];
-                    mioHourly.ApparentTemperature = sottoinsiemiTempApp[3];
-                    mioHourly.Time = sottoinsiemiTime[3];
-                    mioHourly.Windspeed10m = sottoinsiemiWind[3];
-                    mioHourly.Winddirection10m = sottoinsiemiWindDirection[3];
-                    mioHourly.Precipitation = sottoinsiemiPrecipitation[3];
-                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[3];
-                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[3];
-                    break;
-                case 4:
-                    mioHourly.Temperature2m = sottoinsiemiTemp[4];
-                    mioHourly.Weathercode = sottoinsiemiWeatherCode[4];
-                    mioHourly.ApparentTemperature = sottoinsiemiTempApp[4];
-                    mioHourly.Time = sottoinsiemiTime[4];
-                    mioHourly.Windspeed10m = sottoinsiemiWind[4];
-                    mioHourly.Winddirection10m = sottoinsiemiWindDirection[4];
-                    mioHourly.Precipitation = sottoinsiemiPrecipitation[4];
-                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[4];
-                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[4];
-                    break;
-                case 5:
-                    mioHourly.Temperature2m = sottoinsiemiTemp[5];
-                    mioHourly.Weathercode = sottoinsiemiWeatherCode[5];
-                    mioHourly.ApparentTemperature = sottoinsiemiTempApp[5];
-                    mioHourly.Time = sottoinsiemiTime[5];
-                    mioHourly.Windspeed10m = sottoinsiemiWind[5];
-                    mioHourly.Winddirection10m = sottoinsiemiWindDirection[5];
-                    mioHourly.Precipitation = sottoinsiemiPrecipitation[5];
-                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[5];
-                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[5];
-                    break;
-                case 6:
-                    mioHourly.Temperature2m = sottoinsiemiTemp[6];
-                    mioHourly.Weathercode = sottoinsiemiWeatherCode[6];
-                    mioHourly.ApparentTemperature = sottoinsiemiTempApp[6];
-                    mioHourly.Time = sottoinsiemiTime[6];
-                    mioHourly.Windspeed10m = sottoinsiemiWind[6];
-                    mioHourly.Winddirection10m = sottoinsiemiWindDirection[6];
-                    mioHourly.Precipitation = sottoinsiemiPrecipitation[6];
-                    mioHourly.PrecipitationProbability = sottoinsiemiPrecipitationProb[6];
-                    mioHourly.Relativehumidity2m = sottoinsiemiUmid[6];
-                    break;
-            }
         }
         private string ConvertWindDirectionToString(int degree)
         {
