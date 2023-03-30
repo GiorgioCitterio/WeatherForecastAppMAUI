@@ -18,18 +18,13 @@ namespace AppMeteoMAUI.ViewModel
         {
             geocodings = new();
         }
-
-        [RelayCommand]
-        private async Task BackToMainPage()
-        {
-            await Shell.Current.GoToAsync(nameof(MainPage), false);
-        }
+       
         [RelayCommand]
         private async Task GoToForecast(Result result)
         {
             Preferences.Set("citta_scelta_search", result.Name);
             Preferences.Set("esegui_predefinito", false);
-            await BackToMainPage();
+            await Shell.Current.GoToAsync(nameof(MainPage), false);
         }
 
         public string Text
