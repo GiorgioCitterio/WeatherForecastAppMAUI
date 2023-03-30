@@ -31,20 +31,21 @@
             <CollectionView
             BackgroundColor="{StaticResource DarkBackground}"
             ItemsSource="{Binding Geocodings}"
-            Margin="20, 30">
+            Margin="10, 30">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Result">
-                        <Grid>
+                        <Grid ColumnDefinitions="Auto, Auto, Auto, Auto"
+                              ColumnSpacing="5">
                             <Frame BackgroundColor="Transparent" BorderColor="Transparent">
                                 <HorizontalStackLayout>
                                     <Label Text="{Binding Name}"
                                        FontSize="15"
                                        TextColor="White"
                                        HorizontalOptions="Center"
-                                       VerticalOptions="Center" />
+                                       VerticalOptions="Center"/>
                                     <Label Text="{Binding CountryCode, StringFormat=' ({0})'}"
                                        FontSize="15"
                                        TextColor="White"
@@ -59,12 +60,7 @@
                                        FontSize="15"
                                        TextColor="White"
                                        HorizontalOptions="Center"
-                                       VerticalOptions="Center" />
-                                    <Label Text="{Binding Elevation, StringFormat=' h: {0}m'}"
-                                       FontSize="15"
-                                       TextColor="White"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center" />
+                                       VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer

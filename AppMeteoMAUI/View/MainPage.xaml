@@ -64,8 +64,13 @@
             </CollectionView>
         </ContentView>
         <Button
-            Text="Pagina ricerca"
-            Command="{Binding GoToSearchPageCommand}"/>
+            Text="Cerca una città"
+            Command="{Binding GoToSearchPageCommand}"
+            WidthRequest="430"
+            HeightRequest="50"
+            BackgroundColor="{StaticResource DarkBackground}"
+            TextColor="{StaticResource LightBackground}"
+            FontFamily="TimesNewRoman"/>
         <ImageButton
             Margin="10, 5, 10, 0"
             Source="mirino.svg"

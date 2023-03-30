@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AppMeteoMAUI.Model;
 using System.Net.Http.Json;
@@ -31,7 +31,6 @@ namespace AppMeteoMAUI.ViewModel
             Preferences.Set("esegui_predefinito", false);
             await BackToMainPage();
         }
-
 
         public string Text
         {
@@ -73,8 +72,7 @@ namespace AppMeteoMAUI.ViewModel
                                 Name = geo[i].Name,
                                 CountryCode = geo[i].CountryCode,
                                 Latitude = geo[i].Latitude,
-                                Longitude = geo[i].Longitude,
-                                Elevation = geo[i].Elevation
+                                Longitude = geo[i].Longitude
                             });
                         }
                         return list;
