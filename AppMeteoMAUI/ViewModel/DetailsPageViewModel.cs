@@ -22,9 +22,9 @@ namespace AppMeteoMAUI.ViewModel
         [ObservableProperty]
         ForecastDaily forecast;
         [ObservableProperty]
-        int? alba;
+        DateTime? alba;
         [ObservableProperty]
-        int? tramonto;
+        DateTime? tramonto;
         [ObservableProperty]
         string descrizioneGiornata;
 
@@ -55,11 +55,11 @@ namespace AppMeteoMAUI.ViewModel
                         PrecipitationProbability = fd.PrecipitationProbability[index],
                         Relativehumidity2m = fd.Relativehumidity2m[index]
                     };
-                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time == 0 ||objCur.Time < Alba))
+                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time.Value.Hour == 0 ||objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("clear_night.svg");
                     }
-                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time == 0 || objCur.Time < Alba))
+                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time.Value.Hour == 0 || objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("extreme_night.svg");
                     }
@@ -74,13 +74,13 @@ namespace AppMeteoMAUI.ViewModel
         }
 
         #region Metodi Aggiuntivi
-        private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
+        private static DateTime? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
             if (unixTimeStamp != null)
             {
                 DateTime dateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
                 dateTime = dateTime.AddSeconds((double)unixTimeStamp).ToLocalTime();
-                return dateTime.Hour;
+                return dateTime;
             }
             return null;
         }

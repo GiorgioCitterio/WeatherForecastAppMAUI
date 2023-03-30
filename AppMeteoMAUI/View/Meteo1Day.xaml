@@ -41,7 +41,7 @@
                                         VerticalOptions="Center">
                                     <Label
                                             Style="{StaticResource MediumLabel}"
-                                            Text="{Binding CurrentForecast1Day.Time}"/>
+                                            Text="{Binding CurrentForecast1Day.Time, StringFormat='{0:HH:mm}'}"/>
                                 </StackLayout>
                                 <VerticalStackLayout
                                         Grid.Column="2"

@@ -43,7 +43,7 @@
                                         VerticalOptions="Center">
                                     <Label
                                             Style="{StaticResource MediumLabel}"
-                                            Text="{Binding CurrentForecast1Day.Time, StringFormat='{0}:00'}"/>
+                                            Text="{Binding CurrentForecast1Day.Time, StringFormat='{0:HH:mm}'}"/>
                                 </StackLayout>
                                 <VerticalStackLayout
                                         Grid.Column="2"
@@ -76,13 +76,13 @@
         <Label
             Margin="30, 15, 0, 15"
             Style="{StaticResource MediumLabel}"
-            Text="{Binding Alba, StringFormat='🌄 Alba: {0}:00'}"/>
+            Text="{Binding Alba, StringFormat='🌄 Alba: {0:HH:mm}'}"/>
         <Label
             Grid.Column="1"
             HorizontalOptions="End"
             Margin="0, 15, 30, 15"
             Style="{StaticResource MediumLabel}"
-            Text="{Binding Tramonto, StringFormat='🌅 Tramonto: {0}:00'}"/>
+            Text="{Binding Tramonto, StringFormat='🌅 Tramonto: {0:HH:mm}'}"/>
         <Label
             Grid.Row="1"
             Grid.ColumnSpan="2"
