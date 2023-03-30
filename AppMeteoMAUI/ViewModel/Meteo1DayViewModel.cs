@@ -131,13 +131,13 @@ namespace AppMeteoMAUI.ViewModel
             }
             return null;
         }
-        private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
+        private static DateTime? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
             if (unixTimeStamp != null)
             {
                 DateTime dateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
                 dateTime = dateTime.AddSeconds((double)unixTimeStamp).ToLocalTime();
-                return dateTime.Hour;
+                return dateTime;
             }
             return null;
         }

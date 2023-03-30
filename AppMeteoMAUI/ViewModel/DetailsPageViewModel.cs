@@ -16,14 +16,15 @@ namespace AppMeteoMAUI.ViewModel
             StampaDati();
         }
         public ObservableCollection<ForecastDaily> currentForecast { get; set; }
-        public static double? windMedio;
+        public static double windMedio;
+        public static double tempMedia;
 
         [ObservableProperty]
         ForecastDaily forecast;
         [ObservableProperty]
-        int? alba;
+        DateTime? alba;
         [ObservableProperty]
-        int? tramonto;
+        DateTime? tramonto;
         [ObservableProperty]
         string descrizioneGiornata;
 
@@ -33,7 +34,7 @@ namespace AppMeteoMAUI.ViewModel
             {
                 var fd = Forecast.Hourly;
                 int giorno = (int)Forecast.CurrentForecast.GiornoDellaSettimana;
-                //double? tempMedia = (Forecast.Daily.Temperature2mMax[giorno] + Forecast.Daily.Temperature2mMin[giorno]) / 2;
+                
                 Alba = UnixTimeStampToDateTime(Forecast.Daily.Sunrise[giorno]);
                 Tramonto = UnixTimeStampToDateTime(Forecast.Daily.Sunset[giorno]);
                 for (int i = 0; i < 24; i++)
@@ -54,30 +55,32 @@ namespace AppMeteoMAUI.ViewModel
                         PrecipitationProbability = fd.PrecipitationProbability[index],
                         Relativehumidity2m = fd.Relativehumidity2m[index]
                     };
-                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time == 0 ||objCur.Time < Alba))
+                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time.Value.Hour == 0 ||objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("clear_night.svg");
                     }
-                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time == 0 || objCur.Time < Alba))
+                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time.Value.Hour == 0 || objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("extreme_night.svg");
                     }
                     currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
-                    windMedio += objCur.VelVento;
+                    windMedio += (double)objCur.VelVento;
+                    tempMedia += objCur.Temperature2m;
                 }
                 windMedio /= 24;
-                //DescrizioneGiornata = DayDescription(tempMedia, windMedio);
+                tempMedia /= 24;
+                DescrizioneGiornata = DayDescription(tempMedia, windMedio);
             }
         }
 
         #region Metodi Aggiuntivi
-        private static int? UnixTimeStampToDateTime(double? unixTimeStamp)
+        private static DateTime? UnixTimeStampToDateTime(double? unixTimeStamp)
         {
             if (unixTimeStamp != null)
             {
                 DateTime dateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
                 dateTime = dateTime.AddSeconds((double)unixTimeStamp).ToLocalTime();
-                return dateTime.Hour;
+                return dateTime;
             }
             return null;
         }
@@ -129,7 +132,7 @@ namespace AppMeteoMAUI.ViewModel
         }
         private string DayDescription(double? degree, double? windspeed)
         {
-            if(windspeed > 0)
+            if(windspeed > 5)
             {
                 if (windspeed > 5 && windspeed <= 15)
                     if (degree < -30)

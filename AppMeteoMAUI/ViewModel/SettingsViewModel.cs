@@ -30,6 +30,8 @@ namespace AppMeteoMAUI.ViewModel
             {
                 result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
             } while (result == null || result.Length == 0);
+            result = result.TrimEnd();
+            result = result.TrimStart();
             if (result != null)
             {
                 posizione.posizionePredefinita = result;

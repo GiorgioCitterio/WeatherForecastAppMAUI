@@ -19,7 +19,7 @@
                 Grid.Row="4"
                 Grid.ColumnSpan="2">
             <CollectionView ItemsSource="{Binding ForecastDailiesCollection}"
-                                    SelectionMode="None">
+                            SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:ForecastDaily">
                         <Frame Style="{StaticResource CardView}">
@@ -63,25 +63,21 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ContentView>
-        <SearchBar        
-                BackgroundColor="Gray"
-                SearchCommand="{Binding CercaLocalitaCommand}"
-                Text="{Binding Text}"
-                Placeholder="Cerca una località..."
-                WidthRequest="320"
-                HeightRequest="50"
-                HorizontalOptions="Start"
-                VerticalOptions="Start"
-                FontFamily="TimesNewRoman"
-                FontSize="16"
-                Margin="10 ,5, 0, 0"/>
+        <Button
+            Text="Cerca una città"
+            Command="{Binding GoToSearchPageCommand}"
+            WidthRequest="430"
+            HeightRequest="50"
+            BackgroundColor="{StaticResource DarkBackground}"
+            TextColor="{StaticResource LightBackground}"
+            FontFamily="TimesNewRoman"/>
         <ImageButton
-                Margin="10, 5, 10, 0"
-                Source="mirino.svg"
-                Command="{Binding GetCurrentLocationCommand}"
-                Style="{StaticResource ImageButtonOutline}"
-                Grid.Column="1"
-                VerticalOptions="Start"/>
+            Margin="10, 5, 10, 0"
+            Source="mirino.svg"
+            Command="{Binding GetCurrentLocationCommand}"
+            Style="{StaticResource ImageButtonOutline}"
+            Grid.Column="1"
+            VerticalOptions="Start"/>
         <Image
             Source="{Binding Icona}"
             Grid.ColumnSpan="2"
