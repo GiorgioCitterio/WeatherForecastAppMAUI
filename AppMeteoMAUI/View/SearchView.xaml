@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppMeteoMAUI.View.SearchView"
+             Title="SearchView"
+             xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
+    <ContentPage.BindingContext>
+        <viewModel:SearchViewModel/>
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <ImageButton HeightRequest="40" WidthRequest="40" Command="{Binding BackToMainPageCommand}"
+                    Source="return_arrow.png"/>
+            <SearchBar
+                BackgroundColor="Gray"
+                Text="{Binding Text}"
+                Placeholder="Cerca una località..."
+                VerticalOptions="Start"
+                FontFamily="TimesNewRoman"
+                FontSize="16"
+                TextColor="White"
+                PlaceholderColor="#A1A1A1"
+                WidthRequest="288"
+                HorizontalOptions="Center"
+                HeightRequest="39" 
+                VerticalTextAlignment="Center" 
+                Margin="10, 0, 0, 0" />
+        </HorizontalStackLayout>
+        <ScrollView>
+            <CollectionView
+            BackgroundColor="{StaticResource DarkBackground}"
+            ItemsSource="{Binding Geocodings}"
+            Margin="20, 30">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Result">
+                        <Grid>
+                            <Frame BackgroundColor="Transparent" BorderColor="Transparent">
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding Name}"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                    <Label Text="{Binding CountryCode, StringFormat=' ({0})'}"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                    <Label Text="{Binding Latitude, StringFormat=' lat: {0}'}"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                    <Label Text="{Binding Longitude, StringFormat=' lon: {0}'}"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                    <Label Text="{Binding Elevation, StringFormat=' h: {0}m'}"
+                                       FontSize="15"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModel:SearchViewModel }}, Path=GoToForecastCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>

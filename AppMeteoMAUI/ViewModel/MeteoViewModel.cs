@@ -14,15 +14,27 @@ namespace AppMeteoMAUI.ViewModel
         public MeteoViewModel()
         {
             ForecastDailiesCollection = new ObservableCollection<ForecastDaily>();
+            var eseguiPredefinito = Preferences.Get("esegui_predefinito", true);
             var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_corrente");
-            if (opzioneSelezionata == "posizione_corrente")
+            if (eseguiPredefinito)
             {
-                GetCurrentLocation();
+                if (opzioneSelezionata == "posizione_corrente")
+                {
+                    GetCurrentLocation();
+                }
+                else if (opzioneSelezionata == "posizione_predefinita")
+                {
+                    PrendiPosizionePredefinita();
+                }
             }
-            else if (opzioneSelezionata == "posizione_predefinita")
+            else
             {
-                PrendiPosizionePredefinita();
+                string posDaCercare = Preferences.Get("citta_scelta_search", "Cassago Brianza");
+                Text = posDaCercare;
+                CercaLocalita();
+                Preferences.Set("esegui_predefinito", true);
             }
+                
         }
 
         [ObservableProperty]
@@ -74,6 +86,14 @@ namespace AppMeteoMAUI.ViewModel
                 return;
             DetailsPageViewModel viewModel = new DetailsPageViewModel(forecastDaily);
             await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(viewModel));
+        }
+        #endregion
+
+        #region Pagina Search
+        [RelayCommand]
+        private async Task GoToSearchPage()
+        {
+            await Shell.Current.GoToAsync(nameof(SearchView));
         }
         #endregion
 
