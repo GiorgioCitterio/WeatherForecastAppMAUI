@@ -53,7 +53,10 @@ namespace AppMeteoMAUI.ViewModel
                         OraDelGiorno = i,
                         Precipitation = fd.Precipitation[index],
                         PrecipitationProbability = fd.PrecipitationProbability[index],
-                        Relativehumidity2m = fd.Relativehumidity2m[index]
+                        Relativehumidity2m = fd.Relativehumidity2m[index],
+                        UvIndex = fd.UvIndex[index],
+                        DirectRadiation = fd.DirectRadiation[index],
+                        Visibility = fd.Visibility[index]
                     };
                     if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time.Value.Hour == 0 ||objCur.Time < Alba))
                     {

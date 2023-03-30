@@ -26,6 +26,12 @@ namespace AppMeteoMAUI.ViewModel
         double? velVento;
         [ObservableProperty]
         string dirVento;
+        [ObservableProperty]
+        double uvIndex;
+        [ObservableProperty]
+        double directRadiation;
+        [ObservableProperty]
+        double visibility;
 
         private void PrendiValoriDaVisualizzare()
         {
@@ -38,6 +44,9 @@ namespace AppMeteoMAUI.ViewModel
                 TempPercepita = forecast.CurrentForecast1Day.ApparentTemperature;
                 VelVento = forecast.CurrentForecast1Day.VelVento;
                 DirVento = forecast.CurrentForecast1Day.DirVento;
+                UvIndex = forecast.CurrentForecast1Day.UvIndex;
+                DirectRadiation = forecast.CurrentForecast1Day.DirectRadiation;
+                Visibility = forecast.CurrentForecast1Day.Visibility;
             }
         }
     }

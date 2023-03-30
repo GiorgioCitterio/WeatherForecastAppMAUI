@@ -28,6 +28,15 @@
         <Label
             Style="{StaticResource MediumLabel}"
             Text="{Binding DirVento, StringFormat='Direzione del vento: {0}'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding UvIndex, StringFormat='Indice UV: {0}'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding DirectRadiation, StringFormat='Radiazioni solari: {0} W/m²'}"/>
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding Visibility, StringFormat='Visibilità: {0} m'}"/>
         <!--<Label
             Style="{StaticResource MediumLabel}"
             Text="{Binding , StringFormat='consigli riguardo abbigliamento {0}'}"/>-->

@@ -97,20 +97,17 @@ namespace AppMeteoMAUI.Model
         [JsonPropertyName("precipitation")]
         public List<double> Precipitation { get; set; }
 
-        [JsonPropertyName("showers")]
-        public List<double> Showers { get; set; }
-
         [JsonPropertyName("relativehumidity_2m")]
         public List<int> Relativehumidity2m { get; set; }
+
+        [JsonPropertyName("visibility")]
+        public List<double> Visibility { get; set; }
 
         [JsonPropertyName("uv_index")]
         public List<double> UvIndex { get; set; }
 
         [JsonPropertyName("direct_radiation")]
         public List<double> DirectRadiation { get; set; }
-
-        [JsonPropertyName("temperature_1000hPa")]
-        public List<double> Temperature1000hPa { get; set; }
     }
 
     public class HourlyUnits
@@ -139,11 +136,11 @@ namespace AppMeteoMAUI.Model
         [JsonPropertyName("precipitation")]
         public string Precipitation { get; set; }
 
-        [JsonPropertyName("showers")]
-        public string Showers { get; set; }
-
         [JsonPropertyName("relativehumidity_2m")]
         public string Relativehumidity2m { get; set; }
+
+        [JsonPropertyName("visibility")]
+        public string Visibility { get; set; }
 
         [JsonPropertyName("uv_index")]
         public string UvIndex { get; set; }
@@ -216,6 +213,11 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("giorno_della_settimana")]
         public int? GiornoDellaSettimana { get; set; }
+        [JsonPropertyName("apparent_temperature_max")]
+        public double ApparentTemperatureMax { get; set; }
+
+        [JsonPropertyName("apparent_temperature_min")]
+        public double ApparentTemperatureMin { get; set; }
     }
 
     public class CurrentForecast1Day
@@ -245,5 +247,14 @@ namespace AppMeteoMAUI.Model
 
         [JsonPropertyName("relativehumidity_2m")]
         public int Relativehumidity2m { get; set; }
+
+        [JsonPropertyName("visibility")]
+        public double Visibility { get; set; }
+
+        [JsonPropertyName("uv_index")]
+        public double UvIndex { get; set; }
+
+        [JsonPropertyName("direct_radiation")]
+        public double DirectRadiation { get; set; }
     }
 }

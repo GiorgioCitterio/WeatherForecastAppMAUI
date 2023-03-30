@@ -28,7 +28,7 @@
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
-                            <Grid Padding="0" ColumnDefinitions="100,225,*">
+                            <Grid Padding="0" ColumnDefinitions="100,165,*, *">
                                 <Image
                                         Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
@@ -56,6 +56,13 @@
                                         Padding="10">
                                     <Label Style="{StaticResource MediumLabel }" Text="{Binding CurrentForecast.Temperature2mMax, StringFormat='{0}°'}" Margin="0, 0, 0, 5"/>
                                     <Label Style="{StaticResource MediumLabelMin }" Text="{Binding CurrentForecast.Temperature2mMin, StringFormat='{0}°'}" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout
+                                        Grid.Column="3"
+                                        VerticalOptions="Center"
+                                        Padding="5">
+                                    <Label Style="{StaticResource SmallLabel }" TextColor="#999999" Text="{Binding CurrentForecast.ApparentTemperatureMax, StringFormat='p. {0}°'}" Margin="0, 0, 0, 10"/>
+                                    <Label Style="{StaticResource SmallLabel }" TextColor="#999999" Text="{Binding CurrentForecast.ApparentTemperatureMin, StringFormat='p. {0}°'}" />
                                 </VerticalStackLayout>
                             </Grid>
                         </Frame>
