@@ -20,12 +20,14 @@ namespace AppMeteoMAUI.ViewModel
         [ObservableProperty]
         ImageSource icona;
         public ObservableCollection<ForecastDaily> ForecastDailiesCollection { get; set; }
+        public ObservableCollection<ForecastDaily> ForecastHoursCollection { get; set; }
         static HttpClient? client = new();
         string result;
 
         public MeteoViewModel()
         {
             ForecastDailiesCollection = new ObservableCollection<ForecastDaily>();
+            ForecastHoursCollection = new ObservableCollection<ForecastDaily>();
             var eseguiPredefinito = Preferences.Get("esegui_predefinito", true);
             var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_corrente");
             if (eseguiPredefinito)
@@ -159,19 +161,40 @@ namespace AppMeteoMAUI.ViewModel
                             ForecastDailiesCollection.Add(new ForecastDaily() { CurrentForecast = objCur, Daily = fd, Hourly = forecastDaily.Hourly });
                         }
                         Temperatura = forecastDaily.CurrentWeather.Temperature;
-                        int? alba = UnixTimeStampToDateTime(fd.Sunrise[0]).Value.Hour;
-                        int? tramonto = UnixTimeStampToDateTime(fd.Sunset[0]).Value.Hour;
-                        int ora = DateTime.Now.Hour;
+                        DateTime? alba = UnixTimeStampToDateTime(fd.Sunrise[0]);
+                        DateTime? tramonto = UnixTimeStampToDateTime(fd.Sunset[0]);
+                        DateTime ora = DateTime.Now;
                         (string, ImageSource) currentIcon = WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
-                        if (currentIcon.Item1 == "cielo sereno" && (ora > tramonto || ora == 0 || ora < alba))
+                        if (currentIcon.Item1 == "cielo sereno" && (ora > tramonto || ora.Hour == 0 || ora < alba))
                         {
                             currentIcon.Item2 = ImageSource.FromFile("clear_night.svg");
                         }
-                        else if (currentIcon.Item1 == "limpido" && (ora > tramonto || ora == 0 || ora < alba))
+                        else if (currentIcon.Item1 == "limpido" && (ora > tramonto || ora.Hour == 0 || ora < alba))
                         {
                             currentIcon.Item2 = ImageSource.FromFile("extreme_night.svg");
                         }
                         Icona = currentIcon.Item2;
+
+                        var fdHour = forecastDaily.Hourly;
+                        for (int i = 0; i < 24; i++)
+                        {
+                            (string, ImageSource) datiImmagine = WMOCodesIntIT(fdHour.Weathercode[i]);
+                            CurrentForecast1Day currentForecast1Day = new()
+                            {
+                                Temperature2m = fdHour.Temperature2m[i],
+                                Time = UnixTimeStampToDateTime(fdHour.Time[i]),
+                                ImageUrl = datiImmagine.Item2 
+                            };
+                            if (datiImmagine.Item1 == "cielo sereno" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
+                            {
+                                currentForecast1Day.ImageUrl = ImageSource.FromFile("clear_night.svg");
+                            }
+                            else if (currentForecast1Day.DescMeteo == "limpido" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
+                            {
+                                currentForecast1Day.ImageUrl = ImageSource.FromFile("extreme_night.svg");
+                            }
+                            ForecastHoursCollection.Add(new ForecastDaily() { CurrentForecast1Day = currentForecast1Day });
+                        }
                     }
                 }
             }

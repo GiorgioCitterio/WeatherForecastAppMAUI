@@ -3,7 +3,6 @@ using AppMeteoMAUI.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Numerics;
 
 namespace AppMeteoMAUI.ViewModel
 {

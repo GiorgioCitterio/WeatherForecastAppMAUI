@@ -6,13 +6,13 @@
     
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">Black</Color>
-            <Color x:Key="PrimaryDark">#FAF9F8</Color>
+            <Color x:Key="Primary">#999999</Color>
+            <Color x:Key="PrimaryDark">#333333</Color>
 
             <Color x:Key="LightBackground">#FAF9F8</Color>
             <Color x:Key="DarkBackground">#1a1a1a</Color>
 
-            <Style ApplyToDerivedTypes="True" TargetType="Page">
+            <Style ApplyToDerivedTypes="True" TargetType="Page">    
                 <Setter Property="BackgroundColor" Value="{StaticResource LightBackground}" />
             </Style>
 
@@ -24,7 +24,7 @@
 
             <Style TargetType="Label" x:Key="BaseLabel">
                 <Setter Property="FontFamily" Value="TimesNewRoman" />
-                <Setter Property="TextColor" Value="#FAF9F8" />
+                <Setter Property="TextColor" Value="#1F1F1F" />
             </Style>
 
             <Style x:Key="MicroLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
@@ -64,7 +64,7 @@
                 <Setter Property="HorizontalOptions" Value="Center"/>
                 <Setter Property="Margin" Value="0, 20, 0, 0"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="TextColor" Value="#FAF9F8"/>
+                <Setter Property="TextColor" Value="{StaticResource Primary}"/>
             </Style>
 
             <Style x:Key="ButtonImp" TargetType="Button">
@@ -72,7 +72,6 @@
                 <Setter Property="WidthRequest" Value="275"/>
                 <Setter Property="HeightRequest" Value="50"/>
                 <Setter Property="Margin" Value="0, 20, 0, 20"/>
-                <Setter Property="TextColor" Value="#FAF9F8"/>
                 <Setter Property="BackgroundColor" Value="#333333"/>
                 <Setter Property="BorderColor" Value="#C1C7C9"/>
                 <Setter Property="BorderWidth" Value="2"/>
@@ -97,7 +96,7 @@
                 <Setter Property="BorderColor" Value="#7F7F7F" />
                 <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
                 <Setter Property="Padding" Value="0" />
-                <Setter Property="Background" Value="#333333" />
+                <Setter Property="Background" Value="{StaticResource LightBackground}" />
                 <Setter Property="CornerRadius" Value="15" />
                 <Setter Property="IsClippedToBounds" Value="True"/>
                 <Setter Property="HeightRequest" Value="80"/>
@@ -111,6 +110,17 @@
                 <Setter Property="HorizontalOptions" Value="Center"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="Margin" Value="0, 10, 0, 0"/>
+            </Style>
+
+            <Style x:Key="CardViewHorizontal" TargetType="Frame">
+                <Setter Property="BorderColor" Value="#7F7F7F" />
+                <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Background" Value="{StaticResource LightBackground}" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="IsClippedToBounds" Value="True"/>
+                <Setter Property="HeightRequest" Value="90"/>
+                <Setter Property="WidthRequest" Value="60"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
