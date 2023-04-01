@@ -13,10 +13,10 @@
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
-        RowDefinitions="Auto,Auto,Auto,60,*"
+        RowDefinitions="Auto,Auto,Auto,60,Auto, *"
         RowSpacing="0">
         <ContentView
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.ColumnSpan="2">
             <CollectionView ItemsSource="{Binding ForecastDailiesCollection}"
                             SelectionMode="None">
@@ -28,7 +28,7 @@
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
-                            <Grid Padding="0" ColumnDefinitions="100,165,*, *">
+                            <Grid Padding="0" ColumnDefinitions="100,200,*">
                                 <Image
                                         Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
@@ -57,19 +57,45 @@
                                     <Label Style="{StaticResource MediumLabel }" Text="{Binding CurrentForecast.Temperature2mMax, StringFormat='{0}°'}" Margin="0, 0, 0, 5"/>
                                     <Label Style="{StaticResource MediumLabelMin }" Text="{Binding CurrentForecast.Temperature2mMin, StringFormat='{0}°'}" />
                                 </VerticalStackLayout>
-                                <VerticalStackLayout
-                                        Grid.Column="3"
-                                        VerticalOptions="Center"
-                                        Padding="5">
-                                    <Label Style="{StaticResource SmallLabel }" TextColor="#999999" Text="{Binding CurrentForecast.ApparentTemperatureMax, StringFormat='p. {0}°'}" Margin="0, 0, 0, 10"/>
-                                    <Label Style="{StaticResource SmallLabel }" TextColor="#999999" Text="{Binding CurrentForecast.ApparentTemperatureMin, StringFormat='p. {0}°'}" />
-                                </VerticalStackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ContentView>
+        <CollectionView ItemsSource="{Binding ForecastHoursCollection}"
+                        SelectionMode="None"
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:ForecastDaily">
+                    <Frame Style="{StaticResource CardViewHorizontal}">
+                        <Grid Padding="0" RowDefinitions="*, *, *">
+                            <Label
+                                HorizontalOptions="Center"
+                                Style="{StaticResource MediumLabel}"
+                                Text="{Binding CurrentForecast1Day.Time, StringFormat='{0:HH:mm}'}"/>
+                            <Image
+                                Grid.Row="1"
+                                Margin="0, 0, 0, 12"
+                                Aspect="AspectFill"
+                                HeightRequest="55"
+                                Source="{Binding CurrentForecast1Day.ImageUrl}"
+                                IsAnimationPlaying="True"
+                                WidthRequest="55"/>
+                            <Label
+                                HorizontalOptions="Center"
+                                Style="{StaticResource MediumLabel}"
+                                Text="{Binding CurrentForecast1Day.Temperature2m, StringFormat='{0}°'}"
+                                Grid.Row="2"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button
             Text="Cerca una città"
             Command="{Binding GoToSearchPageCommand}"

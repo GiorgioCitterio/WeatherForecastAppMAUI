@@ -112,6 +112,17 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="Margin" Value="0, 10, 0, 0"/>
             </Style>
+
+            <Style x:Key="CardViewHorizontal" TargetType="Frame">
+                <Setter Property="BorderColor" Value="#7F7F7F" />
+                <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Background" Value="#333333" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="IsClippedToBounds" Value="True"/>
+                <Setter Property="HeightRequest" Value="90"/>
+                <Setter Property="WidthRequest" Value="60"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

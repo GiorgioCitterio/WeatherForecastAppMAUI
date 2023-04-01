@@ -40,6 +40,5 @@
         <!--<Label
             Style="{StaticResource MediumLabel}"
             Text="{Binding , StringFormat='consigli riguardo abbigliamento {0}'}"/>-->
-
     </VerticalStackLayout>
 </ContentPage>
