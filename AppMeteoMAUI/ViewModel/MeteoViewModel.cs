@@ -29,7 +29,7 @@ namespace AppMeteoMAUI.ViewModel
             ForecastDailiesCollection = new ObservableCollection<ForecastDaily>();
             ForecastHoursCollection = new ObservableCollection<ForecastDaily>();
             var eseguiPredefinito = Preferences.Get("esegui_predefinito", true);
-            var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_corrente");
+            var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_predefinita");
             if (eseguiPredefinito)
             {
                 if (opzioneSelezionata == "posizione_corrente")
@@ -89,7 +89,7 @@ namespace AppMeteoMAUI.ViewModel
         {
             if (forecastDaily == null)
                 return;
-            DetailsPageViewModel viewModel = new DetailsPageViewModel(forecastDaily);
+            DetailsPageViewModel viewModel = new(forecastDaily);
             await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(viewModel));
         }
         #endregion
@@ -183,7 +183,7 @@ namespace AppMeteoMAUI.ViewModel
                             {
                                 Temperature2m = fdHour.Temperature2m[i],
                                 Time = UnixTimeStampToDateTime(fdHour.Time[i]),
-                                ImageUrl = datiImmagine.Item2 
+                                ImageUrl = datiImmagine.Item2
                             };
                             if (datiImmagine.Item1 == "cielo sereno" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
                             {

@@ -3,7 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:view="clr-namespace:AppMeteoMAUI.View"
        xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-       x:Class="AppMeteoMAUI.View.TabBarPageHome"
+       x:Class="AppMeteoMAUI.View.Home"
        Shell.NavBarIsVisible="True"
        Shell.FlyoutBehavior="Flyout"
        Shell.FlyoutItemIsVisible="True"
@@ -15,12 +15,6 @@
                 Icon="clear_day.svg">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate view:MainPage}"/>
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem Title="Meteo 1 giorno"
-                Icon="drizzle.svg">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate view:Meteo1Day}"/>
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Impostazioni"

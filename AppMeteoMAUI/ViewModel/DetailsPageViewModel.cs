@@ -8,25 +8,24 @@ namespace AppMeteoMAUI.ViewModel
 {
     public partial class DetailsPageViewModel : ObservableObject
     {
-        public DetailsPageViewModel(ForecastDaily fore)
-        {
-            currentForecast = new ObservableCollection<ForecastDaily>();
-            Forecast = fore;
-            StampaDati();
-        }
         public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         public static double windMedio;
         public static double tempMedia;
 
         [ObservableProperty]
-        ForecastDaily forecast;
+        ForecastDaily forecast = new();
         [ObservableProperty]
         DateTime? alba;
         [ObservableProperty]
         DateTime? tramonto;
         [ObservableProperty]
         string descrizioneGiornata;
-
+        public DetailsPageViewModel(ForecastDaily fore)
+        {
+            currentForecast = new ObservableCollection<ForecastDaily>();
+            Forecast = fore;
+            StampaDati();
+        }
         private void StampaDati()
         {
             if (Forecast.Hourly != null)

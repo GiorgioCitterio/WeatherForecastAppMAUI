@@ -77,7 +77,7 @@ namespace AppMeteoMAUI.ViewModel
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "cancel");
+                await App.Current.MainPage.DisplayAlert("Errore!", "Città inesistente", "cancel");
                 return null;
             }
         }

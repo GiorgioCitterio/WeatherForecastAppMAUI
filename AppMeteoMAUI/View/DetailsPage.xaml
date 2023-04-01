@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMeteoMAUI.View.DetailsPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-             xmlns:model="clr-namespace:AppMeteoMAUI.Model"
-             BackgroundColor="{StaticResource DarkBackground}">
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
     <Grid
         ColumnDefinitions="*, *"
         ColumnSpacing="5"

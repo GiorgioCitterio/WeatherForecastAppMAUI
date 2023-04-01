@@ -10,9 +10,9 @@
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource Primary}, Default=White}" />
-                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Dark={StaticResource PrimaryDark}, Light={StaticResource Primary}}" />
+                <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource PrimaryDark}, Default=White}" />
+                <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Dark={StaticResource LightBackground}, Light={StaticResource DarkBackground}}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource DarkBackground}, Light={StaticResource LightBackground}}" />
@@ -27,6 +27,6 @@
     <ShellContent
         Shell.NavBarIsVisible="true"
         Title="Meteo"
-        ContentTemplate="{DataTemplate view:TabBarPageHome}"
+        ContentTemplate="{DataTemplate view:Home}"
         Route="TabBarPageHome" /> 
 </Shell>
