@@ -9,64 +9,37 @@
         <viewModel:SearchViewModel/>
     </ContentPage.BindingContext>
     <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <SearchBar
-                BackgroundColor="Gray"
+        <SearchBar
                 Text="{Binding Text}"
-                Placeholder="Cerca una località..."
-                VerticalOptions="Start"
-                FontFamily="TimesNewRoman"
-                FontSize="16"
-                TextColor="White"
-                PlaceholderColor="#A1A1A1"
-                WidthRequest="288"
-                HorizontalOptions="Center"
-                HeightRequest="39" 
-                VerticalTextAlignment="Center" 
-                Margin="10, 0, 0, 0" />
-        </HorizontalStackLayout>
+                Style="{StaticResource SearchBarStyle}"/>
         <ScrollView>
             <CollectionView
-            BackgroundColor="{StaticResource DarkBackground}"
-            ItemsSource="{Binding Geocodings}"
-            Margin="10, 30">
+                BackgroundColor="{AppThemeBinding Dark={StaticResource DarkBackground}, Light={StaticResource LightBackground}}"
+                ItemsSource="{Binding Geocodings}"
+                Margin="0, 30">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Result">
-                        <Grid ColumnDefinitions="Auto, Auto, Auto, Auto"
-                              ColumnSpacing="5">
-                            <Frame BackgroundColor="Transparent" BorderColor="Transparent">
-                                <HorizontalStackLayout>
-                                    <Label Text="{Binding Name}"
-                                       FontSize="15"
-                                       TextColor="White"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                                    <Label Text="{Binding CountryCode, StringFormat=' ({0})'}"
-                                       FontSize="15"
-                                       TextColor="White"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                                    <Label Text="{Binding Latitude, StringFormat=' lat: {0}'}"
-                                       FontSize="15"
-                                       TextColor="White"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                                    <Label Text="{Binding Longitude, StringFormat=' lon: {0}'}"
-                                       FontSize="15"
-                                       TextColor="White"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
-                                </HorizontalStackLayout>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
+                        <Frame Style="{StaticResource CardViewCities}">
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label 
+                                        Text="{Binding Name}"
+                                        Style="{StaticResource LabelCities}"/>
+                                <Label Text="{Binding CountryCode, StringFormat=' ({0})'}"
+                                        Style="{StaticResource LabelCities}"/>
+                                <Label Text="{Binding Latitude, StringFormat=' lat: {0}'}"
+                                        Style="{StaticResource LabelCities}"/>
+                                <Label Text="{Binding Longitude, StringFormat=' lon: {0}'}"
+                                        Style="{StaticResource LabelCities}"/>
+                            </HorizontalStackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
                                         Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModel:SearchViewModel }}, Path=GoToForecastCommand}"
                                         CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                        </Grid>
+                            </Frame.GestureRecognizers>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

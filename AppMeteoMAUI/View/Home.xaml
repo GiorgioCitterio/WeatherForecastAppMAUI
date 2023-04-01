@@ -3,7 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:view="clr-namespace:AppMeteoMAUI.View"
        xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-       x:Class="AppMeteoMAUI.View.TabBarPageHome"
+       x:Class="AppMeteoMAUI.View.Home"
        Shell.NavBarIsVisible="True"
        Shell.FlyoutBehavior="Flyout"
        Shell.FlyoutItemIsVisible="True"

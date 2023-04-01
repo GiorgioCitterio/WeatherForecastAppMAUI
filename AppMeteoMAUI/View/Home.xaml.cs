@@ -2,11 +2,12 @@ using AppMeteoMAUI.ViewModel;
 
 namespace AppMeteoMAUI.View;
 
-public partial class TabBarPageHome : Shell
+public partial class Home : Shell
 {
-	public TabBarPageHome()
+	public Home()
 	{
 		InitializeComponent();
         Shell.SetNavBarIsVisible(this, false);
+		Shell.SetBackgroundColor(this, Color.FromRgb(0, 0, 0));
     }
 }

@@ -29,7 +29,7 @@ namespace AppMeteoMAUI.ViewModel
             ForecastDailiesCollection = new ObservableCollection<ForecastDaily>();
             ForecastHoursCollection = new ObservableCollection<ForecastDaily>();
             var eseguiPredefinito = Preferences.Get("esegui_predefinito", true);
-            var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_corrente");
+            var opzioneSelezionata = Preferences.Get("opzione_selezionata", "posizione_predefinita");
             if (eseguiPredefinito)
             {
                 if (opzioneSelezionata == "posizione_corrente")
@@ -175,26 +175,26 @@ namespace AppMeteoMAUI.ViewModel
                         }
                         Icona = currentIcon.Item2;
 
-                        //var fdHour = forecastDaily.Hourly;
-                        //for (int i = 0; i < 24; i++)
-                        //{
-                        //    (string, ImageSource) datiImmagine = WMOCodesIntIT(fdHour.Weathercode[i]);
-                        //    CurrentForecast1Day currentForecast1Day = new()
-                        //    {
-                        //        Temperature2m = fdHour.Temperature2m[i],
-                        //        Time = UnixTimeStampToDateTime(fdHour.Time[i]),
-                        //        ImageUrl = datiImmagine.Item2 
-                        //    };
-                        //    if (datiImmagine.Item1 == "cielo sereno" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
-                        //    {
-                        //        currentForecast1Day.ImageUrl = ImageSource.FromFile("clear_night.svg");
-                        //    }
-                        //    else if (currentForecast1Day.DescMeteo == "limpido" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
-                        //    {
-                        //        currentForecast1Day.ImageUrl = ImageSource.FromFile("extreme_night.svg");
-                        //    }
-                        //    ForecastHoursCollection.Add(new ForecastDaily() { CurrentForecast1Day = currentForecast1Day });
-                        //}
+                        var fdHour = forecastDaily.Hourly;
+                        for (int i = 0; i < 24; i++)
+                        {
+                            (string, ImageSource) datiImmagine = WMOCodesIntIT(fdHour.Weathercode[i]);
+                            CurrentForecast1Day currentForecast1Day = new()
+                            {
+                                Temperature2m = fdHour.Temperature2m[i],
+                                Time = UnixTimeStampToDateTime(fdHour.Time[i]),
+                                ImageUrl = datiImmagine.Item2
+                            };
+                            if (datiImmagine.Item1 == "cielo sereno" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
+                            {
+                                currentForecast1Day.ImageUrl = ImageSource.FromFile("clear_night.svg");
+                            }
+                            else if (currentForecast1Day.DescMeteo == "limpido" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
+                            {
+                                currentForecast1Day.ImageUrl = ImageSource.FromFile("extreme_night.svg");
+                            }
+                            ForecastHoursCollection.Add(new ForecastDaily() { CurrentForecast1Day = currentForecast1Day });
+                        }
                     }
                 }
             }

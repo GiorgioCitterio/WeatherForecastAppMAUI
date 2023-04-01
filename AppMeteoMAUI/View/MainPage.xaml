@@ -68,26 +68,28 @@
                         Grid.ColumnSpan="2"
                         Margin="0, 0, 0, 5">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal"/>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="3"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:ForecastDaily">
                     <Frame Style="{StaticResource CardViewHorizontal}">
                         <Grid Padding="0" RowDefinitions="*, *, *">
                             <Label
+                                VerticalOptions="Center"
                                 HorizontalOptions="Center"
                                 Style="{StaticResource MediumLabel}"
                                 Text="{Binding CurrentForecast1Day.Time, StringFormat='{0:HH:mm}'}"/>
                             <Image
                                 Grid.Row="1"
-                                Margin="0, 0, 0, 12"
                                 Aspect="AspectFill"
                                 HeightRequest="55"
+                                VerticalOptions="Center"
                                 Source="{Binding CurrentForecast1Day.ImageUrl}"
                                 IsAnimationPlaying="True"
                                 WidthRequest="55"/>
                             <Label
                                 HorizontalOptions="Center"
+                                VerticalOptions="Center"
                                 Style="{StaticResource MediumLabel}"
                                 Text="{Binding CurrentForecast1Day.Temperature2m, StringFormat='{0}°'}"
                                 Grid.Row="2"/>
@@ -99,10 +101,13 @@
         <Button
             Text="Cerca una città"
             Command="{Binding GoToSearchPageCommand}"
-            WidthRequest="430"
+            WidthRequest="230"
             HeightRequest="50"
-            BackgroundColor="{StaticResource DarkBackground}"
-            TextColor="{StaticResource LightBackground}"
+            Grid.ColumnSpan="2"
+            VerticalOptions="Start"
+            Margin="0, 5, 0, 0"
+            HorizontalOptions="Center"
+            Style="{StaticResource ButtonImp}"
             FontFamily="TimesNewRoman"/>
         <ImageButton
             Margin="10, 5, 10, 0"
