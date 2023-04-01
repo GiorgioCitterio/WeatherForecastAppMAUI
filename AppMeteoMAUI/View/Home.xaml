@@ -17,12 +17,6 @@
             <ShellContent ContentTemplate="{DataTemplate view:MainPage}"/>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Meteo 1 giorno"
-                Icon="drizzle.svg">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate view:Meteo1Day}"/>
-        </Tab>
-    </FlyoutItem>
     <FlyoutItem Title="Impostazioni"
                 Icon="settings.png">
         <Tab>
