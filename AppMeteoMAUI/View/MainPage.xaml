@@ -5,7 +5,6 @@
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model"
              x:DataType="viewModel:MeteoViewModel"
-             BackgroundColor="{StaticResource Primary}"
              Title="Meteo">
     <ContentPage.BindingContext>
         <viewModel:MeteoViewModel/>
