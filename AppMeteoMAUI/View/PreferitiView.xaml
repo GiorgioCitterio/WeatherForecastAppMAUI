@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppMeteoMAUI.View.PreferitiView"
+             xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
+    <ContentPage.BindingContext>
+        <viewModel:PreferitiViewModel/>
+    </ContentPage.BindingContext>
+    <CollectionView ItemsSource="{Binding Favorites}"
+                            SelectionMode="None">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="model:Preferiti">
+                <Frame Style="{StaticResource CardView}">
+                    <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                    </Frame.GestureRecognizers>-->
+                    <Grid Padding="0" ColumnDefinitions="Auto,Auto,Auto,Auto">
+                        <Label
+                            Text="{Binding CityName}"
+                            Style="{StaticResource MicroLabel}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding CountryCode}"
+                            Style="{StaticResource MicroLabel}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                        <Label
+                            Grid.Column="2"
+                            Text="{Binding Latitude}"
+                            Style="{StaticResource MicroLabel}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                        <Label
+                            Grid.Column="3"
+                            Text="{Binding Longitude}"
+                            Style="{StaticResource MicroLabel}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>
