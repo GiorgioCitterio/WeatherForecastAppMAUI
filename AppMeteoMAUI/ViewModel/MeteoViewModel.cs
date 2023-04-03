@@ -189,7 +189,7 @@ namespace AppMeteoMAUI.ViewModel
                             {
                                 currentForecast1Day.ImageUrl = ImageSource.FromFile("clear_night.svg");
                             }
-                            else if (currentForecast1Day.DescMeteo == "limpido" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
+                            else if (datiImmagine.Item1 == "limpido" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
                             {
                                 currentForecast1Day.ImageUrl = ImageSource.FromFile("extreme_night.svg");
                             }

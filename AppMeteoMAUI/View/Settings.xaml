@@ -12,7 +12,7 @@
             <Border Stroke="#F3F2F1"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 10"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource DarkBackground}, Dark={StaticResource DarkBackground}}"
                     HeightRequest="90"
                     WidthRequest="90"
                     HorizontalOptions="Start"
@@ -32,7 +32,7 @@
                             <VisualState x:Name="Unchecked">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor"
-                                            Value="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
+                                            Value="{AppThemeBinding Light={StaticResource DarkBackground}, Dark={StaticResource DarkBackground}}" />
                                     <Setter Property="Stroke"
                                             Value="#F3F2F1" />
                                     <Setter TargetName="check"
@@ -99,7 +99,7 @@
                 <RadioButton
                     Value="Posizione predefinita"
                     x:Name="posPred"
-                    TextColor="{AppThemeBinding Light={StaticResource DarkLabel},Dark={StaticResource LightLabel}}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightLabel},Dark={StaticResource LightLabel}}"
                     IsChecked="{Binding PosPredStatus}"
                     CheckedChanged="pos_CheckedChanged">
                     <RadioButton.Content>
@@ -113,7 +113,8 @@
                                    Margin="0, 5, 0, 0"
                                    HorizontalOptions="Center"
                                    VerticalOptions="End"
-                                   Style="{StaticResource MicroLabel}"/>
+                                   Style="{StaticResource MicroLabel}"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightLabel},Dark={StaticResource LightLabel}}"/>
                         </StackLayout>
                     </RadioButton.Content>
                 </RadioButton>
@@ -134,7 +135,8 @@
                                    Margin="0, 5, 0, 0"
                                    Style="{StaticResource MicroLabel}"
                                    HorizontalOptions="Center"
-                                   VerticalOptions="End"/>
+                                   VerticalOptions="End"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightLabel},Dark={StaticResource LightLabel}}"/>
                         </StackLayout>
                     </RadioButton.Content>
                 </RadioButton>
