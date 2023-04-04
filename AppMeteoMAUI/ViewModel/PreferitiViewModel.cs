@@ -28,11 +28,5 @@ namespace AppMeteoMAUI.ViewModel
             await App.Current.MainPage.DisplayAlert("Città rimossa:", preferito.CityName, "OK");
             GetFavorites();
         }
-
-        [RelayCommand]
-        private async Task GoToForecast(Result result)
-        {
-            await Shell.Current.GoToAsync(nameof(MainPage), false);
-        }
     }
 }

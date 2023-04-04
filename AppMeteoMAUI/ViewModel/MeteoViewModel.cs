@@ -2,6 +2,7 @@ using AppMeteoMAUI.Model;
 using AppMeteoMAUI.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using System.Collections.ObjectModel;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -274,8 +275,6 @@ namespace AppMeteoMAUI.ViewModel
             };
         }
         #endregion
-<<<<<<< Updated upstream
-=======
 
         #region Aggiungi Preferito
         [RelayCommand]
@@ -299,6 +298,5 @@ namespace AppMeteoMAUI.ViewModel
             await App.Current.MainPage.DisplayAlert("Nuova città aggiunta:", nomeCity, "OK");
         }
         #endregion
->>>>>>> Stashed changes
     }
 }

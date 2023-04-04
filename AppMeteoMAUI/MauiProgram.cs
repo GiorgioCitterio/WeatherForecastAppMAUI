@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using AppMeteoMAUI.ViewModel;
+using AppMeteoMAUI.Service;
 
 namespace AppMeteoMAUI;
 
@@ -25,6 +25,8 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
         builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
+        string dbPath = FileAccessHelper.GetFileLocalPath("Preferiti.db3");
+        builder.Services.AddSingleton<PreferitiRepository>(s => ActivatorUtilities.CreateInstance<PreferitiRepository>(s, dbPath));
         return builder.Build();
 	}
 }

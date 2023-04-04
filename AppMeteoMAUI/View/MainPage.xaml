@@ -98,6 +98,13 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <ImageButton
+            Source="back_arrow_light.svg"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Command="{Binding BackToMainPageCommand}"
+            Style="{StaticResource ImageButtonOutline}"
+            Margin="10, 5, 10, 0"/>
         <Button
             Text="Cerca una città"
             Command="{Binding GoToSearchPageCommand}"
@@ -128,6 +135,15 @@
             Grid.ColumnSpan="2"
             Grid.Row="2"
             HeightRequest="50"/>
+        <ImageButton
+            Source="heart_icon.svg"
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            Style="{StaticResource ImageButtonOutline}"
+            Margin="0, 0, 10, 0"
+            Command="{Binding AggiungiPreferitoCommand}"
+            CommandParameter="{Binding City}"/>
         <Image
             Source="thermometer.svg"
             Grid.Row="3"
