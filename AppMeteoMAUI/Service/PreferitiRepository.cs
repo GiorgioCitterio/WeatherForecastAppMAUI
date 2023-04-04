@@ -32,10 +32,10 @@ namespace AppMeteoMAUI.Service
                 var lista = await connection.Table<Preferiti>().ToListAsync();
                 foreach (var item in lista)
                 {
-                    if (dato == item)
+                    if (dato.CityName == item.CityName)
                         return;
                 }
-                result = await connection.InsertAsync(new Preferiti() { CityName = dato.CityName, CountryCode = dato.CountryCode, Latitude = dato.Latitude, Longitude = dato.Longitude });
+                result = await connection.InsertAsync(new Preferiti() { CityName = dato.CityName, Latitude = dato.Latitude, Longitude = dato.Longitude });
             }
             catch (Exception) { }
         }

@@ -12,9 +12,9 @@ namespace AppMeteoMAUI.ViewModel
         public PreferitiViewModel()
         {
             favorites = new();
+            GetFavorites();
         }
 
-        [RelayCommand]
         private async void GetFavorites()
         {
             Favorites = await App.PreferitiRepo.GetAllPreferiti();

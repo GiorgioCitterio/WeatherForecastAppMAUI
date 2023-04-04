@@ -2,6 +2,7 @@
 using AppMeteoMAUI.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using System.Collections.ObjectModel;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -281,6 +282,22 @@ namespace AppMeteoMAUI.ViewModel
                 96 => ("temporale grandine", ImageSource.FromFile("sleet.svg")),
                 99 => ("temporale grandine", ImageSource.FromFile("extreme_sleet.svg"))
             };
+        }
+        #endregion
+
+        #region Aggiungi Preferito
+        [RelayCommand]
+        private async void AggiungiPreferito(string nomeCity)
+        {
+            (double? lat, double? lon)? geo = await GeoCod(nomeCity);
+            Preferiti pref = new()
+            {
+                CityName = nomeCity,
+                Latitude = geo.Value.lat,
+                Longitude = geo.Value.lon
+            };
+            await App.PreferitiRepo.AddPreferito(pref);
+            await App.Current.MainPage.DisplayAlert("Nuova città aggiunta:", nomeCity, "OK");
         }
         #endregion
     }

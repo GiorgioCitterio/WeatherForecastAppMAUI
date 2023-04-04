@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppMeteoMAUI.View.PreferitiView"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             Title="Preferiti">
     <ContentPage.BindingContext>
         <viewModel:PreferitiViewModel/>
     </ContentPage.BindingContext>
     <CollectionView ItemsSource="{Binding Favorites}"
-                            SelectionMode="None">
+                    SelectionMode="None"
+                    Margin="10, 10">
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="model:Preferiti">
                 <Frame Style="{StaticResource CardView}">
@@ -17,31 +19,24 @@
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                     </Frame.GestureRecognizers>-->
-                    <Grid Padding="0" ColumnDefinitions="Auto,Auto,Auto,Auto">
+                    <Grid Padding="0" ColumnDefinitions="*,*,*">
                         <Label
                             Text="{Binding CityName}"
-                            Style="{StaticResource MicroLabel}"
+                            Style="{StaticResource SmallLabel}"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
                         <Label
                             Grid.Column="1"
-                            Text="{Binding CountryCode}"
-                            Style="{StaticResource MicroLabel}"
+                            Text="{Binding Latitude, StringFormat='latitudine: {0}'}"
+                            Style="{StaticResource SmallLabel}"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
                         <Label
                             Grid.Column="2"
-                            Text="{Binding Latitude}"
-                            Style="{StaticResource MicroLabel}"
+                            Text="{Binding Longitude, StringFormat='latitudine: {0}'}"
+                            Style="{StaticResource SmallLabel}"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
-                        <Label
-                            Grid.Column="3"
-                            Text="{Binding Longitude}"
-                            Style="{StaticResource MicroLabel}"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"/>
-
                     </Grid>
                 </Frame>
             </DataTemplate>
