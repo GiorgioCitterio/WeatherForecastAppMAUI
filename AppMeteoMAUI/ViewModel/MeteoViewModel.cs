@@ -102,6 +102,14 @@ namespace AppMeteoMAUI.ViewModel
         }
         #endregion
 
+        #region MainPage
+        [RelayCommand]
+        private async Task BackToMainPage()
+        {
+            await App.Current.MainPage.Navigation.PopToRootAsync();
+        }
+        #endregion
+
         #region Geolocalizzazione
 
         [RelayCommand]
