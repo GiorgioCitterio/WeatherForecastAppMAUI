@@ -28,5 +28,13 @@ namespace AppMeteoMAUI.ViewModel
             await App.Current.MainPage.DisplayAlert("Città rimossa:", preferito.CityName, "OK");
             GetFavorites();
         }
+
+        [RelayCommand]
+        private async Task GoToForecast(Preferiti preferito)
+        {
+            Preferences.Set("citta_scelta_search", preferito.CityName);
+            Preferences.Set("esegui_predefinito", false);
+            await Shell.Current.GoToAsync(nameof(MainPage), false);
+        }
     }
 }
