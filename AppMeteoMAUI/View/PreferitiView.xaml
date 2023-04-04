@@ -8,17 +8,17 @@
     <ContentPage.BindingContext>
         <viewModel:PreferitiViewModel/>
     </ContentPage.BindingContext>
-    <!--<CollectionView ItemsSource="{Binding Favorites}"
+    <CollectionView ItemsSource="{Binding Favorites}"
                     SelectionMode="None"
                     Margin="10, 10">
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="model:Preferiti">
                 <Frame Style="{StaticResource CardView}">
-                    --><!--<Frame.GestureRecognizers>
+                    <!--<Frame.GestureRecognizers>
                         <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PreferitiViewModel}}, Path=}"
                                             CommandParameter="{Binding .}"/>
-                    </Frame.GestureRecognizers>--><!--
+                    </Frame.GestureRecognizers>-->
                     <Grid Padding="5" ColumnDefinitions="*,*,*,*" ColumnSpacing="5">
                         <Label
                             Text="{Binding CityName}"
@@ -50,5 +50,5 @@
                 </Frame>
             </DataTemplate>
         </CollectionView.ItemTemplate>
-    </CollectionView>-->
+    </CollectionView>
 </ContentPage>
