@@ -14,6 +14,11 @@
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="model:Preferiti">
                 <Frame Style="{StaticResource CardView}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer
+                                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModel:PreferitiViewModel}}, Path=GoToForecastCommand}"
+                                        CommandParameter="{Binding .}" />
+                    </Frame.GestureRecognizers>
                     <Grid Padding="5" ColumnDefinitions="*,*,*,*" ColumnSpacing="5">
                         <Label
                             Text="{Binding CityName}"
