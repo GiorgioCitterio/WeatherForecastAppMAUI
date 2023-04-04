@@ -52,7 +52,6 @@ namespace AppMeteoMAUI.ViewModel
                 
         }
 
-
         #region Posizione Predefinita
         private async void PrendiPosizionePredefinita()
         {
@@ -296,7 +295,14 @@ namespace AppMeteoMAUI.ViewModel
                 Latitude = geo.Value.lat,
                 Longitude = geo.Value.lon
             };
-            await App.PreferitiRepo.AddPreferito(pref);
+            try
+            {
+                await App.PreferitiRepo.AddPreferito(pref);
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "OK");
+            }
             await App.Current.MainPage.DisplayAlert("Nuova città aggiunta:", nomeCity, "OK");
         }
         #endregion

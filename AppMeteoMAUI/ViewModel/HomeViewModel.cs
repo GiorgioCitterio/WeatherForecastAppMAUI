@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using AppMeteoMAUI.View;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AppMeteoMAUI.ViewModel
 {
@@ -13,6 +14,11 @@ namespace AppMeteoMAUI.ViewModel
         static async void Issue()
         {
             await Launcher.Default.OpenAsync("https://github.com/GiorgioCitterio/AppMeteoMAUI/issues");
+        }
+        [RelayCommand]
+        static async void GoToFavorites()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new PreferitiView());
         }
     }
 }

@@ -103,11 +103,8 @@
             HorizontalOptions="Start"
             VerticalOptions="Start"
             Command="{Binding BackToMainPageCommand}"
-            WidthRequest="50"
-            HeightRequest="50"
-            Margin="10, 5, 10, 0"
-            BackgroundColor="{AppThemeBinding Light={StaticResource DarkBackground}, Dark={StaticResource DarkBackground}}"
-            />
+            Style="{StaticResource ImageButtonOutline}"
+            Margin="10, 5, 10, 0"/>
         <Button
             Text="Cerca una città"
             Command="{Binding GoToSearchPageCommand}"
@@ -143,10 +140,8 @@
             Grid.Row="2"
             Grid.Column="1"
             HorizontalOptions="End"
-            WidthRequest="50"
-            HeightRequest="50"
+            Style="{StaticResource ImageButtonOutline}"
             Margin="0, 0, 10, 0"
-            BackgroundColor="{AppThemeBinding Light={StaticResource DarkBackground}, Dark={StaticResource DarkBackground}}"
             Command="{Binding AggiungiPreferitoCommand}"
             CommandParameter="{Binding City}"/>
         <Image

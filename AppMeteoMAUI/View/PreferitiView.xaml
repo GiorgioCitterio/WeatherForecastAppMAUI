@@ -14,12 +14,7 @@
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="model:Preferiti">
                 <Frame Style="{StaticResource CardView}">
-                    <!--<Frame.GestureRecognizers>
-                        <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MeteoViewModel}}, Path=GoToDetailsCommand}"
-                                            CommandParameter="{Binding .}"/>
-                    </Frame.GestureRecognizers>-->
-                    <Grid Padding="0" ColumnDefinitions="*,*,*">
+                    <Grid Padding="5" ColumnDefinitions="*,*,*,*" ColumnSpacing="5">
                         <Label
                             Text="{Binding CityName}"
                             Style="{StaticResource SmallLabel}"
@@ -37,6 +32,15 @@
                             Style="{StaticResource SmallLabel}"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
+                        <Button
+                            Grid.Column="3"
+                            Style="{StaticResource ButtonImp}"
+                            WidthRequest="90"
+                            HeightRequest="40"
+                            FontSize="12"
+                            Text="Rimuovi"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PreferitiViewModel}}, Path=RimuoviPreferitoCommand}"
+                            CommandParameter="{Binding .}"/>
                     </Grid>
                 </Frame>
             </DataTemplate>
