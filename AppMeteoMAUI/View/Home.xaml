@@ -17,6 +17,12 @@
             <ShellContent ContentTemplate="{DataTemplate view:MainPage}"/>
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Preferiti"
+                Icon="settings.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate view:PreferitiView}" />
+        </Tab>
+    </FlyoutItem>
     <FlyoutItem Title="Impostazioni"
                 Icon="settings.png">
         <Tab>

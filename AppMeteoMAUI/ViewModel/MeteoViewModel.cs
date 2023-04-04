@@ -283,5 +283,31 @@ namespace AppMeteoMAUI.ViewModel
             };
         }
         #endregion
+<<<<<<< Updated upstream
+=======
+
+        #region Aggiungi Preferito
+        [RelayCommand]
+        private async void AggiungiPreferito(string nomeCity)
+        {
+            (double? lat, double? lon)? geo = await GeoCod(nomeCity);
+            Preferiti pref = new()
+            {
+                CityName = nomeCity,
+                Latitude = geo.Value.lat,
+                Longitude = geo.Value.lon
+            };
+            try
+            {
+                await App.PreferitiRepo.AddPreferito(pref);
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "OK");
+            }
+            await App.Current.MainPage.DisplayAlert("Nuova città aggiunta:", nomeCity, "OK");
+        }
+        #endregion
+>>>>>>> Stashed changes
     }
 }
