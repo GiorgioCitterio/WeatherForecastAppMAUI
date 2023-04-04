@@ -23,7 +23,7 @@
     <FlyoutItem Title="Impostazioni"
                 Icon="settings.png">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate view:Settings}" />
+            <ShellContent ContentTemplate="{DataTemplate view:Settings}"/>
         </Tab>
     </FlyoutItem>
     <MenuItem Text="Segnala un problema"
