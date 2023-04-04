@@ -1,4 +1,4 @@
-﻿using AppMeteoMAUI.Model;
+using AppMeteoMAUI.Model;
 using AppMeteoMAUI.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -99,14 +99,6 @@ namespace AppMeteoMAUI.ViewModel
         private async Task GoToSearchPage()
         {
             await Shell.Current.GoToAsync(nameof(SearchView));
-        }
-        #endregion
-
-        #region MainPage
-        [RelayCommand]
-        static async Task BackToMainPage()
-        {
-            await App.Current.MainPage.Navigation.PopToRootAsync();
         }
         #endregion
 

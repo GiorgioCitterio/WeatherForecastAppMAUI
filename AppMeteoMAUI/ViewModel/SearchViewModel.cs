@@ -81,5 +81,13 @@ namespace AppMeteoMAUI.ViewModel
                 return null;
             }
         }
+
+        #region MainPage
+        [RelayCommand]
+        static async Task BackToMainPage()
+        {
+            await App.Current.MainPage.Navigation.PopToRootAsync();
+        }
+        #endregion
     }
 }
