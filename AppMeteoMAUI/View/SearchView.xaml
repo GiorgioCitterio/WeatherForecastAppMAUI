@@ -9,9 +9,20 @@
         <viewModel:SearchViewModel/>
     </ContentPage.BindingContext>
     <VerticalStackLayout>
-        <SearchBar
+        <HorizontalStackLayout>
+            <ImageButton
+            Source="back_arrow_light.svg"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Command="{Binding BackToMainPageCommand}"
+            WidthRequest="50"
+            HeightRequest="50"
+            Margin="10, 5, 10, 0"
+            BackgroundColor="{AppThemeBinding Light={StaticResource DarkBackground}, Dark={StaticResource DarkBackground}}"/>
+            <SearchBar
                 Text="{Binding Text}"
                 Style="{StaticResource SearchBarStyle}"/>
+        </HorizontalStackLayout>
         <ScrollView>
             <CollectionView
                 BackgroundColor="{AppThemeBinding Dark={StaticResource DarkBackground}, Light={StaticResource LightBackground}}"

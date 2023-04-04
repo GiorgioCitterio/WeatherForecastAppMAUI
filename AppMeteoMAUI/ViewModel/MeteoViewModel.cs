@@ -51,7 +51,6 @@ namespace AppMeteoMAUI.ViewModel
                 
         }
 
-
         #region Posizione Predefinita
         private async void PrendiPosizionePredefinita()
         {
@@ -99,14 +98,6 @@ namespace AppMeteoMAUI.ViewModel
         private async Task GoToSearchPage()
         {
             await Shell.Current.GoToAsync(nameof(SearchView));
-        }
-        #endregion
-
-        #region MainPage
-        [RelayCommand]
-        static async Task BackToMainPage()
-        {
-            await App.Current.MainPage.Navigation.PopToRootAsync();
         }
         #endregion
 
@@ -281,6 +272,29 @@ namespace AppMeteoMAUI.ViewModel
                 96 => ("temporale grandine", ImageSource.FromFile("sleet.svg")),
                 99 => ("temporale grandine", ImageSource.FromFile("extreme_sleet.svg"))
             };
+        }
+        #endregion
+
+        #region Aggiungi Preferito
+        [RelayCommand]
+        private async void AggiungiPreferito(string nomeCity)
+        {
+            //(double? lat, double? lon)? geo = await GeoCod(nomeCity);
+            //Preferiti pref = new()
+            //{
+            //    CityName = nomeCity,
+            //    Latitude = geo.Value.lat,
+            //    Longitude = geo.Value.lon
+            //};
+            //try
+            //{
+            //    await App.PreferitiRepo.AddPreferito(pref);
+            //}
+            //catch (Exception ex)
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "OK");
+            //}
+            //await App.Current.MainPage.DisplayAlert("Nuova città aggiunta:", nomeCity, "OK");
         }
         #endregion
     }
