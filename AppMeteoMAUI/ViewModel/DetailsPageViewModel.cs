@@ -9,6 +9,7 @@ namespace AppMeteoMAUI.ViewModel
     public partial class DetailsPageViewModel : ObservableObject
     {
         public ObservableCollection<ForecastDaily> currentForecast { get; set; }
+        public ObservableCollection<TemperatureChartModel> chart { get; set; }
         public static double windMedio;
         public static double tempMedia;
 
@@ -23,6 +24,7 @@ namespace AppMeteoMAUI.ViewModel
         public DetailsPageViewModel(ForecastDaily fore)
         {
             currentForecast = new ObservableCollection<ForecastDaily>();
+            chart = new ObservableCollection<TemperatureChartModel>();
             Forecast = fore;
             StampaDati();
         }
@@ -67,6 +69,7 @@ namespace AppMeteoMAUI.ViewModel
                     currentForecast.Add(new ForecastDaily() { CurrentForecast1Day = objCur });
                     windMedio += (double)objCur.VelVento;
                     tempMedia += objCur.Temperature2m;
+                    chart.Add(new() { Hour = objCur.Time.Value.Hour.ToString(), Temperature = objCur.Temperature2m});
                 }
                 windMedio /= 24;
                 tempMedia /= 24;

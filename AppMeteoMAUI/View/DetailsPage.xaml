@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              x:Class="AppMeteoMAUI.View.DetailsPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model">
     <Grid
         ColumnDefinitions="*, *"
         ColumnSpacing="5"
-        RowDefinitions="Auto, Auto, *"
+        RowDefinitions="Auto, Auto, *, Auto"
         RowSpacing="0">
         <ContentView
-            Grid.Row="2"
-            Grid.ColumnSpan="2">
+                Grid.Row="2"
+                Grid.ColumnSpan="2">
             <CollectionView ItemsSource="{Binding currentForecast}"
-                                    SelectionMode="None">
+                            SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:ForecastDaily">
                         <Frame Style="{StaticResource CardView}">
@@ -89,5 +90,34 @@
             Margin="0, 0, 0, 15"
             Style="{StaticResource MediumLabel}"
             Text="{Binding DescrizioneGiornata, StringFormat='{0}'}"/>
+        <chart:SfCartesianChart
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="350"
+            HeightRequest="300"
+            Grid.Row="3"
+            Grid.ColumnSpan="2">
+            <chart:SfCartesianChart.XAxes>
+                <chart:CategoryAxis>
+                    <chart:CategoryAxis.Title>
+                        <chart:ChartAxisTitle Text="Orario" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
+                    </chart:CategoryAxis.Title>
+                </chart:CategoryAxis>
+            </chart:SfCartesianChart.XAxes>
+            <chart:SfCartesianChart.YAxes>
+                <chart:NumericalAxis>
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle Text="Temperatura (°C)" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
+                    </chart:NumericalAxis.Title>
+                </chart:NumericalAxis>
+            </chart:SfCartesianChart.YAxes>
+            <chart:SfCartesianChart.Title>
+                <Label Text="Temperatura nella giornata" HorizontalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}"/>
+            </chart:SfCartesianChart.Title>
+            <chart:ColumnSeries 
+                ItemsSource="{Binding chart}" 
+                XBindingPath="Hour" 
+                YBindingPath="Temperature"/>
+        </chart:SfCartesianChart>
     </Grid>
 </ContentPage>
