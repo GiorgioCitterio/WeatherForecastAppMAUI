@@ -1,6 +1,4 @@
-﻿using SQLite;
-
-namespace AppMeteoMAUI.Model
+﻿namespace AppMeteoMAUI.Model
 {
     [Table("Preferiti")]
     public class Preferiti

@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace AppMeteoMAUI.Model
+﻿namespace AppMeteoMAUI.Model
 {
     public class CittàDaCoordinate
     {

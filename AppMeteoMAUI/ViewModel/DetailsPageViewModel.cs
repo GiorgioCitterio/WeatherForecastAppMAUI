@@ -1,10 +1,4 @@
-﻿using AppMeteoMAUI.Model;
-using AppMeteoMAUI.View;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-
-namespace AppMeteoMAUI.ViewModel
+﻿namespace AppMeteoMAUI.ViewModel
 {
     public partial class DetailsPageViewModel : ObservableObject
     {

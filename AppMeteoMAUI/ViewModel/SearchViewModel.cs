@@ -1,10 +1,3 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using AppMeteoMAUI.Model;
-using System.Net.Http.Json;
-using System.Web;
-using AppMeteoMAUI.View;
-
 namespace AppMeteoMAUI.ViewModel
 {
     public partial class SearchViewModel : ObservableObject

@@ -1,7 +1,4 @@
-﻿using AppMeteoMAUI.Model;
-using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace AppMeteoMAUI.ViewModel
+﻿namespace AppMeteoMAUI.ViewModel
 {
     public partial class HourDetailViewModel : ObservableObject
     {

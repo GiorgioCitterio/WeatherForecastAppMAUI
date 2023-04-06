@@ -1,7 +1,4 @@
-﻿using SQLite;
-using AppMeteoMAUI.Model;
-
-namespace AppMeteoMAUI.Service
+﻿namespace AppMeteoMAUI.Service
 {
     public class PreferitiRepository
     {

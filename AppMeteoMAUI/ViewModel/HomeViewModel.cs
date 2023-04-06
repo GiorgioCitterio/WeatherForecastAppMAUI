@@ -1,7 +1,4 @@
-﻿using AppMeteoMAUI.View;
-using CommunityToolkit.Mvvm.Input;
-
-namespace AppMeteoMAUI.ViewModel
+﻿namespace AppMeteoMAUI.ViewModel
 {
     public partial class HomeViewModel
     {

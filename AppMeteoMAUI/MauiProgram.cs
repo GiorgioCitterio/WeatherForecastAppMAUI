@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using AppMeteoMAUI.Service;
-using Syncfusion.Maui.Core.Hosting;
-
-namespace AppMeteoMAUI;
+﻿namespace AppMeteoMAUI;
 
 public static class MauiProgram
 {

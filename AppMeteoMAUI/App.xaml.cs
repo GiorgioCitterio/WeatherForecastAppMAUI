@@ -1,5 +1,4 @@
-﻿using AppMeteoMAUI.Service;
-namespace AppMeteoMAUI;
+﻿namespace AppMeteoMAUI;
 
 public partial class App : Application
 {

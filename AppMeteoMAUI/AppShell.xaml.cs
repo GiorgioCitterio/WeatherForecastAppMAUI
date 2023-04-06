@@ -1,5 +1,4 @@
-﻿using AppMeteoMAUI.View;
-namespace AppMeteoMAUI;
+﻿namespace AppMeteoMAUI;
 
 public partial class AppShell : Shell
 {

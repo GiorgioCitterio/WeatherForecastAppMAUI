@@ -1,8 +1,3 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using AppMeteoMAUI.Model;
-using CommunityToolkit.Mvvm.Input;
-using AppMeteoMAUI.View;
-
 namespace AppMeteoMAUI.ViewModel
 {
     public partial class PreferitiViewModel : ObservableObject

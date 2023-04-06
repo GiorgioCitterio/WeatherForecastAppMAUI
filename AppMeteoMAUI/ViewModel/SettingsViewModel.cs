@@ -1,9 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using AppMeteoMAUI.Model;
-using System.Text.Json;
-using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace AppMeteoMAUI.ViewModel
+﻿namespace AppMeteoMAUI.ViewModel
 {
     public partial class SettingsViewModel : ObservableObject
     {

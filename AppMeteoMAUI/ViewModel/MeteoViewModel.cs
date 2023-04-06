@@ -1,13 +1,3 @@
-using AppMeteoMAUI.Model;
-using AppMeteoMAUI.View;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls.PlatformConfiguration;
-using System.Collections.ObjectModel;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Web;
-
 namespace AppMeteoMAUI.ViewModel
 {
     public partial class MeteoViewModel : ObservableObject
