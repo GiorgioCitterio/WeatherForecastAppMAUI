@@ -5,119 +5,114 @@
              x:Class="AppMeteoMAUI.View.DetailsPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
              xmlns:model="clr-namespace:AppMeteoMAUI.Model">
-    <Grid
-        ColumnDefinitions="*, *"
-        ColumnSpacing="5"
-        RowDefinitions="Auto, Auto, *, Auto"
-        RowSpacing="0">
-        <ContentView
-                Grid.Row="2"
-                Grid.ColumnSpan="2">
-            <CollectionView ItemsSource="{Binding currentForecast}"
+    
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid
+                ColumnDefinitions="*, *">
+                <Label
+                    Margin="30, 15, 0, 15"
+                    Style="{StaticResource MediumLabel}"
+                    Text="{Binding Alba, StringFormat='🌄 Alba: {0:HH:mm}'}"/>
+                <Label
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    Margin="0, 15, 30, 15"
+                    Style="{StaticResource MediumLabel}"
+                    Text="{Binding Tramonto, StringFormat='🌅 Tramonto: {0:HH:mm}'}"/>
+            </Grid>
+            <Label
+                HorizontalOptions="Center"
+                Margin="0, 0, 0, 15"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding DescrizioneGiornata, StringFormat='{0}'}"/>
+            <ContentView>
+                <CollectionView ItemsSource="{Binding currentForecast}"
                             SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:ForecastDaily">
-                        <Frame Style="{StaticResource CardView}">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer 
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ForecastDaily">
+                            <Frame Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:DetailsPageViewModel}}, Path=GoToDetailsHourCommand}"
                                             CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                            <Grid Padding="0" ColumnDefinitions="50,85,*, *">
-                                <Image
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="0" ColumnDefinitions="50,85,*, *">
+                                    <Image
                                         Grid.Column="1"
                                         Margin="0, 0, 0, 12"
                                         Aspect="AspectFill"
                                         HeightRequest="55"
                                         Source="{Binding CurrentForecast1Day.ImageUrl}"
                                         WidthRequest="55"/>
-                                <Label
+                                    <Label
                                         Grid.Column="1"
                                         Text="{Binding CurrentForecast1Day.DescMeteo}"
                                         Style="{StaticResource MicroLabel}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"
                                         Margin="0, 0, 0, 10"/>
-                                <StackLayout
+                                    <StackLayout
                                         HorizontalOptions="End"
                                         VerticalOptions="Center">
-                                    <Label
+                                        <Label
                                             Style="{StaticResource MediumLabel}"
                                             Text="{Binding CurrentForecast1Day.Time, StringFormat='{0:HH:mm}'}"/>
-                                </StackLayout>
-                                <VerticalStackLayout
+                                    </StackLayout>
+                                    <VerticalStackLayout
                                         Grid.Column="2"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Center"
                                         Padding="10">
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding  CurrentForecast1Day.Temperature2m, StringFormat='{0}°'}" Margin="0, 0, 0, 5"/>
-                                    <Label Style="{StaticResource SmallLabel }" Text="{Binding CurrentForecast1Day.ApparentTemperature, StringFormat='p. {0}°'}" 
+                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding  CurrentForecast1Day.Temperature2m, StringFormat='{0}°'}" Margin="0, 0, 0, 5"/>
+                                        <Label Style="{StaticResource SmallLabel }" Text="{Binding CurrentForecast1Day.ApparentTemperature, StringFormat='p. {0}°'}" 
                                            TextColor="#999999"/>
-                                </VerticalStackLayout>
-                                <HorizontalStackLayout
+                                    </VerticalStackLayout>
+                                    <HorizontalStackLayout
                                         Grid.Column="3"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Center"
                                         Padding="10">
-                                    <Label
+                                        <Label
                                         Style="{StaticResource SmallLabel}"
                                         Text="{Binding CurrentForecast1Day.VelVento, StringFormat='༄ {0} km/h'}"/>
-                                    <Label
+                                        <Label
                                         Margin="0, 9, 0, 0"
                                         Style="{StaticResource MicroLabel}"
                                         Text="{Binding CurrentForecast1Day.DirVento, StringFormat='  {0}'}"/>
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ContentView>
-        <Label
-            Margin="30, 15, 0, 15"
-            Style="{StaticResource MediumLabel}"
-            Text="{Binding Alba, StringFormat='🌄 Alba: {0:HH:mm}'}"/>
-        <Label
-            Grid.Column="1"
-            HorizontalOptions="End"
-            Margin="0, 15, 30, 15"
-            Style="{StaticResource MediumLabel}"
-            Text="{Binding Tramonto, StringFormat='🌅 Tramonto: {0:HH:mm}'}"/>
-        <Label
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            HorizontalOptions="Center"
-            Margin="0, 0, 0, 15"
-            Style="{StaticResource MediumLabel}"
-            Text="{Binding DescrizioneGiornata, StringFormat='{0}'}"/>
-        <chart:SfCartesianChart
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ContentView>
+            <chart:SfCartesianChart
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            WidthRequest="350"
-            HeightRequest="300"
-            Grid.Row="3"
-            Grid.ColumnSpan="2">
-            <chart:SfCartesianChart.XAxes>
-                <chart:CategoryAxis>
-                    <chart:CategoryAxis.Title>
-                        <chart:ChartAxisTitle Text="Orario" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
-                    </chart:CategoryAxis.Title>
-                </chart:CategoryAxis>
-            </chart:SfCartesianChart.XAxes>
-            <chart:SfCartesianChart.YAxes>
-                <chart:NumericalAxis>
-                    <chart:NumericalAxis.Title>
-                        <chart:ChartAxisTitle Text="Temperatura (°C)" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
-                    </chart:NumericalAxis.Title>
-                </chart:NumericalAxis>
-            </chart:SfCartesianChart.YAxes>
-            <chart:SfCartesianChart.Title>
-                <Label Text="Temperatura nella giornata" HorizontalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}"/>
-            </chart:SfCartesianChart.Title>
-            <chart:ColumnSeries 
+            WidthRequest="375">
+                <chart:SfCartesianChart.XAxes>
+                    <chart:CategoryAxis>
+                        <chart:CategoryAxis.Title>
+                            <chart:ChartAxisTitle Text="Orario" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
+                        </chart:CategoryAxis.Title>
+                    </chart:CategoryAxis>
+                </chart:SfCartesianChart.XAxes>
+                <chart:SfCartesianChart.YAxes>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Temperatura (°C)" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.YAxes>
+                <chart:SfCartesianChart.Title>
+                    <Label Text="Temperatura nella giornata" HorizontalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}"/>
+                </chart:SfCartesianChart.Title>
+                <chart:ColumnSeries 
                 ItemsSource="{Binding chart}" 
                 XBindingPath="Hour" 
                 YBindingPath="Temperature"/>
-        </chart:SfCartesianChart>
-    </Grid>
+            </chart:SfCartesianChart>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
