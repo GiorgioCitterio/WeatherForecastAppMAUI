@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AppMeteoMAUI"
     xmlns:view="clr-namespace:AppMeteoMAUI.View"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Flyout">
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -24,9 +24,23 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <ShellContent
-        Shell.NavBarIsVisible="true"
-        Title="Meteo"
-        ContentTemplate="{DataTemplate view:Home}"
-        Route="TabBarPageHome" /> 
+
+    <FlyoutItem Title="Main" Icon="thermometer.png">
+        <ShellContent Title="Forecast" Icon="sleet.png"
+                      ContentTemplate="{DataTemplate view:MainPage}"
+                      Shell.NavBarIsVisible="true"
+        />
+
+        <ShellContent Title="Settings" Icon="settings.png"
+                      ContentTemplate="{DataTemplate view:Settings}"
+                      Shell.NavBarIsVisible="true"
+        />
+    </FlyoutItem>
+
+    <FlyoutItem Title="More" Icon="settings.png">
+        <ShellContent Title="Preferiti"
+                      ContentTemplate="{DataTemplate view:PreferitiView}"
+                      Shell.NavBarIsVisible="true"
+        />
+    </FlyoutItem>
 </Shell>
