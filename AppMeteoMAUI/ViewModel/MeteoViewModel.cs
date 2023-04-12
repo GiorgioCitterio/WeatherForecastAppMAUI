@@ -67,7 +67,7 @@ namespace AppMeteoMAUI.ViewModel
             string fileJson = File.ReadAllText(path);
             PosizionePredefinita pos = JsonSerializer.Deserialize<PosizionePredefinita>(fileJson);
             (double? lat, double? lon)? geo = await GeoCod(pos.posizionePredefinita);
-            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,relativehumidity_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,precipitation_probability,precipitation,showers&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
+            FormattableString urlAdd = $"https://api.open-meteo.com/v1/forecast?latitude={geo?.lat}&longitude={geo?.lon}&&hourly=temperature_2m,relativehumidity_2m,weathercode,windspeed_10m,winddirection_10m,apparent_temperature,direct_radiation,precipitation_probability,precipitation,uv_index,visibility&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,apparent_temperature_max,apparent_temperature_min&current_weather=true&timeformat=unixtime&forecast_days=7&timezone=auto";
             await StampaDatiAsync(urlAdd);
             City = pos.posizionePredefinita;
         }
