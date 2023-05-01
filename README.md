@@ -8,11 +8,10 @@
 ### [Come scaricare l'app](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
 
 ---
-
-![app_start](gifs/app_start.gif)
-![search_city](gifs/search_city.gif)
-![favorites](gifs/favourites.gif)
-![settings](gifs/settings.gif)
+<img src="gifs/app_start.gif" width=250px></img>
+<img src="gifs/search_city.gif" width=250px></img>
+<img src="gifs/favourites.gif" width=250px></img>
+<img src="gifs/settings.gif" width=250px></img>
 ---
 
 ### Funzionalità
