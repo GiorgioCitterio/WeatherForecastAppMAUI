@@ -9,8 +9,11 @@
 
 ---
 <img src="gifs/app_start.gif" width=250px></img>
+
 <img src="gifs/search_city.gif" width=250px></img>
+
 <img src="gifs/favourites.gif" width=250px></img>
+
 <img src="gifs/settings.gif" width=250px></img>
 ---
 
