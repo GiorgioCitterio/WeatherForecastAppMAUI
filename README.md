@@ -9,8 +9,10 @@
 
 ---
 
-
-
+![app_start](gifs/app_start.gif)
+![search_city](gifs/search_city.gif)
+![favorites](gifs/favourites.gif)
+![settings](gifs/settings.gif)
 ---
 
 ### Funzionalità
