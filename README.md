@@ -4,7 +4,23 @@
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+
 ### [Come scaricare l'app](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
+
+---
+
+
+
+---
+
+### Funzionalità
+- Impostare una località predefinita di cui mostrare le previsioni meteo all'avvio dell'app.
+- All'avvio dell'app mostrare la posizione corrente utilizzando il GPS.
+- Cercare le previsioni meteo di qualsiasi città.
+- Tema chiaro/scuro basato sulle impostazioni di sistema.
+- Vedere il grafico a barre delle temperature della giornata.
+- Aggiungere città nei preferiti e visualizzare le previsioni di questa.
+
 ### Piattaforme:
 - Android
 ---
