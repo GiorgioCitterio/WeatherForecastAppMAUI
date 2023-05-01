@@ -16,4 +16,3 @@
 - **sqlite-net-pc**: Libreria di *SQLite-net* utilizzata per database sqlite.
 - **SQLitePCLRaw.bundle_green**: Libreria di *Eric Sink* utilizzata per database sqlite.
 - **Syncfusion.Maui.Charts**: Libreria di *Syncfusion* utilizzata per realizzare il grafico a barre delle temperature nella giornata.
----
