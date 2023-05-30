@@ -39,7 +39,6 @@ namespace AppMeteoMAUI.ViewModel
                 CercaLocalita();
                 Preferences.Set("esegui_predefinito", true);
             }
-                
         }
 
         #region Posizione Predefinita
@@ -79,8 +78,12 @@ namespace AppMeteoMAUI.ViewModel
         {
             if (forecastDaily == null)
                 return;
-            DetailsPageViewModel viewModel = new(forecastDaily);
-            await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(viewModel));
+            int? num = forecastDaily.CurrentForecast.GiornoDellaSettimana;
+            for (int i = 0; i < 24; i++)
+            {
+                forecastDaily.Dati.Add(forecastDaily.Hourly)
+            }
+            await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(forecastDaily));
         }
         #endregion
 
@@ -144,12 +147,12 @@ namespace AppMeteoMAUI.ViewModel
                         ForecastDailiesCollection.Clear();
                         for (int i = 0; i < fd.Time.Count; i++)
                         {
-                            (string, ImageSource) datiImmagine = WMOCodesIntIT(fd.Weathercode[i]);
+                            (string, ImageSource) datiImmagine = Convertitors.WMOCodesIntIT(fd.Weathercode[i]);
                             CurrentForecast objCur = new()
                             {
                                 Temperature2mMax = fd.Temperature2mMax[i],
                                 Temperature2mMin = fd.Temperature2mMin[i],
-                                Data = UnixTimeStampToDateTime(fd.Time[i]),
+                                Data = Convertitors.UnixTimeStampToDateTime(fd.Time[i]),
                                 DescMeteo = datiImmagine.Item1,
                                 ImageUrl = datiImmagine.Item2,
                                 GiornoDellaSettimana = i,
@@ -159,10 +162,10 @@ namespace AppMeteoMAUI.ViewModel
                             ForecastDailiesCollection.Add(new ForecastDaily() { CurrentForecast = objCur, Daily = fd, Hourly = forecastDaily.Hourly });
                         }
                         Temperatura = forecastDaily.CurrentWeather.Temperature;
-                        DateTime? alba = UnixTimeStampToDateTime(fd.Sunrise[0]);
-                        DateTime? tramonto = UnixTimeStampToDateTime(fd.Sunset[0]);
+                        DateTime? alba = Convertitors.UnixTimeStampToDateTime(fd.Sunrise[0]);
+                        DateTime? tramonto = Convertitors.UnixTimeStampToDateTime(fd.Sunset[0]);
                         DateTime ora = DateTime.Now;
-                        (string, ImageSource) currentIcon = WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
+                        (string, ImageSource) currentIcon = Convertitors.WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
                         if (currentIcon.Item1 == "cielo sereno" && (ora > tramonto || ora.Hour == 0 || ora < alba))
                         {
                             currentIcon.Item2 = ImageSource.FromFile("clear_night.svg");
@@ -176,11 +179,11 @@ namespace AppMeteoMAUI.ViewModel
                         var fdHour = forecastDaily.Hourly;
                         for (int i = 0; i < 24; i++)
                         {
-                            (string, ImageSource) datiImmagine = WMOCodesIntIT(fdHour.Weathercode[i]);
+                            (string, ImageSource) datiImmagine = Convertitors.WMOCodesIntIT(fdHour.Weathercode[i]);
                             CurrentForecast1Day currentForecast1Day = new()
                             {
                                 Temperature2m = fdHour.Temperature2m[i],
-                                Time = UnixTimeStampToDateTime(fdHour.Time[i]),
+                                Time = Convertitors.UnixTimeStampToDateTime(fdHour.Time[i]),
                                 ImageUrl = datiImmagine.Item2
                             };
                             if (datiImmagine.Item1 == "cielo sereno" && (currentForecast1Day.Time > tramonto || currentForecast1Day.Time.Value.Hour == 0 || currentForecast1Day.Time < alba))
@@ -227,50 +230,6 @@ namespace AppMeteoMAUI.ViewModel
                 await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "cancel");
                 return null;
             }
-        }
-        private static DateTime? UnixTimeStampToDateTime(double? unixTimeStamp)
-        {
-            if (unixTimeStamp != null)
-            {
-                DateTime dateTime = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-                dateTime = dateTime.AddSeconds((double)unixTimeStamp).ToLocalTime();
-                return dateTime;
-            }
-            return null;
-        }
-        static (string, ImageSource) WMOCodesIntIT(int? code)
-        {
-            return code switch
-            {
-                0 => ("cielo sereno", ImageSource.FromFile("clear_day.svg")),
-                1 => ("limpido", ImageSource.FromFile("partly_cloudy_day.svg")),
-                2 => ("annuvolato", ImageSource.FromFile("cloudy.svg")),
-                3 => ("coperto", ImageSource.FromFile("extreme_rain.svg")),
-                45 => ("nebbia", ImageSource.FromFile("fog.svg")),
-                48 => ("brina", ImageSource.FromFile("extreme_fog.svg")),
-                51 => ("pioggerella", ImageSource.FromFile("drizzle.svg")),
-                53 => ("pioggerella", ImageSource.FromFile("drizzle.svg")),
-                55 => ("pioggerella intensa", ImageSource.FromFile("drizzle.svg")),
-                56 => ("pioggerella gelata", ImageSource.FromFile("sleet.svg")),
-                57 => ("pioggerella gelata", ImageSource.FromFile("extreme_sleet.svg")),
-                61 => ("pioggia scarsa", ImageSource.FromFile("drizzle.svg")),
-                63 => ("pioggia moderata", ImageSource.FromFile("drizzle.svg")),
-                65 => ("pioggia intensa", ImageSource.FromFile("extrene_drizzle.svg")),
-                66 => ("pioggia gelata", ImageSource.FromFile("sleet.svg")),
-                67 => ("pioggia gelata", ImageSource.FromFile("extreme_sleet.svg")),
-                71 => ("nevicata lieve", ImageSource.FromFile("snow.svg")),
-                73 => ("nevicata media", ImageSource.FromFile("snow.svg")),
-                75 => ("nevicata intensa", ImageSource.FromFile("extreme_snow.svg")),
-                77 => ("granelli di neve", ImageSource.FromFile("sleet.svg")),
-                80 => ("pioggia debole", ImageSource.FromFile("drizzle.svg")),
-                81 => ("pioggia moderata", ImageSource.FromFile("drizzle.svg")),
-                82 => ("pioggia violenta", ImageSource.FromFile("extreme_drizzle.svg")),
-                85 => ("neve leggera", ImageSource.FromFile("snow.svg")),
-                86 => ("neve pesante", ImageSource.FromFile("extreme_snow.svg")),
-                95 => ("temporale lieve", ImageSource.FromFile("drizzle.svg")),
-                96 => ("temporale grandine", ImageSource.FromFile("sleet.svg")),
-                99 => ("temporale grandine", ImageSource.FromFile("extreme_sleet.svg"))
-            };
         }
         #endregion
 

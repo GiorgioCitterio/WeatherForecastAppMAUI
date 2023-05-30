@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              x:Class="AppMeteoMAUI.View.DetailsPage"
              xmlns:viewModel="clr-namespace:AppMeteoMAUI.ViewModel"
-             xmlns:model="clr-namespace:AppMeteoMAUI.Model">
-    
+             xmlns:model="clr-namespace:AppMeteoMAUI.Model"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:DataType="viewModel:DetailsPageViewModel">
     <ScrollView>
         <VerticalStackLayout>
             <Grid
@@ -27,7 +27,7 @@
                 Style="{StaticResource MediumLabel}"
                 Text="{Binding DescrizioneGiornata, StringFormat='{0}'}"/>
             <ContentView>
-                <CollectionView ItemsSource="{Binding currentForecast}"
+                <CollectionView ItemsSource="{Binding CurrentForecast}"
                             SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:ForecastDaily">
@@ -74,12 +74,12 @@
                                         HorizontalOptions="Center"
                                         Padding="10">
                                         <Label
-                                        Style="{StaticResource SmallLabel}"
-                                        Text="{Binding CurrentForecast1Day.VelVento, StringFormat='༄ {0} km/h'}"/>
+                                            Style="{StaticResource SmallLabel}"
+                                            Text="{Binding CurrentForecast1Day.VelVento, StringFormat='༄ {0} km/h'}"/>
                                         <Label
-                                        Margin="0, 9, 0, 0"
-                                        Style="{StaticResource MicroLabel}"
-                                        Text="{Binding CurrentForecast1Day.DirVento, StringFormat='  {0}'}"/>
+                                            Margin="0, 9, 0, 0"
+                                            Style="{StaticResource MicroLabel}"
+                                            Text="{Binding CurrentForecast1Day.DirVento, StringFormat='  {0}'}"/>
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Frame>
@@ -87,32 +87,15 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </ContentView>
-            <chart:SfCartesianChart
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            WidthRequest="375">
-                <chart:SfCartesianChart.XAxes>
-                    <chart:CategoryAxis>
-                        <chart:CategoryAxis.Title>
-                            <chart:ChartAxisTitle Text="Orario" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
-                        </chart:CategoryAxis.Title>
-                    </chart:CategoryAxis>
-                </chart:SfCartesianChart.XAxes>
-                <chart:SfCartesianChart.YAxes>
-                    <chart:NumericalAxis>
-                        <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="Temperatura (°C)" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}" />
-                        </chart:NumericalAxis.Title>
-                    </chart:NumericalAxis>
-                </chart:SfCartesianChart.YAxes>
-                <chart:SfCartesianChart.Title>
-                    <Label Text="Temperatura nella giornata" HorizontalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource DarkLabel}, Dark={StaticResource LightLabel}}"/>
-                </chart:SfCartesianChart.Title>
-                <chart:ColumnSeries 
-                ItemsSource="{Binding chart}" 
-                XBindingPath="Hour" 
-                YBindingPath="Temperature"/>
-            </chart:SfCartesianChart>
+            <lvc:CartesianChart 
+                Margin="10"
+                x:Name="chart"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                HeightRequest="200"
+                Series="{Binding Series}"
+                XAxes="{Binding XAxes}"
+                YAxes="{Binding YAxes}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

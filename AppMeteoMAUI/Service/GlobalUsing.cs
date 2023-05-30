@@ -10,4 +10,4 @@ global using System.Text.Json;
 global using System.Web;
 global using AppMeteoMAUI.Service;
 global using Microsoft.Extensions.Logging;
-global using Syncfusion.Maui.Core.Hosting;
+global using AppMeteoMAUI.Converter;

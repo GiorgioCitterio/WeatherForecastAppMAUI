@@ -193,6 +193,8 @@
 
         [JsonPropertyName("current_forecast1Day")]
         public CurrentForecast1Day CurrentForecast1Day { get; set; }
+        [JsonIgnore]
+        public Dictionary<DateTime, double> Dati { get; set; } = new();
     }
 
     public class CurrentForecast

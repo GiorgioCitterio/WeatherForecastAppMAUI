@@ -23,7 +23,6 @@
             <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" ApplyToDerivedTypes="True" />
         </ResourceDictionary>
     </Shell.Resources>
-
     <ShellContent
         Shell.NavBarIsVisible="true"
         Title="Meteo"
