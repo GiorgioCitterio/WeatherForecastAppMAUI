@@ -1,4 +1,4 @@
-﻿namespace AppMeteoMAUI.ViewModel
+namespace AppMeteoMAUI.ViewModel
 {
     public partial class SettingsViewModel : ObservableObject
     {
@@ -7,11 +7,9 @@
             StatoInizialeRadioBtn();
         }
 
-        string result;
-        [ObservableProperty]
-        bool posPredStatus;
-        [ObservableProperty]
-        bool posCorrStatus;
+        private string _result;
+        [ObservableProperty] bool posPredStatus;
+        [ObservableProperty] bool posCorrStatus;
 
         [RelayCommand]
         private async void CambiaPosizionePredefinita()
@@ -23,13 +21,13 @@
             PosizionePredefinita posizione = new();
             do
             {
-                result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
-            } while (result == null || result.Length == 0);
-            result = result.TrimEnd();
-            result = result.TrimStart();
-            if (result != null)
+                _result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
+            } while (_result == null || _result.Length == 0);
+            _result = _result.TrimEnd();
+            _result = _result.TrimStart();
+            if (_result != null)
             {
-                posizione.posizionePredefinita = result;
+                posizione.posizionePredefinita = _result;
             }
             FileStream fileStream = File.Create(path);
             await JsonSerializer.SerializeAsync(fileStream, posizione, options);

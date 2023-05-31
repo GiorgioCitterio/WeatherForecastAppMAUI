@@ -14,10 +14,4 @@ public partial class DetailsPage : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
         Shell.SetNavBarIsVisible(this, false);
     }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        DetailsPageViewModel.StampaDati();
-    }
 }

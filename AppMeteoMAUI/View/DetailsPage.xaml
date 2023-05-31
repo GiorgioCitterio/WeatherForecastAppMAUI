@@ -27,7 +27,7 @@
                 Style="{StaticResource MediumLabel}"
                 Text="{Binding DescrizioneGiornata, StringFormat='{0}'}"/>
             <ContentView>
-                <CollectionView ItemsSource="{Binding CurrentForecast}"
+                <CollectionView ItemsSource="{Binding currentForecast}"
                             SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:ForecastDaily">

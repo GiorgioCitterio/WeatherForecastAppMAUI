@@ -2,18 +2,14 @@ namespace AppMeteoMAUI.ViewModel
 {
     public partial class MeteoViewModel : ObservableObject
     {
-        [ObservableProperty]
-        string text;
-        [ObservableProperty]
-        double temperatura;
-        [ObservableProperty]
-        string city;
-        [ObservableProperty]
-        ImageSource icona;
+        [ObservableProperty] private string text;
+        [ObservableProperty] private double temperatura;
+        [ObservableProperty] private string city;
+        [ObservableProperty] private ImageSource icona;
         public ObservableCollection<ForecastDaily> ForecastDailiesCollection { get; set; }
         public ObservableCollection<ForecastDaily> ForecastHoursCollection { get; set; }
-        static HttpClient? client = new();
-        string result;
+        private static HttpClient? client = new();
+        private string _result;
 
         public MeteoViewModel()
         {
@@ -52,13 +48,13 @@ namespace AppMeteoMAUI.ViewModel
                 PosizionePredefinita posizione = new();
                 do
                 {
-                    result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
-                } while (result == null || result.Length == 0);
-                result = result.TrimEnd();
-                result = result.TrimStart();
-                if (result != null)
+                    _result = await App.Current.MainPage.DisplayPromptAsync("Inserire la posizione predefinita", "");
+                } while (_result == null || _result.Length == 0);
+                _result = _result.TrimEnd();
+                _result = _result.TrimStart();
+                if (_result != null)
                 {
-                    posizione.posizionePredefinita = result;
+                    posizione.posizionePredefinita = _result;
                 }
                 await JsonSerializer.SerializeAsync(fileStream, posizione, options);
                 await fileStream.DisposeAsync();
@@ -78,11 +74,6 @@ namespace AppMeteoMAUI.ViewModel
         {
             if (forecastDaily == null)
                 return;
-            int? num = forecastDaily.CurrentForecast.GiornoDellaSettimana;
-            for (int i = 0; i < 24; i++)
-            {
-                forecastDaily.Dati.Add(forecastDaily.Hourly)
-            }
             await App.Current.MainPage.Navigation.PushAsync(new DetailsPage(forecastDaily));
         }
         #endregion
@@ -134,6 +125,10 @@ namespace AppMeteoMAUI.ViewModel
         #region StampaDati
         public async Task StampaDatiAsync(FormattableString urlAddUnformattable)
         {
+            (string, ImageSource) datiImmagine;
+            CurrentForecast1Day currentForecast1Day = new();
+            CurrentForecast objCur = new();
+            DateTime now = DateTime.Now;
             string urlAdd = FormattableString.Invariant(urlAddUnformattable);
             var response = await client.GetAsync(urlAdd);
             try
@@ -145,10 +140,11 @@ namespace AppMeteoMAUI.ViewModel
                     {
                         var fd = forecastDaily.Daily;
                         ForecastDailiesCollection.Clear();
+                        //prende i 7 giorni della settimana
                         for (int i = 0; i < fd.Time.Count; i++)
                         {
-                            (string, ImageSource) datiImmagine = Convertitors.WMOCodesIntIT(fd.Weathercode[i]);
-                            CurrentForecast objCur = new()
+                            datiImmagine  = Convertitors.WMOCodesIntIT(fd.Weathercode[i]);
+                            objCur = new()
                             {
                                 Temperature2mMax = fd.Temperature2mMax[i],
                                 Temperature2mMin = fd.Temperature2mMin[i],
@@ -164,23 +160,23 @@ namespace AppMeteoMAUI.ViewModel
                         Temperatura = forecastDaily.CurrentWeather.Temperature;
                         DateTime? alba = Convertitors.UnixTimeStampToDateTime(fd.Sunrise[0]);
                         DateTime? tramonto = Convertitors.UnixTimeStampToDateTime(fd.Sunset[0]);
-                        DateTime ora = DateTime.Now;
                         (string, ImageSource) currentIcon = Convertitors.WMOCodesIntIT(forecastDaily.CurrentWeather.Weathercode);
-                        if (currentIcon.Item1 == "cielo sereno" && (ora > tramonto || ora.Hour == 0 || ora < alba))
+                        if (currentIcon.Item1 == "cielo sereno" && (now > tramonto || now.Hour == 0 || now < alba))
                         {
                             currentIcon.Item2 = ImageSource.FromFile("clear_night.svg");
                         }
-                        else if (currentIcon.Item1 == "limpido" && (ora > tramonto || ora.Hour == 0 || ora < alba))
+                        else if (currentIcon.Item1 == "limpido" && (now > tramonto || now.Hour == 0 || now < alba))
                         {
                             currentIcon.Item2 = ImageSource.FromFile("extreme_night.svg");
                         }
                         Icona = currentIcon.Item2;
-
+                        
+                        //prende le 24 ore del giorno corrente
                         var fdHour = forecastDaily.Hourly;
                         for (int i = 0; i < 24; i++)
                         {
-                            (string, ImageSource) datiImmagine = Convertitors.WMOCodesIntIT(fdHour.Weathercode[i]);
-                            CurrentForecast1Day currentForecast1Day = new()
+                            datiImmagine = Convertitors.WMOCodesIntIT(fdHour.Weathercode[i]);
+                            currentForecast1Day = new()
                             {
                                 Temperature2m = fdHour.Temperature2m[i],
                                 Time = Convertitors.UnixTimeStampToDateTime(fdHour.Time[i]),
@@ -203,7 +199,6 @@ namespace AppMeteoMAUI.ViewModel
             {
                 await App.Current.MainPage.DisplayAlert("Errore!", ex.Message, "cancel");
             }
-            
         }
         #endregion
 

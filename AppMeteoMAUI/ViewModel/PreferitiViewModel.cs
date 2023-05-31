@@ -2,8 +2,7 @@ namespace AppMeteoMAUI.ViewModel
 {
     public partial class PreferitiViewModel : ObservableObject
     {
-        [ObservableProperty]
-        List<Preferiti> favorites;
+        [ObservableProperty] List<Preferiti> favorites;
 
         public PreferitiViewModel()
         {

@@ -9,73 +9,80 @@ namespace AppMeteoMAUI.ViewModel
 {
     public partial class DetailsPageViewModel : ObservableObject
     {
-        [ObservableProperty] public static ForecastDaily forecast = new();
-        [ObservableProperty] private static DateTime? alba;
-        [ObservableProperty] private static DateTime? tramonto;
-        [ObservableProperty] private static string descrizioneGiornata;
-        [ObservableProperty] public static List<ForecastDaily> currentForecast;
-        //public ObservableCollection<ForecastDaily> currentForecast { get; set; }
+        [ObservableProperty] public ForecastDaily forecast = new();
+        [ObservableProperty] private DateTime? alba;
+        [ObservableProperty] private DateTime? tramonto;
+        [ObservableProperty] private string descrizioneGiornata;
+        public ObservableCollection<ForecastDaily> currentForecast { get; set; }
         public static ObservableCollection<DateTimePoint> Data { get; set; }
         private static double windMedio;
         private static double tempMedia;
 
-        public DetailsPageViewModel(ForecastDaily fore)
+        public DetailsPageViewModel(ForecastDaily forecast)
         {
-            //currentForecast = new ObservableCollection<ForecastDaily>();
-            CurrentForecast = new();
-            forecast = fore;
-            Data = new ObservableCollection<DateTimePoint>(currentForecast.Dati.Select(pair => {
-                return new DateTimePoint(pair.Key, pair.Value);
-            }));
+            currentForecast = new();
+            this.Forecast = forecast;
+            StampaDati();
+            List<DateTimePoint> data = new();
+            foreach (var item in currentForecast)
+            {
+                var point = item.CurrentForecast1Day.Dati.Select(d =>
+                {
+                    return new DateTimePoint(d.Key, d.Value);
+                });
+                data.AddRange(point);
+            }
+            Data = new ObservableCollection<DateTimePoint>(data); 
         }
 
-        public static void StampaDati()
+        private void StampaDati()
         {
-            if (forecast.Hourly != null)
+            ForecastDaily forecastDaily  = new ForecastDaily();
+            (string, ImageSource) datiImmagine;
+            if (Forecast.Hourly != null)
             {
-                var fd = forecast.Hourly;
-                int giorno = (int)forecast.CurrentForecast.GiornoDellaSettimana;
-                alba = Convertitors.UnixTimeStampToDateTime(forecast.Daily.Sunrise[giorno]);
-                tramonto = Convertitors.UnixTimeStampToDateTime(forecast.Daily.Sunset[giorno]);
+                var forecastHourly = Forecast.Hourly;
+                int day = (int)Forecast.CurrentForecast.GiornoDellaSettimana;
+                Alba = Convertitors.UnixTimeStampToDateTime(Forecast.Daily.Sunrise[day]);
+                Tramonto = Convertitors.UnixTimeStampToDateTime(Forecast.Daily.Sunset[day]);
                 for (int i = 0; i < 24; i++)
                 {
-                    int index = giorno * 24 + i;
-                    (string, ImageSource) datiImmagine = Convertitors.WMOCodesIntIT(fd.Weathercode[index]);
+                    int index = day * 24 + i;
+                    datiImmagine = Convertitors.WMOCodesIntIT(forecastHourly.Weathercode[index]);
                     CurrentForecast1Day objCur = new()
                     {
-                        Temperature2m = fd.Temperature2m[index],
-                        ApparentTemperature = fd.ApparentTemperature[index],
+                        Temperature2m = forecastHourly.Temperature2m[index],
+                        ApparentTemperature = forecastHourly.ApparentTemperature[index],
                         DescMeteo = datiImmagine.Item1,
                         ImageUrl = datiImmagine.Item2,
-                        Time = Convertitors.UnixTimeStampToDateTime(fd.Time[index]),
-                        VelVento = fd.Windspeed10m[index],
-                        DirVento = Convertitors.ConvertWindDirectionToString(fd.Winddirection10m[index]),
+                        Time = Convertitors.UnixTimeStampToDateTime(forecastHourly.Time[index]),
+                        VelVento = forecastHourly.Windspeed10m[index],
+                        DirVento = Convertitors.ConvertWindDirectionToString(forecastHourly.Winddirection10m[index]),
                         OraDelGiorno = i,
-                        Precipitation = fd.Precipitation[index],
-                        PrecipitationProbability = fd.PrecipitationProbability[index],
-                        Relativehumidity2m = fd.Relativehumidity2m[index],
-                        UvIndex = fd.UvIndex[index],
-                        DirectRadiation = fd.DirectRadiation[index],
-                        Visibility = fd.Visibility[index]
+                        Precipitation = forecastHourly.Precipitation[index],
+                        PrecipitationProbability = forecastHourly.PrecipitationProbability[index],
+                        Relativehumidity2m = forecastHourly.Relativehumidity2m[index],
+                        UvIndex = forecastHourly.UvIndex[index],
+                        DirectRadiation = forecastHourly.DirectRadiation[index],
+                        Visibility = forecastHourly.Visibility[index],
                     };
-                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > tramonto || objCur.Time.Value.Hour == 0 ||objCur.Time < alba))
+                    if (objCur.DescMeteo == "cielo sereno" && (objCur.Time > Tramonto || objCur.Time.Value.Hour == 0 ||objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("clear_night.svg");
                     }
-                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > tramonto || objCur.Time.Value.Hour == 0 || objCur.Time < alba))
+                    else if (objCur.DescMeteo == "limpido" && (objCur.Time > Tramonto || objCur.Time.Value.Hour == 0 || objCur.Time < Alba))
                     {
                         objCur.ImageUrl = ImageSource.FromFile("extreme_night.svg");
                     }
-                    var f = new ForecastDaily();
-                    f.CurrentForecast1Day = objCur;
-                    f.Dati.Add((DateTime)objCur.Time, objCur.Temperature2m);
-                    currentForecast.Add(f);
+                    forecastDaily.CurrentForecast1Day = objCur;
+                    forecastDaily.CurrentForecast1Day.Dati.Add((DateTime)objCur.Time, objCur.Temperature2m);
+                    currentForecast.Add(forecastDaily);
                     windMedio += (double)objCur.VelVento;
                     tempMedia += objCur.Temperature2m;                
                 }
                 windMedio /= 24;
                 tempMedia /= 24;
-                descrizioneGiornata = DayDescription(tempMedia, windMedio);
+                DescrizioneGiornata = DayDescription(tempMedia, windMedio);
             }
         }
 
@@ -293,10 +300,9 @@ namespace AppMeteoMAUI.ViewModel
 
         public Axis[] YAxes { get; set; } = {
             new Axis() {
-                Name = "Valore",
+                Name = "Temperatura",
                 NamePaint = new SolidColorPaint(SKColors.White),
                 LabelsPaint = new SolidColorPaint(SKColors.White)
-
             }
         };
         #endregion
