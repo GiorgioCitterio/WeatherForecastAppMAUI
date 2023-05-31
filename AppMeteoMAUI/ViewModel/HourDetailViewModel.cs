@@ -2,37 +2,37 @@
 {
     public partial class HourDetailViewModel : ObservableObject
     {
-        public HourDetailViewModel(ForecastDaily fore) 
+        private ForecastDaily Forecast;
+        [ObservableProperty] private double precipitazioni;
+        [ObservableProperty] private int probPrecipitazioni;
+        [ObservableProperty] private int umidita;
+        [ObservableProperty] private double temp;
+        [ObservableProperty] private double tempPercepita;
+        [ObservableProperty] private double? velVento;
+        [ObservableProperty] private string dirVento;
+        [ObservableProperty] private double uvIndex;
+        [ObservableProperty] private double directRadiation;
+        [ObservableProperty] private double visibility;
+        public HourDetailViewModel(ForecastDaily forecast)
         {
-            forecast = fore;
+            this.Forecast = forecast;
+            PrendiValoriDaVisualizzare();
         }
 
-        private static ForecastDaily forecast;
-        [ObservableProperty] private static double precipitazioni;
-        [ObservableProperty] private static int probPrecipitazioni;
-        [ObservableProperty] private static int umidita;
-        [ObservableProperty] private static double temp;
-        [ObservableProperty] private static double tempPercepita;
-        [ObservableProperty] private static double? velVento;
-        [ObservableProperty] private static string dirVento;
-        [ObservableProperty] private static double uvIndex;
-        [ObservableProperty] private static double directRadiation;
-        [ObservableProperty] private static double visibility;
-
-        public static void PrendiValoriDaVisualizzare()
+        public void PrendiValoriDaVisualizzare()
         {
-            if (forecast.CurrentForecast1Day != null)
+            if (Forecast.CurrentForecast1Day != null)
             {
-                temp = forecast.CurrentForecast1Day.Temperature2m;
-                precipitazioni = forecast.CurrentForecast1Day.Precipitation;
-                probPrecipitazioni = forecast.CurrentForecast1Day.PrecipitationProbability;
-                umidita = forecast.CurrentForecast1Day.Relativehumidity2m;
-                tempPercepita = forecast.CurrentForecast1Day.ApparentTemperature;
-                velVento = forecast.CurrentForecast1Day.VelVento;
-                dirVento = forecast.CurrentForecast1Day.DirVento;
-                uvIndex = forecast.CurrentForecast1Day.UvIndex;
-                directRadiation = forecast.CurrentForecast1Day.DirectRadiation;
-                visibility = forecast.CurrentForecast1Day.Visibility;
+                Temp = Forecast.CurrentForecast1Day.Temperature2m;
+                Precipitazioni = Forecast.CurrentForecast1Day.Precipitation;
+                ProbPrecipitazioni = Forecast.CurrentForecast1Day.PrecipitationProbability;
+                Umidita = Forecast.CurrentForecast1Day.Relativehumidity2m;
+                TempPercepita = Forecast.CurrentForecast1Day.ApparentTemperature;
+                VelVento = Forecast.CurrentForecast1Day.VelVento;
+                DirVento = Forecast.CurrentForecast1Day.DirVento;
+                UvIndex = Forecast.CurrentForecast1Day.UvIndex;
+                DirectRadiation = Forecast.CurrentForecast1Day.DirectRadiation;
+                Visibility = Forecast.CurrentForecast1Day.Visibility;
             }
         }
     }

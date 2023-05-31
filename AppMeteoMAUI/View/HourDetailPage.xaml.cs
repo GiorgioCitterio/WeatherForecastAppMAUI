@@ -13,10 +13,4 @@ public partial class HourDetailPage : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
         Shell.SetNavBarIsVisible(this, false);
     }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        HourDetailViewModel.PrendiValoriDaVisualizzare();
-    }
 }
