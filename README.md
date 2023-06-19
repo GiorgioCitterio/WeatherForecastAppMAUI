@@ -7,6 +7,8 @@
 
 ### [How to Download the App](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
 
+<a href="https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/blob/main/README.it.md">README.it 🇮🇹</a>
+
 ---
 <img src="gifs/app_start.gif" width=250px></img>
 
