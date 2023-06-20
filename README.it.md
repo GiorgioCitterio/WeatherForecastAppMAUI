@@ -32,9 +32,7 @@
 
 ## Panoramica dell'app <a name="appoverview"></a>
 
-L'app per le previsioni del tempo è un'applicazione mobile sviluppata utilizzando il framework .NET MAUI. Fornisce agli utenti informazioni sulle previsioni del tempo per diverse città. L'app offre varie funzionalità, come l'impostazione di una località predefinita, la visualizzazione della posizione corrente utilizzando il GPS, la ricerca delle previsioni del tempo di qualsiasi città, il supporto al tema chiaro/scuro basato sulle impostazioni di sistema e la possibilità di visualizzare un grafico a barre delle temperature giornaliere. Inoltre, gli utenti possono aggiungere città ai preferiti e accedere facilmente alle relative previsioni. Attualmente, l
-
-'app è disponibile per la piattaforma Android.
+L'app per le previsioni del tempo è un'applicazione mobile sviluppata utilizzando il framework .NET MAUI. Fornisce agli utenti informazioni sulle previsioni del tempo per diverse città. L'app offre varie funzionalità, come l'impostazione di una località predefinita, la visualizzazione della posizione corrente utilizzando il GPS, la ricerca delle previsioni del tempo di qualsiasi città, il supporto al tema chiaro/scuro basato sulle impostazioni di sistema e la possibilità di visualizzare un grafico a barre delle temperature giornaliere. Inoltre, gli utenti possono aggiungere città ai preferiti e accedere facilmente alle relative previsioni. Attualmente, l'app è disponibile per la piattaforma Android.
 
 ## Requisiti di sistema <a name="systemreq"></a>
 Dispositivo Android con sistema operativo Android (versione 9 o successiva)
