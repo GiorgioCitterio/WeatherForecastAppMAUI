@@ -93,5 +93,3 @@ Puoi trovare i video dell'app in azione nel seguente elenco:
 - [Ricerca di una città](gifs/search_city.gif)
 - [Gestione dei preferiti](gifs/favourites.gif)
 - [Impostazioni](gifs/settings.gif)
-
-Spero che questa versione in italiano dell'app per le previsioni del tempo MAUI sia di tuo gradimento!
