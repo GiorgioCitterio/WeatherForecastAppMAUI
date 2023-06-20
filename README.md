@@ -6,13 +6,12 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/GiorgioCitterio/WeatherForecastAppMAUI)
 ![GitHub Repo stars](https://img.shields.io/github/stars/GiorgioCitterio/WeatherForecastAppMAUI)
 
-
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
-### [How to Download the App](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
+## [How to Download the App](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
 
 <a href="https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/blob/master/README.it.md">README.it 🇮🇹</a>
 
@@ -41,6 +40,8 @@
 - **Syncfusion.Maui.Charts**: Syncfusion library used to create the bar chart of daily temperatures.
 
 ---
+### Gifs
+
 <img src="gifs/app_start.gif" width=250px></img>
 
 <img src="gifs/search_city.gif" width=250px></img>
