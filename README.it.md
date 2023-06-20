@@ -34,13 +34,6 @@
 
 L'app mobile è sviluppata utilizzando il framework .NET MAUI, e fornisce agli utenti informazioni sulle previsioni del tempo per diverse città. L'app offre varie funzionalità, come l'impostazione di una località predefinita, la visualizzazione della posizione corrente utilizzando il GPS, la ricerca delle previsioni del tempo di qualsiasi città, il supporto al tema chiaro/scuro basato sulle impostazioni di sistema e la possibilità di visualizzare un grafico a barre delle temperature giornaliere. Inoltre, gli utenti possono aggiungere città ai preferiti e accedere facilmente alle relative previsioni. Attualmente, l'app è disponibile per la piattaforma Android.
 
-## Requisiti di sistema <a name="systemreq"></a>
-Dispositivo Android con sistema operativo Android (versione 9 o successiva)
-
-## Installazione <a name="installation"></a>
-
-Per installare l'app sul tuo dispositivo Android, segui [questa guida](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki).
-
 ## Funzionalità <a name="features"></a>
 
 L'app per le previsioni del meteo offre le seguenti funzionalità:
@@ -72,6 +65,13 @@ L'app per le previsioni del meteo offre le seguenti funzionalità:
 ### 6. Aggiunta delle città ai preferiti <a name="favorites"></a>
 - Gli utenti possono aggiungere città alla lista dei preferiti per accedere rapidamente alle previsioni del tempo di queste località.
 - La funzionalità dei preferiti consente agli utenti di visualizzare comodamente le informazioni meteorologiche delle località frequentemente visitate o preferite.
+
+## Requisiti di sistema <a name="systemreq"></a>
+Dispositivo Android con sistema operativo Android (versione 9 o successiva)
+
+## Installazione <a name="installation"></a>
+
+Per installare l'app sul tuo dispositivo Android, segui [questa guida](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki).
 
 ## Versione di .NET MAUI <a name="mauiversion"></a>
 
