@@ -4,6 +4,7 @@
 ![GitHub](https://img.shields.io/github/license/GiorgioCitterio/WeatherForecastAppMAUI)
 ![GitHub deployments](https://img.shields.io/github/deployments/GiorgioCitterio/WeatherForecastAppMAUI/github-pages)
 ![GitHub repo size](https://img.shields.io/github/repo-size/GiorgioCitterio/WeatherForecastAppMAUI)
+![GitHub Repo stars](https://img.shields.io/github/stars/GiorgioCitterio/WeatherForecastAppMAUI)
 
 
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
