@@ -16,17 +16,6 @@
 
 <a href="https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/blob/master/README.it.md">README.it 🇮🇹</a>
 
----
-<img src="gifs/app_start.gif" width=250px></img>
-
-<img src="gifs/search_city.gif" width=250px></img>
-
-<img src="gifs/favourites.gif" width=250px></img>
-
-<img src="gifs/settings.gif" width=250px></img>
-
----
-
 ### Features
 - Set a default location to display the weather forecast upon app launch.
 - Display the current location using GPS upon app launch.
@@ -48,3 +37,14 @@
 - **sqlite-net-pc**: SQLite-net library used for SQLite database.
 - **SQLitePCLRaw.bundle_green**: Eric Sink library used for SQLite database.
 - **Syncfusion.Maui.Charts**: Syncfusion library used to create the bar chart of daily temperatures.
+
+---
+<img src="gifs/app_start.gif" width=250px></img>
+
+<img src="gifs/search_city.gif" width=250px></img>
+
+<img src="gifs/favourites.gif" width=250px></img>
+
+<img src="gifs/settings.gif" width=250px></img>
+
+---
