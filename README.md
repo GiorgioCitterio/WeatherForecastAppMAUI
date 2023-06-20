@@ -15,7 +15,23 @@
 
 ---
 
-## Overview
+## Table of Contents
+- Overview: <a  href="#appoverview">App Overview</a>
+- Activity 2: <a  href="#serpy">Serial Communication with Python and Arduino</a>
+- Activity 3: <a  href="#isoosi">Communication with ISO/OSI Model Packet</a>
+- Activity 4: <a  href="#guisensatt">Sensor/Actuator Control via GUI (Python)</a>
+- Activity 5: <a  href="#sensjson">Storing Sensor Data in a JSON File</a>
+- Activity 7: <a  href="#websens">Making Sensor Data Available on the Web</a>
+- Activity 8: <a  href="#webatt">Motor Control via Web Browser</a>
+- Activity 9: <a  href="#initrasp">Installation and Importing Programs on Raspberry Pi</a>
+- Activity 10: <a  href="#rf24">Sending Packets via RF24 Radio Module</a>
+- Activity 11: <a  href="#sensattrasp">Controlling Motor and Sensor from Raspberry Pi</a>
+- Activity 12: <a  href="#mqtt">Using MQTT for IoT Device Communication</a>
+- Activity 13: <a  href="#mqttesp">Using MQTT with ESP8266</a>
+- Activity 14: <a  href="#alexa">Controlling Sensor and Actuator with Alexa</a>
+- Activity 15: <a  href="#ble">Using BLE for Environment Control</a>
+
+## Overview <a name="appoverview"></a>
 
 The Weather Forecast App is a mobile application developed using .NET MAUI framework. It provides users with weather forecast information for different cities. The app offers various features such as setting a default location, displaying the current location using GPS, searching for weather forecasts of any city, supporting light/dark theme based on system settings, and allowing users to view a bar chart of daily temperatures. Additionally, users can add cities to favorites and easily access their forecasts. The app is currently available for the Android platform.
 ## System Requirements
