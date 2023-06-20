@@ -15,7 +15,7 @@
 
 ---
 
-## Sommario
+## Indice
 - <a href="#appoverview">Panoramica dell'app</a>
 - <a href="#systemreq">Requisiti di sistema</a>
 - <a href="#installation">Come installare l'app</a>
@@ -32,18 +32,18 @@
 
 ## Panoramica dell'app <a name="appoverview"></a>
 
-L'app per le previsioni del tempo è un'applicazione mobile sviluppata utilizzando il framework .NET MAUI. Fornisce agli utenti informazioni sulle previsioni del tempo per diverse città. L'app offre varie funzionalità, come l'impostazione di una località predefinita, la visualizzazione della posizione corrente utilizzando il GPS, la ricerca delle previsioni del tempo di qualsiasi città, il supporto al tema chiaro/scuro basato sulle impostazioni di sistema e la possibilità di visualizzare un grafico a barre delle temperature giornaliere. Inoltre, gli utenti possono aggiungere città ai preferiti e accedere facilmente alle relative previsioni. Attualmente, l'app è disponibile per la piattaforma Android.
+L'app mobile è sviluppata utilizzando il framework .NET MAUI, e fornisce agli utenti informazioni sulle previsioni del tempo per diverse città. L'app offre varie funzionalità, come l'impostazione di una località predefinita, la visualizzazione della posizione corrente utilizzando il GPS, la ricerca delle previsioni del tempo di qualsiasi città, il supporto al tema chiaro/scuro basato sulle impostazioni di sistema e la possibilità di visualizzare un grafico a barre delle temperature giornaliere. Inoltre, gli utenti possono aggiungere città ai preferiti e accedere facilmente alle relative previsioni. Attualmente, l'app è disponibile per la piattaforma Android.
 
 ## Requisiti di sistema <a name="systemreq"></a>
 Dispositivo Android con sistema operativo Android (versione 9 o successiva)
 
 ## Installazione <a name="installation"></a>
 
-Per installare l'app per le previsioni del tempo sul tuo dispositivo Android, segui [questa guida](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki).
+Per installare l'app sul tuo dispositivo Android, segui [questa guida](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki).
 
 ## Funzionalità <a name="features"></a>
 
-L'app per le previsioni del tempo offre le seguenti funzionalità:
+L'app per le previsioni del meteo offre le seguenti funzionalità:
 
 ### 1. Impostazione della località predefinita <a name="setdefloc"></a>
 
@@ -75,11 +75,11 @@ L'app per le previsioni del tempo offre le seguenti funzionalità:
 
 ## Versione di .NET MAUI <a name="mauiversion"></a>
 
-L'app per le previsioni del tempo è stata sviluppata utilizzando [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). Questa versione di .NET MAUI offre le ultime funzionalità e miglioramenti per la creazione di applicazioni mobili multipiattaforma.
+L'app è stata sviluppata utilizzando [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). Questa versione di .NET MAUI offre le ultime funzionalità e miglioramenti per la creazione di applicazioni mobili multipiattaforma.
 
 ### Pacchetti NuGet <a name="nuget"></a>
 
-L'app per le previsioni del tempo utilizza i seguenti pacchetti NuGet:
+L'app utilizza i seguenti pacchetti NuGet:
 - **CommunityToolkit.Mvvm**: Questa libreria Microsoft semplifica l'implementazione dell'architettura Model-View-ViewModel (MVVM) nell'app.
 - **sqlite-net-pc**: Questa libreria SQLite-net viene utilizzata per gestire le operazioni del database SQLite nell'app.
 - **SQLitePCLRaw.bundle_green**: Questa libreria di Eric Sink fornisce i componenti necessari per la funzionalità del database SQLite.
@@ -87,9 +87,10 @@ L'app per le previsioni del tempo utilizza i seguenti pacchetti NuGet:
 
 ## Video dell'app <a name="gifs"></a>
 
-Puoi trovare i video dell'app in azione nel seguente elenco:
+<img src="gifs/app_start.gif" width=250px></img>
 
-- [Avvio dell'app](gifs/app_start.gif)
-- [Ricerca di una città](gifs/search_city.gif)
-- [Gestione dei preferiti](gifs/favourites.gif)
-- [Impostazioni](gifs/settings.gif)
+<img src="gifs/search_city.gif" width=250px></img>
+
+<img src="gifs/favourites.gif" width=250px></img>
+
+<img src="gifs/settings.gif" width=250px></img>
