@@ -75,9 +75,7 @@ L'app per le previsioni del tempo offre le seguenti funzionalità:
 
 ## Versione di .NET MAUI <a name="mauiversion"></a>
 
-L'app per le previsioni del tempo è stata sviluppata utilizzando [.NET MAUI 7](https://learn.microsoft.com
-
-/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). Questa versione di .NET MAUI offre le ultime funzionalità e miglioramenti per la creazione di applicazioni mobili multipiattaforma.
+L'app per le previsioni del tempo è stata sviluppata utilizzando [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). Questa versione di .NET MAUI offre le ultime funzionalità e miglioramenti per la creazione di applicazioni mobili multipiattaforma.
 
 ### Pacchetti NuGet <a name="nuget"></a>
 
