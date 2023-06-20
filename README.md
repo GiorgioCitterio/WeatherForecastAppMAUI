@@ -16,6 +16,8 @@
 
 <a href="https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/blob/master/README.it.md">README.it 🇮🇹</a>
 
+---
+
 ### Features
 - Set a default location to display the weather forecast upon app launch.
 - Display the current location using GPS upon app launch.
