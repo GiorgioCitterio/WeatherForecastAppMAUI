@@ -33,12 +33,6 @@
 ## Overview <a name="appoverview"></a>
 
 The Weather Forecast App is a mobile application developed using .NET MAUI framework. It provides users with weather forecast information for different cities. The app offers various features such as setting a default location, displaying the current location using GPS, searching for weather forecasts of any city, supporting light/dark theme based on system settings, and allowing users to view a bar chart of daily temperatures. Additionally, users can add cities to favorites and easily access their forecasts. The app is currently available for the Android platform.
-## System Requirements <a name="systemreq"></a>
-Android device running Android OS (version 9 or higher)
-
-## Installation <a name="installation"></a>
-
-To install the Weather Forecast App on your Android device, follow [this guide.](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
 
 ## Features <a name="features"></a>
 
@@ -71,9 +65,17 @@ The Weather Forecast App offers the following features:
 - Users can add cities to their favorites list for quick access to their weather forecasts.
 - The favorites feature enables users to conveniently view the weather information for their frequently visited or preferred locations.
 
+## System Requirements <a name="systemreq"></a>
+Android device running Android OS (version 9 or higher)
+
+## Installation <a name="installation"></a>
+
+To install the Weather Forecast App on your Android device, follow [this guide.](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
+
 ## .NET MAUI Version <a name="mauiversion"></a>
 
 The Weather Forecast App was developed using [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). This version of .NET MAUI offers the latest features and enhancements for building cross-platform mobile applications.
+
 ### NuGet Packages <a name="nuget"></a>
 
 The Weather Forecast App utilizes the following NuGet packages:
