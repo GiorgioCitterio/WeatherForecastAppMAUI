@@ -11,98 +11,61 @@
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
-Overview
-
-The Weather Forecast App is a mobile application developed using .NET MAUI framework. It provides users with weather forecast information for different cities. The app offers various features such as setting a default location, displaying the current location using GPS, searching for weather forecasts of any city, supporting light/dark theme based on system settings, and allowing users to view a bar chart of daily temperatures. Additionally, users can add cities to favorites and easily access their forecasts. The app is currently available for the Android platform.
-Requirements
-
-    Android device running Android OS (version X.X or higher)
-
-Installation
-
-To install the Weather Forecast App on your Android device, follow these steps:
-
-    Go to the App Download Page.
-    Download the latest version of the app by clicking on the download link.
-    Once the download is complete, locate the APK file on your device.
-    Tap on the APK file to start the installation process.
-    Follow the on-screen instructions to complete the installation.
-
-Features
-
-The Weather Forecast App offers the following features:
-1. Set Default Location
-
-    Users can set a default location for the app to display the weather forecast upon launch.
-    This feature allows users to quickly access the weather information for their preferred location without manually searching for it.
-
-2. Display Current Location
-
-    The app utilizes GPS to determine the user's current location.
-    Upon app launch, the current location's weather forecast is displayed.
-    This feature provides users with real-time weather information for their current location.
-
-3. Search for Weather Forecasts
-
-    Users can search for weather forecasts of any city.
-    By entering the name of the city in the search bar, users can retrieve the weather information for that specific location.
-    This feature allows users to access weather forecasts for various cities around the world.
-
-4. Light/Dark Theme
-
-    The app supports both light and dark themes based on the system settings.
-    Users can enjoy a visually appealing and comfortable user interface based on their preferred theme.
-
-5. View Bar Chart of Daily Temperatures
-
-    The app provides a bar chart that visualizes the daily temperatures for a selected location.
-    Users can easily understand the temperature trends and variations for each day.
-    This feature allows users to plan their activities based on the weather conditions.
-
-6. Add Cities to Favorites
-
-    Users can add cities to their favorites list for quick access to their weather forecasts.
-    The favorites feature enables users to conveniently view the weather information for their frequently visited or preferred locations.
-
-.NET MAUI Version
-
-The Weather Forecast App was developed using .NET MAUI 7. This version of .NET MAUI offers the latest features and enhancements for building cross-platform mobile applications.
-NuGet Packages
-
-The Weather Forecast App utilizes the following NuGet packages:
-
-    CommunityToolkit.Mvvm: This Microsoft library simplifies the implementation of the Model-View-ViewModel (MVVM) architecture in the app.
-    sqlite-net-pc: This SQLite-net library is used for handling SQLite database operations in the app.
-    SQLitePCLRaw.bundle_green: This Eric Sink library provides the necessary components for SQLite database functionality.
-    Syncfusion.Maui.Charts: This Syncfusion library is used to create the bar chart visualization of daily temperatures in the app.
-
-## [How to Download the App](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
-
 <a href="https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/blob/master/README.it.md">README.it 🇮🇹</a>
 
 ---
 
-### Features
-- Set a default location to display the weather forecast upon app launch.
-- Display the current location using GPS upon app launch.
-- Search for weather forecasts of any city.
-- Light/dark theme based on system settings.
-- View the bar chart of daily temperatures.
-- Add cities to favorites and view their forecasts.
+## Overview
 
-### Platforms:
-- Android
+The Weather Forecast App is a mobile application developed using .NET MAUI framework. It provides users with weather forecast information for different cities. The app offers various features such as setting a default location, displaying the current location using GPS, searching for weather forecasts of any city, supporting light/dark theme based on system settings, and allowing users to view a bar chart of daily temperatures. Additionally, users can add cities to favorites and easily access their forecasts. The app is currently available for the Android platform.
+## System Requirements
+Android device running Android OS (version 9 or higher)
 
----
-### .NET MAUI Version:
-- The project was developed using [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0).
+## Installation
 
----
-### Nuget Packages:
-- **CommunityToolkit.Mvvm**: Microsoft library used to facilitate MVVM usage.
-- **sqlite-net-pc**: SQLite-net library used for SQLite database.
-- **SQLitePCLRaw.bundle_green**: Eric Sink library used for SQLite database.
-- **Syncfusion.Maui.Charts**: Syncfusion library used to create the bar chart of daily temperatures.
+To install the Weather Forecast App on your Android device, follow [this guide.](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
+
+## Features
+
+The Weather Forecast App offers the following features:
+### 1. Set Default Location
+
+- Users can set a default location for the app to display the weather forecast upon launch.
+- This feature allows users to quickly access the weather information for their preferred location without manually searching for it.
+
+### 2. Display Current Location
+- The app utilizes GPS to determine the user's current location.
+- Upon app launch, the current location's weather forecast is displayed.
+- This feature provides users with real-time weather information for their current location.
+
+### 3. Search for Weather Forecasts
+- Users can search for weather forecasts of any city.
+- By entering the name of the city in the search bar, users can retrieve the weather information for that specific location.
+- This feature allows users to access weather forecasts for various cities around the world.
+
+### 4. Light/Dark Theme
+- The app supports both light and dark themes based on the system settings.
+- Users can enjoy a visually appealing and comfortable user interface based on their preferred theme.
+
+### 5. View Bar Chart of Daily Temperatures
+- The app provides a bar chart that visualizes the daily temperatures for a selected location.
+- Users can easily understand the temperature trends and variations for each day.
+- This feature allows users to plan their activities based on the weather conditions.
+
+### 6. Add Cities to Favorites
+- Users can add cities to their favorites list for quick access to their weather forecasts.
+- The favorites feature enables users to conveniently view the weather information for their frequently visited or preferred locations.
+
+## .NET MAUI Version
+
+The Weather Forecast App was developed using [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). This version of .NET MAUI offers the latest features and enhancements for building cross-platform mobile applications.
+### NuGet Packages
+
+The Weather Forecast App utilizes the following NuGet packages:
+- **CommunityToolkit.Mvvm**: This Microsoft library simplifies the implementation of the Model-View-ViewModel (MVVM) architecture in the app.
+- **sqlite-net-pc**: This SQLite-net library is used for handling SQLite database operations in the app.
+- **SQLitePCLRaw.bundle_green**: This Eric Sink library provides the necessary components for SQLite database functionality.
+- **Syncfusion.Maui.Charts**: This Syncfusion library is used to create the bar chart visualization of daily temperatures in the app.
 
 ---
 ### Gifs
@@ -114,5 +77,3 @@ The Weather Forecast App utilizes the following NuGet packages:
 <img src="gifs/favourites.gif" width=250px></img>
 
 <img src="gifs/settings.gif" width=250px></img>
-
----
