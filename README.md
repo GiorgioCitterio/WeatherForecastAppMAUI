@@ -74,7 +74,7 @@ The Weather Forecast App offers the following features:
 ## .NET MAUI Version <a name="mauiversion"></a>
 
 The Weather Forecast App was developed using [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). This version of .NET MAUI offers the latest features and enhancements for building cross-platform mobile applications.
-### NuGet Packages
+### NuGet Packages <a name="nuget"></a>
 
 The Weather Forecast App utilizes the following NuGet packages:
 - **CommunityToolkit.Mvvm**: This Microsoft library simplifies the implementation of the Model-View-ViewModel (MVVM) architecture in the app.
