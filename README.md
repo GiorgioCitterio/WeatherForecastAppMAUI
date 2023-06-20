@@ -16,7 +16,7 @@
 ---
 
 ## Table of Contents
-- Overview: <a  href="#appoverview">App Overview</a>
+- <a  href="#appoverview">App Overview</a>
 - Activity 2: <a  href="#serpy">Serial Communication with Python and Arduino</a>
 - Activity 3: <a  href="#isoosi">Communication with ISO/OSI Model Packet</a>
 - Activity 4: <a  href="#guisensatt">Sensor/Actuator Control via GUI (Python)</a>
