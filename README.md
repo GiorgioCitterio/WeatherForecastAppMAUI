@@ -17,62 +17,61 @@
 
 ## Table of Contents
 - <a  href="#appoverview">App Overview</a>
-- Activity 2: <a  href="#serpy">Serial Communication with Python and Arduino</a>
-- Activity 3: <a  href="#isoosi">Communication with ISO/OSI Model Packet</a>
-- Activity 4: <a  href="#guisensatt">Sensor/Actuator Control via GUI (Python)</a>
-- Activity 5: <a  href="#sensjson">Storing Sensor Data in a JSON File</a>
-- Activity 7: <a  href="#websens">Making Sensor Data Available on the Web</a>
-- Activity 8: <a  href="#webatt">Motor Control via Web Browser</a>
-- Activity 9: <a  href="#initrasp">Installation and Importing Programs on Raspberry Pi</a>
-- Activity 10: <a  href="#rf24">Sending Packets via RF24 Radio Module</a>
-- Activity 11: <a  href="#sensattrasp">Controlling Motor and Sensor from Raspberry Pi</a>
-- Activity 12: <a  href="#mqtt">Using MQTT for IoT Device Communication</a>
-- Activity 13: <a  href="#mqttesp">Using MQTT with ESP8266</a>
-- Activity 14: <a  href="#alexa">Controlling Sensor and Actuator with Alexa</a>
-- Activity 15: <a  href="#ble">Using BLE for Environment Control</a>
+- <a  href="#systemreq">System Requirements</a>
+- <a  href="#installation">How To Install The App</a>
+- <a  href="#features">Features</a>
+  - <a  href="#setdefloc">Set Default Location</a>
+  - <a  href="#discurloc">Display Current Location</a>
+  - <a  href="#searchforw">Search Weather Forecast Of Every City</a>
+  - <a  href="#lightdarktheme">Light And Dark Theme</a>
+  - <a  href="#temperatureschart">View Bar Chart Of Daily Temperatures</a>
+  - <a  href="#favorites">Add Cities To Favorites</a>
+- <a  href="#mauiversion">.NET MAUI Version</a>
+- <a  href="#nuget">Nuget Packages</a>
+- <a  href="#gifs">Video Of The App</a>
 
 ## Overview <a name="appoverview"></a>
 
 The Weather Forecast App is a mobile application developed using .NET MAUI framework. It provides users with weather forecast information for different cities. The app offers various features such as setting a default location, displaying the current location using GPS, searching for weather forecasts of any city, supporting light/dark theme based on system settings, and allowing users to view a bar chart of daily temperatures. Additionally, users can add cities to favorites and easily access their forecasts. The app is currently available for the Android platform.
-## System Requirements
+## System Requirements <a name="systemreq"></a>
 Android device running Android OS (version 9 or higher)
 
-## Installation
+## Installation <a name="installation"></a>
 
 To install the Weather Forecast App on your Android device, follow [this guide.](https://github.com/GiorgioCitterio/WeatherForecastAppMAUI/wiki)
 
-## Features
+## Features <a name="features"></a>
 
 The Weather Forecast App offers the following features:
-### 1. Set Default Location
+### 1. Set Default Location <a name="setdefloc"></a>
 
 - Users can set a default location for the app to display the weather forecast upon launch.
 - This feature allows users to quickly access the weather information for their preferred location without manually searching for it.
 
-### 2. Display Current Location
+### 2. Display Current Location <a name="discurloc"></a>
 - The app utilizes GPS to determine the user's current location.
 - Upon app launch, the current location's weather forecast is displayed.
 - This feature provides users with real-time weather information for their current location.
 
-### 3. Search for Weather Forecasts
+### 3. Search for Weather Forecasts <a name="searchforw"></a>
 - Users can search for weather forecasts of any city.
 - By entering the name of the city in the search bar, users can retrieve the weather information for that specific location.
 - This feature allows users to access weather forecasts for various cities around the world.
 
-### 4. Light/Dark Theme
+### 4. Light/Dark Theme <a name="lightdarktheme"></a>
 - The app supports both light and dark themes based on the system settings.
 - Users can enjoy a visually appealing and comfortable user interface based on their preferred theme.
 
-### 5. View Bar Chart of Daily Temperatures
+### 5. View Bar Chart of Daily Temperatures <a name="temperatureschart"></a>
 - The app provides a bar chart that visualizes the daily temperatures for a selected location.
 - Users can easily understand the temperature trends and variations for each day.
 - This feature allows users to plan their activities based on the weather conditions.
 
-### 6. Add Cities to Favorites
+### 6. Add Cities to Favorites <a name="favorites"></a>
 - Users can add cities to their favorites list for quick access to their weather forecasts.
 - The favorites feature enables users to conveniently view the weather information for their frequently visited or preferred locations.
 
-## .NET MAUI Version
+## .NET MAUI Version <a name="mauiversion"></a>
 
 The Weather Forecast App was developed using [.NET MAUI 7](https://learn.microsoft.com/en-us/dotnet/maui/whats-new/dotnet-7?view=net-maui-7.0). This version of .NET MAUI offers the latest features and enhancements for building cross-platform mobile applications.
 ### NuGet Packages
@@ -84,7 +83,7 @@ The Weather Forecast App utilizes the following NuGet packages:
 - **Syncfusion.Maui.Charts**: This Syncfusion library is used to create the bar chart visualization of daily temperatures in the app.
 
 ---
-### Gifs
+### Gifs <a name="gifs"></a>
 
 <img src="gifs/app_start.gif" width=250px></img>
 
